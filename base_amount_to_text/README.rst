@@ -1,0 +1,93 @@
+.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
+   :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+   :alt: License: AGPL-3
+    
+===================
+Base Amount To Text
+===================
+
+This module allows defining method "amount to text" as python code.
+The method can be registered for each languanges or currencies.
+
+Installation
+============
+
+To install this module, you need to:
+
+1.  Clone the branch 8.0 of the repository https://github.com/OCA/server-tools
+2.  Add the path to this repository in your configuration (addons-path)
+3.  Update the module list
+4.  Go to menu *Setting -> Modules -> Local Modules*
+5.  Search For *Base Amount To Text*
+6.  Install the module
+
+Usage
+=====
+To use this module, you need to:
+
+1. Go to menu *Setting -> Translations -> Languanges* or
+   Go to menu *Accounting -> Miscellaneous -> Currencies*
+2. Edit or create one.
+3. There will be a new field named *Amount To Text*
+4. Click add an item
+5. There will be a new field named *Python Definition for Method Amount To Text*
+6. Fill this field with a python code
+7. To call the method use <model:base.amount_to_text>.amount_to_text(value)
+   Example: account_invoice
+   
+   obj_base_amount2text = self.env['base.amount_to_text']
+   obj_res_currency = self.env['res.currency']
+   obj_res_lang = self.env['res.lang']
+
+   lang = self.obj_res_lang.search(
+      [('code', '=', 'en_US')])
+   curr = self.obj_res_currency.search(
+      [('name', '=', 'IDR')])
+   amount2text = self.obj_amount2text.search([
+         ('currency_id', '=', curr.id),
+         ('lang_id', '=', lang.id)
+   ])
+
+   result = amount2text.amount_to_text(self.amount_total)
+
+
+.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
+   :alt: Try me on Runbot
+   :target: https://runbot.odoo-community.org/runbot/149/8.0
+
+Bug Tracker
+===========
+
+Bugs are tracked on `GitHub Issues
+<https://github.com/OCA/server-tools/issues>`_. In case of trouble, please
+check there if your issue has already been reported. If you spotted it first,
+help us smashing it by providing a detailed and welcomed feedback.
+
+
+Credits
+=======
+
+Images
+------
+
+* Odoo Community Association: `Icon <https://github.com/OCA/maintainer-tools/blob/master/template/module/static/description/icon.svg>`_.
+
+Contributors
+------------
+
+* Michael Viriyananda <viriyananda.michael@gmail.com>
+
+Maintainer
+----------
+
+.. image:: https://odoo-community.org/logo.png
+   :alt: Odoo Community Association
+   :target: https://odoo-community.org
+
+This module is maintained by the OCA.
+
+OCA, or the Odoo Community Association, is a nonprofit organization whose
+mission is to support the collaborative development of Odoo features and
+promote its widespread use.
+
+To contribute to this module, please visit https://odoo-community.org.
