@@ -169,6 +169,7 @@ if value > 0:
 
 
 class TestAmount2Text(TransactionCase):
+
     def setUp(self, *args, **kwargs):
         result = super(TestAmount2Text, self).setUp(*args, **kwargs)
         self.obj_res_lang = self.env['res.lang']
@@ -176,6 +177,7 @@ class TestAmount2Text(TransactionCase):
         self.obj_amount2text = self.env['base.amount_to_text']
 
         self.IDR = self.env.ref('base.IDR')
+        self.USD = self.env.ref("base.USD")
         self.lang_en = self.env.ref('base.lang_en')
 
         return result
@@ -215,17 +217,14 @@ class TestAmount2Text(TransactionCase):
         value_1 = 1000000.00
         value_2 = 2500350.05
 
-        amount2text = self.obj_amount2text.search([
-            ('currency_id', '=', self.IDR.id),
-            ('lang_id', '=', lang.id)
-        ])
-
         # Check Method Amount To Text Using Variable 1
-        result_1 = amount2text.amount_to_text(value_1)
+        result_1 = self.obj_amount2text.get(
+            value_1, self.IDR, lang)
         self.assertEqual(result_1, 'Satu Juta Rupiah')
 
         # Check Method Amount To Text Using Variable 2
-        result_2 = amount2text.amount_to_text(value_2)
+        result_2 = self.obj_amount2text.get(
+            value_2, self.IDR, lang)
         self.assertEqual(
             result_2,
             'Dua Juta Lima Ratus Ribu Tiga Ratus '
@@ -236,24 +235,65 @@ class TestAmount2Text(TransactionCase):
         data_currency = self._prepare_currency_IDR()
         self.IDR.write(data_currency)
 
-        amount2text = self.obj_amount2text.search([
-            ('currency_id', '=', self.IDR.id),
-            ('lang_id', '=', self.lang_en.id)
-        ])
-
         # Variables
         value_1 = 3550750.00
         value_2 = 19000.17
 
         # Check Method Amount To Text Using Variable 1
-        result_1 = amount2text.amount_to_text(value_1)
+        result_1 = self.obj_amount2text.get(
+            value_1, self.IDR, self.lang_en)
         self.assertEqual(
             result_1,
             'Three Million Five Hundred Fifty Thousand '
             'Seven Hundred Fifty Rupiah')
 
         # Check Method Amount To Text Using Variable 2
-        result_2 = amount2text.amount_to_text(value_2)
+        result_2 = self.obj_amount2text.get(
+            value_2, self.IDR, self.lang_en)
         self.assertEqual(
             result_2,
             'Nineteen Thousand Rupiah And Seventeen Cent')
+
+    def test_no_amount_to_text_data(self):
+        value_1 = 3550750.00
+        result_1 = self.obj_amount2text.get(
+            value_1, self.IDR, self.lang_en)
+        self.assertEqual(
+            result_1,
+            "-")
+
+    def test_use_user_profile_lang(self):
+        data_languange = self._prepare_languange_IDR()
+        lang = self.obj_res_lang.\
+            create(data_languange)
+        self.env.user.partner_id.lang = lang.code
+        self.obj_amount2text.create({
+            "currency_id": self.IDR.id,
+            "lang_id": self.lang_en.id,
+            "python_amount2text": PYTHON_INDONESIA_ENG,
+            })
+
+        # Variables
+        value_1 = 1000000.00
+        value_2 = 2500350.05
+
+        # Check Method Amount To Text Using Variable 1
+        result_1 = self.obj_amount2text.get(
+            value_1, self.IDR)
+        self.assertEqual(result_1, 'Satu Juta Rupiah')
+
+        # Check Method Amount To Text Using Variable 2
+        result_2 = self.obj_amount2text.get(
+            value_2, self.IDR)
+        self.assertEqual(
+            result_2,
+            'Dua Juta Lima Ratus Ribu Tiga Ratus '
+            'Lima Puluh Rupiah Koma Lima Sen')
+
+        self.env.user.partner_id.lang = self.lang_en.code
+
+        result_3 = self.obj_amount2text.get(
+            value_1, self.IDR)
+        self.assertEqual(
+            result_3,
+            'One Million Rupiah')

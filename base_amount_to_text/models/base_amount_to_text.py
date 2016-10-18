@@ -26,9 +26,31 @@ class BaseAmountToText(models.Model):
     def amount_to_text(self, value):
         val = {}
         self.ensure_one()
+        val = "-"
         if self.python_amount2text:
-            localdict = {'value': value}
-            eval(self.python_amount2text, localdict, mode='exec', nocopy=True)
-            val = localdict['result']
-
+            try:
+                localdict = {'value': value}
+                eval(self.python_amount2text, localdict,
+                     mode='exec', nocopy=True)
+                val = localdict['result']
+            except:
+                pass
         return val
+
+    @api.model
+    def get(
+            self, value, currency, lang=False):
+        user = self.env.user
+        if not lang:
+            criteria = [
+                ("code", "=", user.partner_id.lang)
+            ]
+            lang = self.env["res.lang"].search(
+                criteria, limit=1)
+        att = self.search([
+            ("lang_id", "=", lang.id),
+            ("currency_id", "=", currency.id),
+        ], limit=1)
+        if not att:
+            return "-"
+        return att.amount_to_text(value)
