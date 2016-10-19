@@ -6,7 +6,8 @@
     'name': 'Base Amount To Text',
     'version': '8.0.1.0.0',
     'summary': 'Add the capability to have amount to text method',
-    'author': 'OpenSynergy Indonesia,Odoo Community Association (OCA)',
+    'author': 'Michael Viriyananda, Andhitia Rama, '
+              'OpenSynergy Indonesia',
     'website': 'https://opensynergy-indonesia.com',
     'category': 'Base',
     'depends': ['base'],
