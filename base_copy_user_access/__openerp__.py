@@ -6,7 +6,7 @@
     'name': 'Base Copy User Access',
     'version': '8.0.1.0.0',
     'summary': 'Copy access right from another user',
-    'author': 'OpenSynergy Indonesia,Odoo Community Association (OCA)',
+    "author": "OpenSynergy Indonesia",
     'category': 'Generic Modules/Base',
     'website': 'https://opensynergy-indonesia.com',
     'depends': ['base'],
