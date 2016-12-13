@@ -14,7 +14,7 @@
                     </group>
                     <field name="child_menu_ids"/>
                     <footer>
-                        <button string="Create Menu" name="create_menu_access" type="object" class="oe_highlight"/>
+                        <button string="Create Groups" name="create_menu_access" type="object" class="oe_highlight"/>
                         or
                         <button string="Cancel" class="oe_link" special="cancel"/>
                     </footer>
@@ -23,7 +23,7 @@
         </record>
 
         <record id="base_create_menu_access_action" model="ir.actions.act_window">
-            <field name="name">Base Create Menu Access Action</field>
+            <field name="name">Create Groups for Menu Access</field>
             <field name="res_model">base.create_menu_access</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
