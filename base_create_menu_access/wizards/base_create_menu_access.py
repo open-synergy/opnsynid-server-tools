@@ -63,7 +63,7 @@ class BaseCreateMenuAccess(models.TransientModel):
         if self.child_menu_ids:
             for child_menu in self.child_menu_ids:
                 data_group = {
-                    'name': 'Custom ' + child_menu.name,
+                    'name': child_menu.display_name,
                     'category_id': self.category_id.id,
                     'menu_access': [(6, 0, [child_menu.id])],
                     'users': [(6, 0, [SUPERUSER_ID])]
