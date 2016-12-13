@@ -10,7 +10,7 @@
                     <group colspan="2" col="2">
                         <field name="category_id"/>
                         <field name="by_root_menu"/>
-                        <field name="root_menu_id" attrs="{'invisible': [('by_parent_menu', '=', False)]}"/>
+                        <field name="root_menu_id" attrs="{'invisible': [('by_root_menu', '=', False)]}"/>
                     </group>
                     <field name="child_menu_ids"/>
                     <footer>
