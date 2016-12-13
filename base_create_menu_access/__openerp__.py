@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Base Create Menu Access",
-    "version": "8.0.1.1.0",
+    "version": "8.0.1.1.1",
     "summary": "Adds wizard to create menu access",
     "category": "Base",
     "website": "https://opensynergy-indonesia.com",
