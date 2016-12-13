@@ -46,7 +46,6 @@ class BaseCreateMenuAccess(models.TransientModel):
             criteria = [
                 ('id', 'child_of', self.root_menu_id.id),
                 ('parent_id', '<>', self.root_menu_id.id),
-                ('custom_group_id', '=', False)
             ]
             menu_ids = obj_ir_ui_menu.search(criteria)
             for menu in menu_ids:
@@ -62,15 +61,18 @@ class BaseCreateMenuAccess(models.TransientModel):
 
         if self.child_menu_ids:
             for child_menu in self.child_menu_ids:
-                data_group = {
-                    'name': child_menu.display_name,
-                    'category_id': self.category_id.id,
-                    'menu_access': [(6, 0, [child_menu.id])],
-                    'users': [(6, 0, [SUPERUSER_ID])]
-                }
-                group_id = obj_res_groups.create(data_group)
+                group = child_menu.custom_group_id or False
+                if not group:
+                    data_group = {
+                        'name': child_menu.display_name,
+                        'category_id': self.category_id.id,
+                        'menu_access': [(6, 0, [child_menu.id])],
+                        'users': [(6, 0, [SUPERUSER_ID])]
+                    }
+                    group = obj_res_groups.create(data_group)
                 child_menu.write({
-                    'custom_group_id': group_id.id
+                    'custom_group_id': group.id,
+                    'groups_id': [(6, 0, [group.id])],
                 })
 
         return {'type': 'ir.actions.act_window_close'}
