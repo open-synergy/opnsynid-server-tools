@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- © 2016 OpenSynergy Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+
+<openerp>
+    <data>
+
+        <record id="ir_module_category_search_form" model="ir.ui.view">
+            <field name="name">Search - Application</field>
+            <field name="model">ir.module.category</field>
+            <field name="arch" type="xml">
+                <search string="Application">
+                    <field name="name"/>
+                    <field name="parent_id" />
+                </search>
+            </field>
+        </record>
+
+        <record id="ir_module_category_action" model="ir.actions.act_window">
+            <field name="name">Application</field>
+            <field name="res_model">ir.module.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="False"/>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="ir_module_category_search_form"/>
+        </record>
+
+        <record id="ir_module_category_tree_action" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="base.view_module_category_tree"/>
+            <field name="act_window_id" ref="ir_module_category_action"/>
+        </record>
+
+        <record id="ir_module_category_form_action" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="base.view_module_category_form"/>
+        <field name="act_window_id" ref="ir_module_category_action"/>
+        </record>
+
+        <menuitem 
+            id="ir_module_category_menu" 
+            name="Application" 
+            parent="base.next_id_2" 
+            action="ir_module_category_action"
+            sequence="100" />
+   
+    </data>
+</openerp>
+
