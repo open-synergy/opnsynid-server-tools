@@ -5,6 +5,15 @@
 from openerp import models, fields, api
 from openerp.tools import SUPERUSER_ID
 
+ACTION_TYPE = [
+    'ir.actions.report.xml',
+    'ir.actions.act_window',
+    'ir.actions.wizard',
+    'ir.actions.act_url',
+    'ir.actions.server',
+    'ir.actions.client',
+]
+
 
 class BaseCreateMenuAccess(models.TransientModel):
     _name = 'base.create_menu_access'
@@ -49,7 +58,10 @@ class BaseCreateMenuAccess(models.TransientModel):
             ]
             menu_ids = obj_ir_ui_menu.search(criteria)
             for menu in menu_ids:
-                value.append(menu.id)
+                if menu.action and menu.action.type\
+                    in ACTION_TYPE and\
+                        menu.action.res_model:
+                    value.append(menu.id)
             self.child_menu_ids = [(6, 0, value)]
 
         return {}
@@ -70,6 +82,7 @@ class BaseCreateMenuAccess(models.TransientModel):
                         'users': [(6, 0, [SUPERUSER_ID])]
                     }
                     group = obj_res_groups.create(data_group)
+                child_menu.groups_id = [(6, 0, [])]
                 child_menu.write({
                     'custom_group_id': group.id,
                     'groups_id': [(6, 0, [group.id])],
