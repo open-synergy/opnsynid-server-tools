@@ -59,8 +59,7 @@ class BaseCreateMenuAccess(models.TransientModel):
             menu_ids = obj_ir_ui_menu.search(criteria)
             for menu in menu_ids:
                 if menu.action and menu.action.type\
-                    in ACTION_TYPE and\
-                        menu.action.res_model:
+                        in ACTION_TYPE:
                     value.append(menu.id)
             self.child_menu_ids = [(6, 0, value)]
 
