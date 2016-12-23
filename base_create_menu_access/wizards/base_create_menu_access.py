@@ -54,13 +54,11 @@ class BaseCreateMenuAccess(models.TransientModel):
         if self.root_menu_id:
             criteria = [
                 ('id', 'child_of', self.root_menu_id.id),
-                ('parent_id', '<>', self.root_menu_id.id),
+                ('id', '<>', self.root_menu_id.id)
             ]
             menu_ids = obj_ir_ui_menu.search(criteria)
             for menu in menu_ids:
-                if menu.action and menu.action.type\
-                        in ACTION_TYPE:
-                    value.append(menu.id)
+                value.append(menu.id)
             self.child_menu_ids = [(6, 0, value)]
 
         return {}
@@ -73,18 +71,18 @@ class BaseCreateMenuAccess(models.TransientModel):
         if self.child_menu_ids:
             for child_menu in self.child_menu_ids:
                 group = child_menu.custom_group_id or False
-                if not group:
+                if not group and child_menu.action:
                     data_group = {
                         'name': child_menu.display_name,
                         'category_id': self.category_id.id,
-                        'menu_access': [(6, 0, [child_menu.id])],
                         'users': [(6, 0, [SUPERUSER_ID])]
                     }
                     group = obj_res_groups.create(data_group)
                 child_menu.groups_id = [(6, 0, [])]
-                child_menu.write({
-                    'custom_group_id': group.id,
-                    'groups_id': [(6, 0, [group.id])],
-                })
+                if child_menu.action:
+                    child_menu.write({
+                        'custom_group_id': group.id,
+                        'groups_id': [(6, 0, [group.id])],
+                    })
 
         return {'type': 'ir.actions.act_window_close'}

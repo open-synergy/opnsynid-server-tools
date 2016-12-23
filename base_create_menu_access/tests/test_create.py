@@ -15,6 +15,7 @@ class TestCreate(BaseCase):
         return category_id
 
     def test_create_menu_access(self):
+        y = []
         # Create Application
         category_id = self.create_application()
 
@@ -30,7 +31,10 @@ class TestCreate(BaseCase):
         child_menu_ids =\
             self.check_child_menu_ids(True)['ids']
 
-        # Check Group Ids
-        self.assertIn(
-            child_menu_ids.custom_group_id.id,
-            [x.id for x in child_menu_ids.groups_id])
+        # Search Custom Group Ids
+        for child_menu in child_menu_ids:
+            if child_menu.custom_group_id:
+                y.append(child_menu.custom_group_id.id)
+
+        # Check Custom Group Ids
+        self.assertIsNotNone(y)
