@@ -25,12 +25,12 @@ class BaseCase(TransactionCase):
             if custom_group_id:
                 criteria = [
                     ('id', 'child_of', self.menu_root_partner.id),
-                    ('parent_id', '<>', self.menu_root_partner.id)
+                    ('id', '<>', self.menu_root_partner.id)
                 ]
             else:
                 criteria = [
                     ('id', 'child_of', self.menu_root_partner.id),
-                    ('parent_id', '<>', self.menu_root_partner.id),
+                    ('id', '<>', self.menu_root_partner.id),
                     ('custom_group_id', '=', False)
                 ]
             menu_ids = self.obj_ir_ui_menu.search(criteria)
