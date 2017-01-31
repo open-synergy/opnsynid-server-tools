@@ -5,14 +5,14 @@
 from openerp import models, fields, api
 from openerp.tools import SUPERUSER_ID
 
-ACTION_TYPE = [
+ACTION_TYPE = (
     'ir.actions.report.xml',
     'ir.actions.act_window',
     'ir.actions.wizard',
     'ir.actions.act_url',
     'ir.actions.server',
     'ir.actions.client',
-]
+)
 
 
 class BaseCreateMenuAccess(models.TransientModel):
@@ -52,13 +52,17 @@ class BaseCreateMenuAccess(models.TransientModel):
         obj_ir_ui_menu = self.env['ir.ui.menu']
 
         if self.root_menu_id:
+            context = {'ir.ui.menu.full_list': True}
             criteria = [
                 ('id', 'child_of', self.root_menu_id.id),
                 ('id', '<>', self.root_menu_id.id)
             ]
-            menu_ids = obj_ir_ui_menu.search(criteria)
+            menu_ids = obj_ir_ui_menu.with_context(
+                context
+            ).search(criteria)
             for menu in menu_ids:
-                value.append(menu.id)
+                if menu.action and menu.action.type in ACTION_TYPE:
+                    value.append(menu.id)
             self.child_menu_ids = [(6, 0, value)]
 
         return {}

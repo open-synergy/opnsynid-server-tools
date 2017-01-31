@@ -18,9 +18,18 @@ class BaseCase(TransactionCase):
         # Data Menu
         self.menu_root_partner =\
             self.env.ref('base.menu_base_partner')
+        self.ACTION_TYPE = (
+            'ir.actions.report.xml',
+            'ir.actions.act_window',
+            'ir.actions.wizard',
+            'ir.actions.act_url',
+            'ir.actions.server',
+            'ir.actions.client',
+        )
 
     def check_child_menu_ids(self, custom_group_id=None):
         value = []
+        context = {'ir.ui.menu.full_list': True}
         if self.menu_root_partner:
             if custom_group_id:
                 criteria = [
@@ -33,9 +42,12 @@ class BaseCase(TransactionCase):
                     ('id', '<>', self.menu_root_partner.id),
                     ('custom_group_id', '=', False)
                 ]
-            menu_ids = self.obj_ir_ui_menu.search(criteria)
+            menu_ids = self.obj_ir_ui_menu.with_context(
+                context
+            ).search(criteria)
             for menu in menu_ids:
-                value.append(menu.id)
+                if menu.action and menu.action.type in self.ACTION_TYPE:
+                    value.append(menu.id)
         return {
             'value': value,
             'ids': menu_ids
