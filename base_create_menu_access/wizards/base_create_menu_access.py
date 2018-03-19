@@ -3,7 +3,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import models, fields, api
-from openerp.tools import SUPERUSER_ID
 
 ACTION_TYPE = (
     'ir.actions.report.xml',
@@ -18,13 +17,6 @@ ACTION_TYPE = (
 class BaseCreateMenuAccess(models.TransientModel):
     _name = 'base.create_menu_access'
     _description = 'Base Create Menu Access Wizard'
-
-    category_id = fields.Many2one(
-        string="Application",
-        comodel_name="ir.module.category",
-        required=True,
-        ondelete="restrict"
-    )
 
     root_menu_id = fields.Many2one(
         string="Root Menu",
@@ -70,23 +62,8 @@ class BaseCreateMenuAccess(models.TransientModel):
     @api.multi
     def create_menu_access(self):
         self.ensure_one()
-        obj_res_groups = self.env['res.groups']
 
         if self.child_menu_ids:
             for child_menu in self.child_menu_ids:
-                group = child_menu.custom_group_id or False
-                if not group and child_menu.action:
-                    data_group = {
-                        'name': child_menu.display_name,
-                        'category_id': self.category_id.id,
-                        'users': [(6, 0, [SUPERUSER_ID])]
-                    }
-                    group = obj_res_groups.create(data_group)
-                child_menu.groups_id = [(6, 0, [])]
-                if child_menu.action:
-                    child_menu.write({
-                        'custom_group_id': group.id,
-                        'groups_id': [(6, 0, [group.id])],
-                    })
-
+                child_menu.set_menu_access()
         return {'type': 'ir.actions.act_window_close'}

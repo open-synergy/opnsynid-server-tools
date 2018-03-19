@@ -8,7 +8,6 @@
             <field name="arch" type="xml">
                 <form string="Create Menu Access">
                     <group colspan="2" col="2">
-                        <field name="category_id"/>
                         <field name="by_root_menu"/>
                         <field name="root_menu_id" attrs="{'invisible': [('by_root_menu', '=', False)]}"/>
                     </group>
