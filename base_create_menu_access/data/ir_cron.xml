@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 OpenSynergy Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<openerp>
+    <data noupdate="1">
+
+        <record model="ir.cron" id="cron_update_menu_access">
+            <field name='name'>Update Menu Access</field>
+            <field name='interval_number'>3</field>
+            <field name='interval_type'>hours</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="doall" eval="False" />
+            <field name="model">ir.ui.menu</field>
+            <field name="function">cron_update_menu_access</field>
+            <field name="args">()</field>
+        </record>
+
+    </data>
+</openerp>

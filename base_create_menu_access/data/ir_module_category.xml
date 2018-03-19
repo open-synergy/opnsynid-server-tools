@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.module.category" id="custom_menu_access_module_category_data">
+            <field name="name">Custom Menu Access</field>
+            <field name="description">Created By System</field>
+            <field name="sequence">5000</field>
+        </record>
+
+    </data>
+</openerp>
