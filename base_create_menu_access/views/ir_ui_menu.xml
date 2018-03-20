@@ -6,11 +6,6 @@
             <field name="model">ir.ui.menu</field>
             <field name="inherit_id" ref="base.edit_menu_access" />
             <field name="arch" type="xml">
-                <xpath expr="/form/sheet" position="before">
-                    <header>
-                        <button name="set_menu_access" type="object" string="Set Menu Access" attrs="{'invisible': [('custom_group_id','!=', False)]}"/>
-                    </header>
-                </xpath>
                 <xpath expr="//field[@name='groups_id']" position="before">
                     <group>
                         <field name="custom_group_id"/>
