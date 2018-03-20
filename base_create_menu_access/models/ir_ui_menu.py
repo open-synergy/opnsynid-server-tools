@@ -22,7 +22,7 @@ class IrUiMenu(models.Model):
         self.ensure_one()
         result = False
         if self.custom_group_id:
-            result = True
+            result = self.custom_group_id
         return result
 
     @api.multi
@@ -44,13 +44,15 @@ class IrUiMenu(models.Model):
         obj_res_groups = self.env["res.groups"]
         group = self._check_custom_group()
 
-        if not group and self.action:
-            self.groups_id = [(6, 0, [])]
-            data_group = self._prepare_data_group()
-            group = obj_res_groups.create(data_group)
+        if self.action:
+            if group:
+                custom_group_id = group
+            else:
+                data_group = self._prepare_data_group()
+                custom_group_id = obj_res_groups.create(data_group)
             self.write({
-                "custom_group_id": group.id,
-                "groups_id": [(6, 0, [group.id])],
+                "custom_group_id": custom_group_id.id,
+                "groups_id": [(6, 0, [custom_group_id.id])],
             })
 
     @api.model
@@ -70,7 +72,8 @@ class IrUiMenu(models.Model):
             context = {"ir.ui.menu.full_list": True}
             criteria_child = [
                 ("id", "child_of", root_menu.id),
-                ("id", "<>", root_menu.id)
+                ("id", "<>", root_menu.id),
+                ("custom_group_id", "<>", False)
             ]
             menu_ids = self.with_context(
                 context

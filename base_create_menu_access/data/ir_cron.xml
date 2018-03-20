@@ -9,7 +9,7 @@
             <field name='interval_number'>3</field>
             <field name='interval_type'>hours</field>
             <field name="numbercall">-1</field>
-            <field name="active">True</field>
+            <field name="active">False</field>
             <field name="doall" eval="False" />
             <field name="model">ir.ui.menu</field>
             <field name="function">cron_update_menu_access</field>
