@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 OpenSynergy Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<openerp>
+    <data>
+        <record id="ir_sequence_view_form" model="ir.ui.view">
+            <field name="name">ir.sequence form</field>
+            <field name="model">ir.sequence</field>
+            <field name="inherit_id" ref="base.sequence_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//notebook/page/group[2]/group[last()]" position="after">
+                        <group>
+                            <label colspan="2" string="[ROMAN]Current Year with Century: %%(rom_year)s"/>
+                            <label colspan="2" string="[ROMAN]Current Year without Century: %%(rom_y)s"/>
+                            <label colspan="2" string="[ROMAN]Month: %%(rom_month)s"/>
+                            <label colspan="2" string="[ROMAN]Day: %%(rom_day)s"/>
+                        </group>
+                        <group>
+                            <label colspan="2" string="[ROMAN]Day of the Year: %%(rom_doy)s"/>
+                            <label colspan="2" string="[ROMAN]Week of the Year: %%(rom_woy)s"/>
+                            <label colspan="2" string="[ROMAN]Day of the Week (0:Monday): %%(rom_weekday)s"/>
+                        </group>
+                        <group>
+                            <label colspan="2" string="[ROMAN]Hour 00->24: %%(rom_h24)s"/>
+                            <label colspan="2" string="[ROMAN]Hour 00->12: %%(rom_h12)s"/>
+                            <label colspan="2" string="[ROMAN]Minute: %%(rom_min)s"/>
+                            <label colspan="2" string="[ROMAN]Second: %%(rom_sec)s"/>
+                        </group>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>
