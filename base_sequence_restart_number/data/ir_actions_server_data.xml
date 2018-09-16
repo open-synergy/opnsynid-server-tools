@@ -21,20 +21,7 @@ if sequence_ids:
     <field name="name">Restart Sequence</field>
     <field name="model">ir.sequence</field>
     <field name="key2">client_action_multi</field>
-    <field name="value" eval="'ir.actions.server,' + str(ref('ir_action_server_01'))" />    
-</record>
-
-<record id="ir_action_server_01" model="ir.actions.server">
-    <field name="name">Restart Sequence</field>
-    <field name="type">ir.actions.server</field>
-    <field name="state">code</field>
-    <field name="model_id" ref="base.model_ir_sequence"/>
-    <field name="code">sequence_ids = env.context.get("active_ids", False)
-if sequence_ids:
-    for sequence in object.browse(sequence_ids):
-        sequence.restart_sequence()
-    </field>
-    <field name="menu_ir_values_id" ref="ir_value_01"/>
+    <field name="value" eval="'ir.actions.server,' + str(ref('ir_action_server_01'))" />
 </record>
 
 </data>
