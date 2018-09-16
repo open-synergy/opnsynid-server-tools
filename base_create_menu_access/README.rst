@@ -24,7 +24,7 @@ Usage
 =====
 To use this module, you need to:
 
-#. Go to menu *Setting -> Technical -> User Interface -> Create Menu Access
+1. Go to menu *Setting -> Technical -> User Interface -> Create Menu Access*
 
 Credits
 =======
