@@ -1,7 +1,7 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
-    
+
 ===================
 Base Amount To Text
 ===================
@@ -33,22 +33,23 @@ To use this module, you need to:
 5. There will be a new field named *Python Definition for Method Amount To Text*
 6. Fill this field with a python code
 7. To call the method use <model:base.amount_to_text>.amount_to_text(value)
-   Example: account_invoice
-   
-   obj_base_amount2text = self.env['base.amount_to_text']
-   obj_res_currency = self.env['res.currency']
-   obj_res_lang = self.env['res.lang']
 
-   lang = self.obj_res_lang.search(
+Example code::
+
+    ...
+    obj_base_amount2text = self.env['base.amount_to_text']
+    obj_res_currency = self.env['res.currency']
+    obj_res_lang = self.env['res.lang']
+
+    lang = self.obj_res_lang.search(
       [('code', '=', 'en_US')])
-   curr = self.obj_res_currency.search(
+    curr = self.obj_res_currency.search(
       [('name', '=', 'IDR')])
-   amount2text = self.obj_amount2text.search([
+    amount2text = self.obj_amount2text.search([
          ('currency_id', '=', curr.id),
-         ('lang_id', '=', lang.id)
-   ])
-
-   result = amount2text.amount_to_text(self.amount_total)
+         ('lang_id', '=', lang.id)])
+    result = amount2text.amount_to_text(self.amount_total)
+    ...
 
 
 Bug Tracker
