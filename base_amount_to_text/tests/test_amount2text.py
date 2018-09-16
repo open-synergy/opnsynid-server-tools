@@ -271,7 +271,7 @@ class TestAmount2Text(TransactionCase):
             "currency_id": self.IDR.id,
             "lang_id": self.lang_en.id,
             "python_amount2text": PYTHON_INDONESIA_ENG,
-            })
+        })
 
         # Variables
         value_1 = 1000000.00
