@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="date.range.type" id="date_range_type_yearly_calendar">
+            <field name="name">Yearly Calendar</field>
+            <field name="allow_overlap" eval="1"/>
+            <field name="active" eval="1"/>
+        </record>
+
+        <record model="date.range.type" id="date_range_type_monthly_calendar">
+            <field name="name">Monthly Calendar</field>
+            <field name="allow_overlap" eval="1"/>
+            <field name="active" eval="1"/>
+        </record>
+
+        <record model="date.range.type" id="date_range_type_daily_calendar">
+            <field name="name">Daily Calendar</field>
+            <field name="allow_overlap" eval="1"/>
+            <field name="active" eval="1"/>
+        </record>
+
+    </data>
+</openerp>
