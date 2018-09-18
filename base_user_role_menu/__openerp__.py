@@ -4,7 +4,7 @@
 # pylint: disable=locally-disabled, manifest-required-author
 {
     "name": "Manage Menu Access Based on Roles",
-    "version": "8.0.1.0.0",
+    "version": "8.0.1.1.0",
     "author": "OpenSynergy Indonesia",
     "category": "Generic Modules/Base",
     "website": "https://opensynergy-indonesia.com",
