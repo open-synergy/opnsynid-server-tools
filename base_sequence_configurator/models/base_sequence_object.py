@@ -21,6 +21,8 @@ class BaseSequenceDocument(models.AbstractModel):
 
         if getattr(self, configurator.sequence_field_id.name) == result:
             result = configurator._create_sequence(self)
+        else:
+            result = getattr(self, configurator.sequence_field_id.name)
 
         return result
 
