@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_base_sequence_configurator_all,base.sequence_configurator - All user ,model_base_sequence_configurator,,1,0,0,0
+access_base_sequence_configurator_line_all,base.sequence_configurator_line - All user ,model_base_sequence_configurator_line,,1,0,0,0
+access_base_sequence_configurator_admin,base.sequence_configurator - Administrator Setting ,model_base_sequence_configurator,base.group_system,1,1,1,1
+access_base_sequence_configurator_line_admin,base.sequence_configurator_line - Administrator Setting ,model_base_sequence_configurator_line,base.group_system,1,1,1,1

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 OpenSynergy Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+
+<openerp>
+    <data>
+        <record id="base_sequence_configurator_search_tree" model="ir.ui.view">
+            <field name="name">base.sequence_configurator tree</field>
+            <field name="model">base.sequence_configurator</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="model_id"/>
+                    <field name="sequence_field_id"/>
+                    <field name="initial_string"/>
+                    <field name="fallback_sequence_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="base_sequence_configurator_search_form" model="ir.ui.view">
+            <field name="name">base.sequence_configurator form</field>
+            <field name="model">base.sequence_configurator</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header/>
+                    <sheet>
+                        <group name="main_1" colspan="4" col="2">
+                            <field name="model_id"/>
+                            <field name="sequence_field_id" domain="[('model_id', '=', model_id)]"/>
+                            <field name="active"/>
+                            <field name="initial_string"/>
+                            <field name="fallback_sequence_id"/>
+                        </group>
+                        <notebook>
+                            <page name="condition_computation" string="Condition &amp; Computation">
+                                <field name="line_ids" colspan="4" nolabel="1">
+                                    <tree>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="domain"/>
+                                    </tree>
+                                    <form>
+                                        <group name="main" colspan="4" col="2">
+                                            <field name="sequence"/>
+                                        </group>
+                                        <group name="condition" string="Condition" colspan="4" col="2">
+                                            <field name="domain" nolabel="1" colspan="2"/>
+                                        </group>
+                                        <group name="computation" string="Computation" colspan="4" col="2">
+                                            <field name="sequence_computation_code" nolabel="1" colspan="2"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page name="note" string="Note">
+                                <field name="note" colspan="4"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="base_sequence_configurator_action" model="ir.actions.act_window">
+            <field name="name">Sequence Configurator</field>
+            <field name="res_model">base.sequence_configurator</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="base_sequence_configurator_tree_action" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="base_sequence_configurator_search_tree"/>
+            <field name="act_window_id" ref="base_sequence_configurator_action"/>
+        </record>
+
+        <record id="base_sequence_configurator_form_action" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="base_sequence_configurator_search_form"/>
+            <field name="act_window_id" ref="base_sequence_configurator_action"/>
+        </record>
+
+        <menuitem
+            id="base_sequence_configurator_menu"
+            name="Sequence Configurator"
+            parent="base.next_id_5"
+            action="base_sequence_configurator_action"
+            sequence="100" />
+
+    </data>
+</openerp>
