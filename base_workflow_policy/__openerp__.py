@@ -4,7 +4,7 @@
 # pylint: disable=locally-disabled, manifest-required-author
 {
     "name": "Abstract Model for Workflow Policy",
-    "version": "8.0.1.0.0",
+    "version": "8.0.1.0.1",
     "category": "Administration",
     "website": "https://opensynergy-indonesia.com/",
     "author": "OpenSynergy Indonesia",

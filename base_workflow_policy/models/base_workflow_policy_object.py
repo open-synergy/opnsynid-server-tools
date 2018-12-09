@@ -3,7 +3,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from openerp import models, api, SUPERUSER_ID
-from openerp.exceptions import Warning
 
 
 class BaseWorkflowPolicyObject(models.AbstractModel):
@@ -21,7 +20,6 @@ class BaseWorkflowPolicyObject(models.AbstractModel):
             for policy in policy_lines:
                 if self.env.user.id == SUPERUSER_ID:
                     result = True
-                    raise Warning("a")
                 else:
                     result = policy.\
                         get_policy(
