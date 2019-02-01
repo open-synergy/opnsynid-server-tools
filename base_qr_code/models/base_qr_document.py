@@ -33,7 +33,7 @@ class BaseQrDocument(models.AbstractModel):
             temp_file = StringIO()
             qr_image.save(temp_file)
             qr_image = b64encode(temp_file.getvalue())
-            self.qr_image = qr_image
+            document.qr_image = qr_image
 
     qr_image = fields.Binary(
         string="QR Code",
