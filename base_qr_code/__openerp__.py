@@ -4,7 +4,7 @@
 # pylint: disable=locally-disabled, manifest-required-author
 {
     "name": "Abstract Class for QR Code",
-    "version": "8.0.1.0.0",
+    "version": "8.0.1.0.1",
     "website": "https://opensynergy-indonesia.com/",
     "author": "OpenSynergy Indonesia",
     "license": "AGPL-3",
