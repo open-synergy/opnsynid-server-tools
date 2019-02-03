@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 # Copyright 2019 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 from qrcode import QRCode, constants as qr_constants
 from base64 import b64encode
-from cStringIO import StringIO
+from io import StringIO
 
 
 class BaseQrDocument(models.AbstractModel):
