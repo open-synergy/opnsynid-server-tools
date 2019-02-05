@@ -4,7 +4,7 @@
 # pylint: disable=locally-disabled, manifest-required-author
 {
     "name": "Configurable Sequence Generator",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "category": "Administration",
     "website": "https://opensynergy-indonesia.com/",
     "author": "OpenSynergy Indonesia",
