@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2019 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -118,7 +117,7 @@ class BaseSequenceConfiguratorLine(models.Model):
         return result
 
     @api.multi
-    def _get_sequence(self, document):
+    def _get_sequence_id(self, document):
         self.ensure_one()
         result = False
         localdict = self._get_localdict(document)
@@ -133,8 +132,9 @@ class BaseSequenceConfiguratorLine(models.Model):
     @api.model
     def create_sequence(self, document):
         self.ensure_one()
-        sequence = self._get_sequence(document)
+        sequence_id = self._get_sequence_id(document)
         result = False
-        if sequence:
-            result = self.env["ir.sequence"].next_by_id(sequence.id)
+        if sequence_id:
+            sequence = self.env["ir.sequence"].browse([sequence_id])[0]
+            result = sequence.next_by_id()
         return result
