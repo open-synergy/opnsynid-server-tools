@@ -1,10 +1,15 @@
-.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
-   :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
-   :alt: License: AGPL-3
-
 ===============================
 Configurable Sequence Generator
 ===============================
+
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+    :alt: License: AGPL-3
+.. |badge3| image:: https://img.shields.io/badge/github-open--synergy%2Fopnsynid--server--tools-lightgray.png?logo=github
+    :target: https://github.com/open-synergy/opnsynid-server-tools/tree/12.0/base_sequence_configurator
+    :alt: OCA/hr-timesheet
+    
+|badge2| |badge3|
 
 
 Installation
