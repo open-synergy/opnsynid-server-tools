@@ -3,9 +3,16 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from openerp import models, api, fields
-from qrcode import QRCode, constants as qr_constants
 from base64 import b64encode
 from cStringIO import StringIO
+
+import logging
+_logger = logging.getLogger(__name__)
+
+try:
+    from qrcode import QRCode, constants as qr_constants
+except (ImportError, IOError) as err:
+    _logger.debug(err)
 
 
 class BaseQrDocument(models.AbstractModel):
