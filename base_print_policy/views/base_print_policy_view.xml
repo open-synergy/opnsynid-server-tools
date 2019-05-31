@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2019 OpenSynergy Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<openerp>
+    <data>
+
+        <record id="base_print_policy_view_tree" model="ir.ui.view">
+            <field name="name">base.print.policy.tree</field>
+            <field name="model">base.print.policy</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="report_action_id"/>
+                    <field name="model"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="base_print_policy_view_form" model="ir.ui.view">
+            <field name="name">base.print.policy.form</field>
+            <field name="model">base.print.policy</field>
+            <field name="arch" type="xml">
+                <form string="Print Policy">
+                    <sheet>
+                        <group name="group_1" col="2" colspan="2">
+                            <field name="name"/>
+                            <field name="report_action_id"/>
+                            <field name="model"/>
+                            <field name="active"/>
+                        </group>
+                        <notebook>
+                            <page string="Condition">
+                                <field name="python_condition"/>
+                            </page>
+                            <page string="Notes">
+                                <field name="description"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="base_print_policy_action" model="ir.actions.act_window">
+            <field name="name">Base Print Policy</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">base.print.policy</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to add a Configuration of Print Policy.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+            id="base_print_policy_menu"
+            name="Print Policy"
+            action="base_print_policy_action"
+            parent="report.reporting_menuitem"
+            sequence="999"/>
+
+    </data>
+</openerp>
