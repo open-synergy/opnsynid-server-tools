@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_base_cancel_reason_all,base.cancel.reason - All user ,model_base_cancel_reason,,1,0,0,0
-access_base_cancel_reason_config_all,base.cancel.reason_config - All user ,model_base_cancel_reason_config,,1,0,0,0
-access_base_cancel_reason_admin,base.cancel.reason - Administrator Setting ,model_base_cancel_reason,base.group_system,1,1,1,1
-access_base_cancel_reason_config_admin,base.cancel.reason_config - Administrator Setting ,model_base_cancel_reason_config,base.group_system,1,1,1,1
