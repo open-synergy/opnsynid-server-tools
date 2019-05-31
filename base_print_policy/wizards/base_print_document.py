@@ -45,18 +45,19 @@ class BasePrintDocument(models.TransientModel):
     )
 
     @api.multi
-    def _get_object_id(self):
-        active_ids = self.env.context.get("active_ids", [])
+    def _get_object(self):
+        active_id = self.env.context.get("active_id", False)
         active_model = self.env.context.get("active_model", "")
-        object_id = self.env[active_model].browse(
-            active_ids
-        )
-        return object_id
+        # TODO: Assert when invalid active_id or active_model
+        object = self.env[active_model].browse(
+            [active_id]
+        )[0]
+        return object
 
     @api.multi
     def _get_localdict(self):
         return {
-            "record": self._get_object_id()
+            "record": self._get_object()
         }
 
     @api.multi
@@ -74,6 +75,6 @@ class BasePrintDocument(models.TransientModel):
 
     @api.multi
     def action_print(self):
-        object_id = self._get_object_id()
-        return self.env['report'].get_action(
-            object_id, self.report_action_id.report_name)
+        object = self._get_object()
+        return self.env["report"].get_action(
+            object, self.report_action_id.report_name)
