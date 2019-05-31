@@ -31,10 +31,10 @@
                             <field name="active"/>
                         </group>
                         <notebook>
-                            <page string="Condition">
+                            <page name="condition" string="Condition">
                                 <field name="python_condition"/>
                             </page>
-                            <page string="Notes">
+                            <page name="note" string="Notes">
                                 <field name="description"/>
                             </page>
                         </notebook>
