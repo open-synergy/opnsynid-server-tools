@@ -30,6 +30,13 @@ class BasePrintPolicy(models.Model):
              "a boolean.",
         default="""# Available locals:\n#  - record: current record""",
     )
+    group_ids = fields.Many2many(
+        string="Allowed to Print",
+        comodel_name="res.groups",
+        rel="rel_print_policy_group",
+        col1="print_policy_id",
+        col2="group_id",
+    )
     active = fields.Boolean(
         string="Active",
         default=True,

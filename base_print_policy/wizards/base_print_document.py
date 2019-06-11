@@ -2,7 +2,7 @@
 # Copyright 2019 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, api, fields
+from openerp import models, api, fields, SUPERUSER_ID
 from openerp.tools.safe_eval import safe_eval as eval
 
 
@@ -22,11 +22,13 @@ class BasePrintDocument(models.TransientModel):
         print_policy_ids = obj_print_policy.search(criteria)
         if print_policy_ids:
             for print_policy in print_policy_ids:
-                policy =\
-                    self.get_print_policy(
-                        print_policy.python_condition)
-                if policy:
-                    result.append(print_policy.report_action_id.id)
+                allowed_print = self._check_allowed_print(print_policy)
+                if allowed_print:
+                    policy =\
+                        self.get_print_policy(
+                            print_policy.python_condition)
+                    if policy:
+                        result.append(print_policy.report_action_id.id)
         return result
 
     allowed_print_action_ids = fields.Many2many(
@@ -43,6 +45,22 @@ class BasePrintDocument(models.TransientModel):
         comodel_name="ir.actions.report.xml",
         required=True,
     )
+
+    @api.multi
+    def _check_allowed_print(self, object):
+        user = self.env.user
+        if user.id == SUPERUSER_ID:
+            result = True
+        else:
+            if object.group_ids:
+                user_group_ids = user.groups_id.ids
+                if (set(object.group_ids.ids) & set(user_group_ids)):
+                    result = True
+                else:
+                    result = False
+            else:
+                result = True
+        return result
 
     @api.multi
     def _get_object(self):

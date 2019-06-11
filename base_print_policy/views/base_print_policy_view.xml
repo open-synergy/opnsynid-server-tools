@@ -34,6 +34,9 @@
                             <page name="condition" string="Condition">
                                 <field name="python_condition"/>
                             </page>
+                            <page name="groups" string="Groups">
+                                <field name="group_ids"/>
+                            </page>
                             <page name="note" string="Notes">
                                 <field name="description"/>
                             </page>
@@ -44,7 +47,7 @@
         </record>
 
         <record id="base_print_policy_action" model="ir.actions.act_window">
-            <field name="name">Base Print Policy</field>
+            <field name="name">Print Policy</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">base.print.policy</field>
             <field name="view_type">form</field>
