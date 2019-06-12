@@ -12,6 +12,7 @@
     "installable": True,
     "depends": [
         "base",
+        "report"
     ],
     "data": [
         "security/ir.model.access.csv",
