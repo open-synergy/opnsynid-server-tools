@@ -1,0 +1,163 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* base_print_policy
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base_print_policy
+#: model:ir.actions.act_window,help:base_print_policy.base_print_policy_action
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to add a Configuration of Print Policy.\n"
+"                </p>\n"
+"            "
+msgstr ""
+
+#. module: base_print_policy
+#: field:base.print.policy,active:0
+msgid "Active"
+msgstr ""
+
+#. module: base_print_policy
+#: field:base.print.document,allowed_print_action_ids:0
+msgid "Allowed Print Action"
+msgstr ""
+
+#. module: base_print_policy
+#: field:base.print.policy,group_ids:0
+msgid "Allowed to Print"
+msgstr ""
+
+#. module: base_print_policy
+#: model:ir.model,name:base_print_policy.model_base_print_document
+msgid "Base Print Document"
+msgstr ""
+
+#. module: base_print_policy
+#: model:ir.model,name:base_print_policy.model_base_print_policy
+msgid "Base Print Policy"
+msgstr ""
+
+#. module: base_print_policy
+#: view:base.print.document:base_print_policy.base_print_document_view_form
+msgid "Cancel"
+msgstr ""
+
+#. module: base_print_policy
+#: view:base.print.policy:base_print_policy.base_print_policy_view_form
+#: field:base.print.policy,python_condition:0
+msgid "Condition"
+msgstr ""
+
+#. module: base_print_policy
+#: field:base.print.document,create_uid:0
+#: field:base.print.policy,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: base_print_policy
+#: field:base.print.document,create_date:0
+#: field:base.print.policy,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: base_print_policy
+#: field:base.print.document,display_name:0
+#: field:base.print.policy,display_name:0
+msgid "Display Name"
+msgstr ""
+
+#. module: base_print_policy
+#: view:base.print.policy:base_print_policy.base_print_policy_view_form
+msgid "Groups"
+msgstr ""
+
+#. module: base_print_policy
+#: field:base.print.document,id:0
+#: field:base.print.policy,id:0
+msgid "ID"
+msgstr ""
+
+#. module: base_print_policy
+#: field:base.print.document,__last_update:0
+#: field:base.print.policy,__last_update:0
+msgid "Last Modified on"
+msgstr ""
+
+#. module: base_print_policy
+#: field:base.print.document,write_uid:0
+#: field:base.print.policy,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: base_print_policy
+#: field:base.print.document,write_date:0
+#: field:base.print.policy,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: base_print_policy
+#: field:base.print.policy,model:0
+msgid "Model"
+msgstr ""
+
+#. module: base_print_policy
+#: field:base.print.policy,name:0
+msgid "Name"
+msgstr ""
+
+#. module: base_print_policy
+#: field:base.print.policy,description:0
+msgid "Note"
+msgstr ""
+
+#. module: base_print_policy
+#: view:base.print.policy:base_print_policy.base_print_policy_view_form
+msgid "Notes"
+msgstr ""
+
+#. module: base_print_policy
+#: view:base.print.document:base_print_policy.base_print_document_view_form
+msgid "Print"
+msgstr ""
+
+#. module: base_print_policy
+#: model:ir.actions.act_window,name:base_print_policy.base_print_document_action
+msgid "Print Document"
+msgstr ""
+
+#. module: base_print_policy
+#: view:base.print.policy:base_print_policy.base_print_policy_view_form
+#: model:ir.actions.act_window,name:base_print_policy.base_print_policy_action
+#: model:ir.ui.menu,name:base_print_policy.base_print_policy_menu
+msgid "Print Policy"
+msgstr ""
+
+#. module: base_print_policy
+#: field:base.print.policy,report_action_id:0
+msgid "Report"
+msgstr ""
+
+#. module: base_print_policy
+#: field:base.print.document,report_action_id:0
+msgid "Report Template"
+msgstr ""
+
+#. module: base_print_policy
+#: help:base.print.policy,python_condition:0
+msgid "The result of executing the expresion must be a boolean."
+msgstr ""
+
+#. module: base_print_policy
+#: view:base.print.document:base_print_policy.base_print_document_view_form
+msgid "or"
+msgstr ""
+
