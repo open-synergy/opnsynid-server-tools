@@ -12,11 +12,11 @@ phases:
         runtime-versions:
             python: 3.7
         commands:
-#             - sudo apt-get update
-#             - sudo apt-get -y upgrade
-#             - sudo apt-get -y install expect-dev python-lxml python-simplejson python-serial python-yaml
-#             - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
-#             - sudo apt-get install -y nodejs
+            - apt-get update
+            - apt-get -y upgrade
+            - apt-get -y install expect-dev python-lxml python-simplejson python-serial python-yaml
+            - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+            - apt-get install -y nodejs
             - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
             - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
             - travis_install_nightly
