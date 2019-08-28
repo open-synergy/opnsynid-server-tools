@@ -1,0 +1,26 @@
+version: 0.2
+
+env:
+    variables:
+        VERSION: "12.0"
+        TESTS: "0"
+        LINT_CHECK: "1"
+        TRANSIFEX: "0"
+        TRAVIS_BUILD_DIR: "${HOME}/travis/build"
+phases:
+    install:
+        commands:
+            - sudo apt-get update
+            - sudo apt-get -y upgrade
+            - sudo apt-get -y install expect-dev python-lxml python-simplejson python-serial python-yaml
+            - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+            - sudo apt-get install -y nodejs
+            - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
+            - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
+            - travis_install_nightly
+    build:
+        commands:
+            - travis_run_tests
+    post_build:
+        commands:
+            - travis_after_tests_success
