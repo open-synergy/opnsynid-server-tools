@@ -9,6 +9,8 @@ env:
         TRAVIS_BUILD_DIR: "${HOME}/travis/build"
 phases:
     install:
+        runtime-versions:
+            - python: 2.7
         commands:
             - sudo apt-get update
             - sudo apt-get -y upgrade
