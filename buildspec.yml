@@ -12,6 +12,7 @@ phases:
         runtime-versions:
             python: 3.5
         commands:
+            - echo ${HOME}/travis/build
             - apt-get update
             - apt-get -y upgrade
             - apt-get -y install expect-dev python-lxml python-simplejson python-serial python-yaml
