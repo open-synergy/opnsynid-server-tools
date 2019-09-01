@@ -6,13 +6,14 @@ env:
         TESTS: "0"
         LINT_CHECK: "1"
         TRANSIFEX: "0"
-        TRAVIS_BUILD_DIR: ${CODEBUILD_SRC_DIR}
+        TRAVIS_BUILD_DIR: "${CODEBUILD_SRC_DIR}"
 phases:
     install:
         runtime-versions:
             python: 3.7
         commands:
-            - echo ${TRAVIS_BUILD_DIR}
+            - echo ${CODEBUILD_SRC_DIR}
+            - ls ${CODEBUILD_SRC_DIR}
             - apt-get update
             - apt-get -y upgrade
             - apt-get -y install expect-dev python-lxml python-simplejson python-serial python-yaml
