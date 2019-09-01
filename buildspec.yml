@@ -19,6 +19,7 @@ phases:
 #             - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
             - apt-get install -y nodejs
             - pip install coveralls
+            - pip install codecov
             - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
             - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
             - travis_install_nightly
