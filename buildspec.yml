@@ -6,7 +6,7 @@ env:
         TESTS: "0"
         LINT_CHECK: "1"
         TRANSIFEX: "0"
-        TRAVIS_BUILD_DIR: "${HOME}/travis/build"
+        TRAVIS_BUILD_DIR: "${CODEBUILD_SRC_DIR}"
 phases:
     install:
         runtime-versions:
