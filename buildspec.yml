@@ -12,7 +12,7 @@ phases:
         runtime-versions:
             python: 3.7
         commands:
-            - echo ${HOME}/travis/build
+            - echo ${TRAVIS_BUILD_DIR}
             - apt-get update
             - apt-get -y upgrade
             - apt-get -y install expect-dev python-lxml python-simplejson python-serial python-yaml
