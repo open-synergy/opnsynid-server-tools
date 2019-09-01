@@ -10,7 +10,7 @@ env:
 phases:
     install:
         runtime-versions:
-            python: 3.5
+            python: 3.7
         commands:
             - echo ${HOME}/travis/build
             - apt-get update
