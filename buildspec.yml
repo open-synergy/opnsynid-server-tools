@@ -6,6 +6,7 @@ env:
         TESTS: "1"
         LINT_CHECK: "1"
         TRANSIFEX: "0"
+        ODOO_REPO: "open-synergy/odoo"
 phases:
     install:
         runtime-versions:
