@@ -18,7 +18,7 @@ phases:
             - echo ${TRAVIS_BUILD_DIR}
             - apt-get update
             - apt-get -y upgrade
-            - apt-get -y install expect-dev python-lxml python-simplejson python-serial python-yaml postgresql-client
+            - apt-get -y install expect-dev python-lxml python-simplejson python-serial python-yaml postgresql-client postgresql
 #             - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
             - apt-get install -y nodejs
             - pip install coveralls
