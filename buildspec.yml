@@ -20,6 +20,7 @@ phases:
             - apt-get -y upgrade
             - apt-get -y install expect-dev python-lxml python-simplejson python-serial python-yaml postgresql-client postgresql
 #             - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+            - service postgresql start
             - service postgresql status
             - apt-get install -y nodejs
             - pip install coveralls
