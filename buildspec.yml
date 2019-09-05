@@ -22,6 +22,7 @@ phases:
 #             - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
             - service postgresql start
             - service postgresql status
+            - su - postgres -c "createuser --createdb --username postgres --no-createrole --no-superuser --pwprompt root"
             - apt-get install -y nodejs
             - pip install coveralls
             - pip install codecov
