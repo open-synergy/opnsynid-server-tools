@@ -1,0 +1,190 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* base_terminate_reason
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base_terminate_reason
+#: model:ir.actions.act_window,help:base_terminate_reason.base_terminate_reason_config_action
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"        Click to add a Configuration of Termination Reason.\n"
+"        </p>\n"
+"    "
+msgstr ""
+
+#. module: base_terminate_reason
+#: model:ir.actions.act_window,help:base_terminate_reason.base_terminate_reason_action
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"        Click to add a Termination Reason.\n"
+"        </p>\n"
+"    "
+msgstr ""
+
+#. module: base_terminate_reason
+#: field:base.terminate.reason,active:0
+#: field:base.terminate.reason_config,active:0
+msgid "Active"
+msgstr ""
+
+#. module: base_terminate_reason
+#: view:base.terminate.reason_wizard:base_terminate_reason.base_terminate_reason_wizard_view_form
+msgid "Are you sure?"
+msgstr ""
+
+#. module: base_terminate_reason
+#: model:ir.model,name:base_terminate_reason.model_base_terminate_reason
+msgid "Base Terminate Reason"
+msgstr ""
+
+#. module: base_terminate_reason
+#: model:ir.model,name:base_terminate_reason.model_base_terminate_reason_common
+msgid "Base Terminate Reason Common"
+msgstr ""
+
+#. module: base_terminate_reason
+#: model:ir.model,name:base_terminate_reason.model_base_terminate_reason_config
+msgid "Base Terminate Reason Configurator"
+msgstr ""
+
+#. module: base_terminate_reason
+#: model:ir.model,name:base_terminate_reason.model_base_terminate_reason_wizard
+msgid "Base Termination Wizard"
+msgstr ""
+
+#. module: base_terminate_reason
+#: view:base.terminate.reason_wizard:base_terminate_reason.base_terminate_reason_wizard_view_form
+msgid "Cancel"
+msgstr ""
+
+#. module: base_terminate_reason
+#: view:base.terminate.reason_wizard:base_terminate_reason.base_terminate_reason_wizard_view_form
+msgid "Confirm"
+msgstr ""
+
+#. module: base_terminate_reason
+#: field:base.terminate.reason,create_uid:0
+#: field:base.terminate.reason_config,create_uid:0
+#: field:base.terminate.reason_wizard,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: base_terminate_reason
+#: field:base.terminate.reason,create_date:0
+#: field:base.terminate.reason_config,create_date:0
+#: field:base.terminate.reason_wizard,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: base_terminate_reason
+#: field:base.terminate.reason,display_name:0
+#: field:base.terminate.reason_common,display_name:0
+#: field:base.terminate.reason_config,display_name:0
+#: field:base.terminate.reason_wizard,display_name:0
+msgid "Display Name"
+msgstr ""
+
+#. module: base_terminate_reason
+#: code:addons/base_terminate_reason/wizards/base_terminate_reason_wizard.py:71
+#, python-format
+msgid "Error! No Method Terminate Name Defined"
+msgstr ""
+
+#. module: base_terminate_reason
+#: field:base.terminate.reason,id:0
+#: field:base.terminate.reason_common,id:0
+#: field:base.terminate.reason_config,id:0
+#: field:base.terminate.reason_wizard,id:0
+msgid "ID"
+msgstr ""
+
+#. module: base_terminate_reason
+#: field:base.terminate.reason,__last_update:0
+#: field:base.terminate.reason_common,__last_update:0
+#: field:base.terminate.reason_config,__last_update:0
+#: field:base.terminate.reason_wizard,__last_update:0
+msgid "Last Modified on"
+msgstr ""
+
+#. module: base_terminate_reason
+#: field:base.terminate.reason,write_uid:0
+#: field:base.terminate.reason_config,write_uid:0
+#: field:base.terminate.reason_wizard,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: base_terminate_reason
+#: field:base.terminate.reason,write_date:0
+#: field:base.terminate.reason_config,write_date:0
+#: field:base.terminate.reason_wizard,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: base_terminate_reason
+#: field:base.terminate.reason_config,method_terminate_name:0
+msgid "Method Termination Name"
+msgstr ""
+
+#. module: base_terminate_reason
+#: field:base.terminate.reason_config,name:0
+msgid "Model"
+msgstr ""
+
+#. module: base_terminate_reason
+#: field:base.terminate.reason,description:0
+#: field:base.terminate.reason_config,description:0
+msgid "Note"
+msgstr ""
+
+#. module: base_terminate_reason
+#: view:base.terminate.reason:base_terminate_reason.base_cance_reason_view_form
+#: view:base.terminate.reason_config:base_terminate_reason.base_terminate_reason_config_view_form
+msgid "Notes"
+msgstr ""
+
+#. module: base_terminate_reason
+#: field:base.terminate.reason_wizard,terminate_reason_id:0
+msgid "Reason"
+msgstr ""
+
+#. module: base_terminate_reason
+#: view:base.terminate.reason_config:base_terminate_reason.base_terminate_reason_config_view_form
+msgid "Reasons"
+msgstr ""
+
+#. module: base_terminate_reason
+#: field:base.terminate.reason,name:0
+#: field:base.terminate.reason_common,terminate_reason_id:0
+#: model:ir.actions.act_window,name:base_terminate_reason.base_terminate_reason_wizard_action
+msgid "Terminate Reason"
+msgstr ""
+
+#. module: base_terminate_reason
+#: view:base.terminate.reason:base_terminate_reason.base_cance_reason_view_form
+#: view:base.terminate.reason_config:base_terminate_reason.base_terminate_reason_config_view_form
+#: field:base.terminate.reason_config,terminate_reason_ids:0
+#: model:ir.actions.act_window,name:base_terminate_reason.base_terminate_reason_action
+#: model:ir.ui.menu,name:base_terminate_reason.menu_terminate_reason
+#: model:ir.ui.menu,name:base_terminate_reason.terminate_reason_menu
+msgid "Termination Reason"
+msgstr ""
+
+#. module: base_terminate_reason
+#: model:ir.actions.act_window,name:base_terminate_reason.base_terminate_reason_config_action
+#: model:ir.ui.menu,name:base_terminate_reason.terminate_reason_menu_config
+msgid "Termination Reason Configuration"
+msgstr ""
+
+#. module: base_terminate_reason
+#: view:base.terminate.reason_wizard:base_terminate_reason.base_terminate_reason_wizard_view_form
+msgid "or"
+msgstr ""
+
