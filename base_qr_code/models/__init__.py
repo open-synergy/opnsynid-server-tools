@@ -4,4 +4,5 @@
 
 from . import (
     base_qr_document,
+    base_qr_content_policy,
 )
