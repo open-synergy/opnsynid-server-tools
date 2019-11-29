@@ -14,18 +14,63 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: base_qr_code
+#: field:base.qr_content_policy,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: base_qr_code
+#: field:base.qr_content_policy,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: base_qr_code
+#: field:base.qr_content_policy,display_name:0
 #: field:base.qr_document,display_name:0
 msgid "Display Name"
 msgstr ""
 
 #. module: base_qr_code
+#: field:base.qr_content_policy,id:0
 #: field:base.qr_document,id:0
 msgid "ID"
 msgstr ""
 
 #. module: base_qr_code
+#: field:base.qr_content_policy,__last_update:0
 #: field:base.qr_document,__last_update:0
 msgid "Last Modified on"
+msgstr ""
+
+#. module: base_qr_code
+#: field:base.qr_content_policy,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: base_qr_code
+#: field:base.qr_content_policy,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: base_qr_code
+#: field:base.qr_content_policy,name:0
+msgid "Model"
+msgstr ""
+
+#. module: base_qr_code
+#: view:base.qr_content_policy:base_qr_code.base_qr_content_policy_search_form
+#: field:base.qr_content_policy,note:0
+msgid "Note"
+msgstr ""
+
+#. module: base_qr_code
+#: field:base.qr_content_policy,python_code:0
+msgid "Python Code for Custom Content"
+msgstr ""
+
+#. module: base_qr_code
+#: model:ir.actions.act_window,name:base_qr_code.base_qr_content_policy_action
+#: model:ir.ui.menu,name:base_qr_code.base_qr_content_policy_menu
+msgid "QR Barcode Content Policy"
 msgstr ""
 
 #. module: base_qr_code
@@ -34,7 +79,22 @@ msgid "QR Code"
 msgstr ""
 
 #. module: base_qr_code
+#: view:base.qr_content_policy:base_qr_code.base_qr_content_policy_search_form
+msgid "QR Content"
+msgstr ""
+
+#. module: base_qr_code
+#: model:ir.model,name:base_qr_code.model_base_qr_content_policy
+msgid "QR Content Policy"
+msgstr ""
+
+#. module: base_qr_code
 #: model:ir.model,name:base_qr_code.model_base_qr_document
 msgid "QR Document"
+msgstr ""
+
+#. module: base_qr_code
+#: field:base.qr_content_policy,use_standard_content:0
+msgid "Use Standard Content"
 msgstr ""
 
