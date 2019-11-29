@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_base_qr_content_policy_all,base.qr_content_policy - All user,model_base_qr_content_policy,,1,0,0,0
+access_base_qr_content_policy_admin,base.qr_content_policy - Administrator Setting,model_base_qr_content_policy,base.group_system,1,1,1,1

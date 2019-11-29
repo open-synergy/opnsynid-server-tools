@@ -21,20 +21,16 @@ class BaseQrDocument(models.AbstractModel):
 
     @api.multi
     def _compute_qr_image(self):
-        odoo_url = self.env["ir.config_parameter"].get_param("web.base.url")
+
         for document in self:
-            document_url = "/web?#id=%d&view_type=form&model=%s" % (
-                document.id,
-                document._name,
-            )
-            full_url = odoo_url + document_url
+            qrcode_content = self._get_qrcode_content()
             qr = QRCode(
                 version=1,
                 error_correction=qr_constants.ERROR_CORRECT_L,
                 box_size=5,
                 border=4,
             )
-            qr.add_data(full_url)
+            qr.add_data(qrcode_content)
             qr.make(fit=True)
             qr_image = qr.make_image()
             temp_file = StringIO()
@@ -47,3 +43,28 @@ class BaseQrDocument(models.AbstractModel):
         compute="_compute_qr_image",
         store=False,
     )
+
+    @api.multi
+    def _get_qrcode_content(self):
+        self.ensure_one()
+        criteria = [
+            ("name.model", "=", self._name),
+        ]
+        obj_content = self.env["base.qr_content_policy"]
+        content_policy = obj_content.search(criteria)
+        if len(content_policy) > 0:
+            content = content_policy[0]._get_content(self)
+        else:
+            content = self._get_standard_content()
+        return content
+
+    @api.multi
+    def _get_standard_content(self):
+        self.ensure_one()
+        odoo_url = self.env["ir.config_parameter"].get_param("web.base.url")
+        document_url = "/web?#id=%d&view_type=form&model=%s" % (
+            self.id,
+            self._name,
+        )
+        full_url = odoo_url + document_url
+        return full_url
