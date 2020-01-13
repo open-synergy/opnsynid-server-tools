@@ -2,8 +2,9 @@
 # Copyright 2019 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, api, fields, SUPERUSER_ID
+from openerp import models, api, fields, SUPERUSER_ID, _
 from openerp.tools.safe_eval import safe_eval as eval
+from openerp.exceptions import Warning as UserError
 
 
 class BasePrintDocument(models.TransientModel):
@@ -45,6 +46,43 @@ class BasePrintDocument(models.TransientModel):
         comodel_name="ir.actions.report.xml",
         required=True,
     )
+
+    print_by_download = fields.Boolean(
+        string="Print By Download"
+    )
+
+    @api.multi
+    @api.onchange(
+        "report_action_id",
+    )
+    def onchange_print_by_download(self):
+        if self.report_action_id:
+            self.print_by_download = True
+            user = self.env.user
+            group_ids = user.groups_id.ids
+            print_policy_ids =\
+                self._get_print_policy()
+            if print_policy_ids:
+                if print_policy_ids.download_group_ids:
+                    download_group_ids =\
+                        print_policy_ids.download_group_ids.ids
+                    if (set(download_group_ids) & set(group_ids)):
+                        self.print_use_escpos = True
+                    else:
+                        self.print_by_download = False
+        else:
+            self.print_by_download = False
+
+    @api.multi
+    def _get_print_policy(self):
+        self.ensure_one()
+        obj_print_policy =\
+            self.env["base.print.policy"]
+        criteria = [
+            ("report_action_id", "=", self.report_action_id.id)
+        ]
+        print_policy_ids = obj_print_policy.search(criteria)
+        return print_policy_ids
 
     @api.multi
     def _check_allowed_print(self, object):
@@ -94,5 +132,6 @@ class BasePrintDocument(models.TransientModel):
     @api.multi
     def action_print(self):
         object = self._get_object()
-        return self.env["report"].get_action(
+        report_action = self.env["report"].get_action(
             object, self.report_action_id.report_name)
+        return report_action

@@ -4,7 +4,7 @@
 # pylint: disable=locally-disabled, manifest-required-author
 {
     "name": "Base Print Policy",
-    "version": "8.0.1.1.1",
+    "version": "8.0.1.2.0",
     "category": "Base",
     "website": "https://opensynergy-indonesia.com/",
     "author": "OpenSynergy Indonesia",
@@ -12,7 +12,7 @@
     "installable": True,
     "depends": [
         "base",
-        "report"
+        "report",
     ],
     "data": [
         "security/ir.model.access.csv",

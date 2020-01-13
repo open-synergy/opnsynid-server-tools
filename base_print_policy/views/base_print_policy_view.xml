@@ -34,8 +34,13 @@
                             <page name="condition" string="Condition">
                                 <field name="python_condition"/>
                             </page>
-                            <page name="groups" string="Groups">
+                            <page name="groups" string="Allowed Report">
                                 <field name="group_ids"/>
+                            </page>
+                            <page name="groups" string="Allowed Button">
+                                <group name="group_2" col="2" colspan="4">
+                                    <field name="download_group_ids" widget="many2many_tags"/>
+                                </group>
                             </page>
                             <page name="note" string="Notes">
                                 <field name="description"/>
