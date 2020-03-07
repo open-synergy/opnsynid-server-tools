@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Copyright 2016 OpenSynergy Indonesia
+# Copyright 2020 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, api, fields
-from openerp.tools.safe_eval import safe_eval as eval
+from odoo import models, api, fields
+from odoo.tools.safe_eval import safe_eval as eval
 
 
 class BaseWorkflowPolicy(models.Model):
