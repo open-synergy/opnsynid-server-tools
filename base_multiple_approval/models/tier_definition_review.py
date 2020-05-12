@@ -8,11 +8,14 @@ from openerp import fields, models
 
 class TierDefinitionReview(models.Model):
     _name = "tier.definition.review"
+    _description = "List Of Reviewer"
 
     definition_id = fields.Many2one(
+        string="Definition",
         comodel_name="tier.definition",
     )
     company_id = fields.Many2one(
+        string="Company",
         related="definition_id.company_id",
         readonly=True,
     )
@@ -23,6 +26,7 @@ class TierDefinitionReview(models.Model):
             ("individual", "Specific user"),
             ("group", "Any user in a specific group.")
         ],
+        required=True,
     )
     reviewer_id = fields.Many2one(
         string="Reviewer",
@@ -33,8 +37,10 @@ class TierDefinitionReview(models.Model):
         comodel_name="res.groups",
     )
     active = fields.Boolean(
+        string="Active",
         default=True,
     )
     sequence = fields.Integer(
+        string="Sequence",
         default=1,
     )
