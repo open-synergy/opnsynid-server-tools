@@ -52,6 +52,14 @@ class TierDefinition(models.Model):
         comodel_name="tier.definition.review",
         inverse_name="definition_id",
     )
+    validate_sequence = fields.Boolean(
+        string="Validate by Sequence",
+        help="Validation by reviewer must be done by sequence.",
+    )
+    special_validation = fields.Boolean(
+        string="Special Validation",
+        help="This validation can only be selected manually. ",
+    )
 
     @api.onchange(
         "model_id"
