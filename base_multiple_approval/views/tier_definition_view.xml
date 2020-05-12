@@ -48,7 +48,7 @@
                         <page name="page_review_ids" string="Reviewer(s)">
                             <field name="definition_review_ids" colspan="4" nolabel="1">
                                 <tree>
-                                    <field name="sequence" widget="handler" width="20px"/>
+                                    <field name="sequence" widget="handle"/>
                                     <field name="review_type"/>
                                     <field name="reviewer_id" />
                                     <field name="reviewer_group_id"/>
