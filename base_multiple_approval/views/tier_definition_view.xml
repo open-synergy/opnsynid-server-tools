@@ -50,16 +50,25 @@
                                 <tree>
                                     <field name="sequence" widget="handle"/>
                                     <field name="review_type"/>
-                                    <field name="reviewer_id" />
-                                    <field name="reviewer_group_id"/>
+                                    <field name="reviewer_ids" />
+                                    <field name="reviewer_group_ids"/>
+                                    <field name="python_code"/>
                                 </tree>
                                 <form>
                                     <group name="grp_review_ids">
                                         <field name="review_type"/>
-                                        <field name="reviewer_id"
-                                               attrs="{'invisible': [('review_type', '!=', 'individual')]}"/>
-                                        <field name="reviewer_group_id"
-                                               attrs="{'invisible': [('review_type', '!=', 'group')]}"/>
+                                        <field name="reviewer_ids" widget="many2many_tags"
+                                               attrs="{
+                                                    'invisible': [('review_type', '!=', 'individual'), ('review_type', '!=', 'both')],
+                                                    'required': ['|', ('review_type', '=', 'individual'), ('review_type', '=', 'both')]}"/>
+                                        <field name="reviewer_group_ids" widget="many2many_tags"
+                                               attrs="{
+                                                    'invisible': [('review_type', '!=', 'group'), ('review_type', '!=', 'both')],
+                                                    'required': ['|', ('review_type', '=', 'group'), ('review_type', '=', 'both')]}"/>
+                                        <field name="python_code"
+                                               attrs="{
+                                                    'invisible': [('review_type', '!=', 'python')],
+                                                    'required': [('review_type', '=', 'python')]}"/>
                                        <field name="sequence" />
                                     </group>
                                 </form>
