@@ -14,8 +14,8 @@
                       decoration-success="status=='approved'">
                     <field name="sequence"/>
                     <field name="review_type"/>
-                    <field name="reviewer_id"/>
-                    <field name="reviewer_group_id"/>
+                    <field name="reviewer_ids"/>
+                    <field name="date"/>
                     <field name="status"/>
                 </tree>
             </field>

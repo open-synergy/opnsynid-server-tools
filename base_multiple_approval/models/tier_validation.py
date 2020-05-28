@@ -162,13 +162,15 @@ class TierValidation(models.AbstractModel):
         self.ensure_one()
         tier_reviews = tiers or self.review_ids
         user_reviews = tier_reviews.filtered(
-            lambda r: r.status in ("pending", "rejected") and
-            (r.reviewer_id == self.env.user or
-             r.reviewer_group_id in self.env.user.groups_id))
+            lambda r: r.status in ("pending") and
+            (self.env.user.id in r.reviewer_ids.ids))
         if self.definition_id.validate_sequence:
             if not self._check_validate_by_sequence(user_reviews):
                 return
-        user_reviews.write({"status": "approved"})
+        user_reviews.write({
+            "status": "approved",
+            "date": fields.Datetime.now(),
+        })
 
     @api.multi
     def _check_validate_by_sequence(self, user_reviews):
@@ -177,7 +179,7 @@ class TierValidation(models.AbstractModel):
             result = True
         else:
             prev_reviews = self.review_ids.filtered(
-                lambda r: r.status in ("pending", "rejected") and
+                lambda r: r.status in ("pending") and
                 r.sequence == (user_reviews.sequence - 1))
             if not prev_reviews:
                 result = True
@@ -193,9 +195,11 @@ class TierValidation(models.AbstractModel):
         for rec in self:
             user_reviews = rec.review_ids.filtered(
                 lambda r: r.status in ("pending", "approved") and
-                (r.reviewer_id == self.env.user or
-                 r.reviewer_group_id in self.env.user.groups_id))
-            user_reviews.write({"status": "rejected"})
+                (self.env.user.id in r.reviewer_ids.ids))
+            user_reviews.write({
+                "status": "rejected",
+                "date": fields.Datetime.now(),
+            })
 
     @api.multi
     def request_validation(self):
@@ -237,7 +241,7 @@ class TierValidation(models.AbstractModel):
         reviewer_ids =\
             td_reviewer_obj.search(
                 criteria_reviewer,
-                order="sequence desc"
+                order="sequence"
             )
         for reviewer in reviewer_ids:
             sequence += 1
