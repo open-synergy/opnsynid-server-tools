@@ -49,6 +49,11 @@ class TierReview(models.Model):
         string="Date",
         readonly=True,
     )
+    user_id = fields.Many2one(
+        string="Validated/Rejected By",
+        comodel_name="res.users",
+        readonly=True,
+    )
 
     @api.multi
     def _get_object(self):
