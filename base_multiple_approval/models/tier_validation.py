@@ -170,6 +170,7 @@ class TierValidation(models.AbstractModel):
         user_reviews.write({
             "status": "approved",
             "date": fields.Datetime.now(),
+            "user_id": self.env.user.id,
         })
 
     @api.multi
@@ -199,6 +200,7 @@ class TierValidation(models.AbstractModel):
             user_reviews.write({
                 "status": "rejected",
                 "date": fields.Datetime.now(),
+                "user_id": self.env.user.id,                
             })
 
     @api.multi
