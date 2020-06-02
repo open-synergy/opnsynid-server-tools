@@ -195,12 +195,12 @@ class TierValidation(models.AbstractModel):
     def reject_tier(self):
         for rec in self:
             user_reviews = rec.review_ids.filtered(
-                lambda r: r.status in ("pending", "approved") and
+                lambda r: r.status in ("pending") and
                 (self.env.user.id in r.reviewer_ids.ids))
             user_reviews.write({
                 "status": "rejected",
                 "date": fields.Datetime.now(),
-                "user_id": self.env.user.id,                
+                "user_id": self.env.user.id,
             })
 
     @api.multi
