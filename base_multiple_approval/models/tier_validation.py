@@ -49,6 +49,11 @@ class TierValidation(models.AbstractModel):
         compute="_compute_reviewer_ids",
         search="_search_reviewer_ids",
     )
+    reviewer_partner_ids = fields.Many2many(
+        string="Review Partners",
+        comodel_name="res.partner",
+        compute="_compute_reviewer_partner_ids",
+    )
 
     @api.multi
     @api.depends(
@@ -58,6 +63,41 @@ class TierValidation(models.AbstractModel):
         for rec in self:
             rec.reviewer_ids = rec.review_ids.filtered(
                 lambda r: r.status == "pending").mapped("reviewer_ids")
+
+    @api.multi
+    @api.depends(
+        "reviewer_ids",
+        "definition_id",
+        "definition_id.validate_sequence",
+    )
+    def _compute_reviewer_partner_ids(self):
+        for rec in self:
+            if rec.definition_id.validate_sequence:
+                rec.reviewer_partner_ids =\
+                    rec._get_reviewer_partner_ids_by_sequence()
+            else:
+                rec.reviewer_partner_ids =\
+                    rec._get_reviewer_partner_ids()
+
+    @api.multi
+    def _get_reviewer_partner_ids(self):
+        self.ensure_one()
+        filter_review_ids =\
+            self.review_ids.filtered(lambda r: r.status in ("pending"))
+        partner =\
+            filter_review_ids.mapped("reviewer_ids").mapped("partner_id")
+        return partner
+
+    @api.multi
+    def _get_reviewer_partner_ids_by_sequence(self):
+        self.ensure_one()
+        filter_review_ids =\
+            self.review_ids.filtered(lambda r: r.status in ("pending"))
+        sorted_review_ids =\
+            filter_review_ids.sorted(key=lambda s: s.sequence)[0]
+        partner =\
+            sorted_review_ids.mapped("reviewer_ids").mapped("partner_id")
+        return partner
 
     @api.model
     def _search_validated(self, operator, value):
@@ -119,7 +159,11 @@ class TierValidation(models.AbstractModel):
     @api.model
     def _get_under_validation_exceptions(self):
         """Extend for more field exceptions."""
-        return ["message_follower_ids"]
+        fields = [
+            "message_last_post",
+            "message_follower_ids",
+        ]
+        return fields
 
     @api.multi
     def _check_allow_write_under_validation(self, vals):
@@ -197,6 +241,9 @@ class TierValidation(models.AbstractModel):
             user_reviews = rec.review_ids.filtered(
                 lambda r: r.status in ("pending") and
                 (self.env.user.id in r.reviewer_ids.ids))
+            if rec.definition_id.validate_sequence:
+                if not rec._check_validate_by_sequence(user_reviews):
+                    return
             user_reviews.write({
                 "status": "rejected",
                 "date": fields.Datetime.now(),
