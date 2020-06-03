@@ -49,6 +49,11 @@ class TierValidation(models.AbstractModel):
         compute="_compute_reviewer_ids",
         search="_search_reviewer_ids",
     )
+    partner_ids = fields.Many2many(
+        string="Partners",
+        comodel_name="res.partner",
+        compute="_compute_partner_ids",
+    )
 
     @api.multi
     @api.depends(
@@ -58,6 +63,28 @@ class TierValidation(models.AbstractModel):
         for rec in self:
             rec.reviewer_ids = rec.review_ids.filtered(
                 lambda r: r.status == "pending").mapped("reviewer_ids")
+
+    @api.multi
+    @api.depends(
+        "reviewer_ids",
+        "definition_id",
+        "definition_id.validate_sequence",
+    )
+    def _compute_partner_ids(self):
+        for rec in self:
+            if rec.reviewer_ids:
+                if self.definition_id.validate_sequence:
+                    rec.partner_ids = rec._get_partner_by_sequence()
+                else:
+                    rec.partner_ids = rec.reviewer_ids.mapped("partner_id")
+
+    @api.multi
+    def _get_partner_by_sequence(self):
+        self.ensure_one()
+        partner = self.review_ids.filtered(
+            lambda r: r.status in ("pending")).mapped(
+                "reviewer_ids").mapped("partner_id")[0]
+        return partner
 
     @api.model
     def _search_validated(self, operator, value):
@@ -119,7 +146,11 @@ class TierValidation(models.AbstractModel):
     @api.model
     def _get_under_validation_exceptions(self):
         """Extend for more field exceptions."""
-        return ["message_follower_ids"]
+        fields = [
+            "message_last_post",
+            "message_follower_ids",
+        ]
+        return fields
 
     @api.multi
     def _check_allow_write_under_validation(self, vals):
