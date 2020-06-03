@@ -49,10 +49,10 @@ class TierValidation(models.AbstractModel):
         compute="_compute_reviewer_ids",
         search="_search_reviewer_ids",
     )
-    partner_ids = fields.Many2many(
-        string="Partners",
+    reviewer_partner_ids = fields.Many2many(
+        string="Review Partners",
         comodel_name="res.partner",
-        compute="_compute_partner_ids",
+        compute="_compute_reviewer_partner_ids",
     )
 
     @api.multi
@@ -70,20 +70,34 @@ class TierValidation(models.AbstractModel):
         "definition_id",
         "definition_id.validate_sequence",
     )
-    def _compute_partner_ids(self):
+    def _compute_reviewer_partner_ids(self):
         for rec in self:
             if rec.reviewer_ids:
                 if self.definition_id.validate_sequence:
-                    rec.partner_ids = rec._get_partner_by_sequence()
+                    rec.reviewer_partner_ids =\
+                        rec._get_partner_by_sequence()
                 else:
-                    rec.partner_ids = rec.reviewer_ids.mapped("partner_id")
+                    rec.reviewer_partner_ids =\
+                        rec._get_partner()
+
+    @api.multi
+    def _get_partner(self):
+        self.ensure_one()
+        filter_review_ids =\
+            self.review_ids.filtered(lambda r: r.status in ("pending"))
+        partner =\
+            filter_review_ids.mapped("reviewer_ids").mapped("partner_id")
+        return partner
 
     @api.multi
     def _get_partner_by_sequence(self):
         self.ensure_one()
-        partner = self.review_ids.filtered(
-            lambda r: r.status in ("pending")).mapped(
-                "reviewer_ids").mapped("partner_id")[0]
+        filter_review_ids =\
+            self.review_ids.filtered(lambda r: r.status in ("pending"))
+        sorted_review_ids =\
+            filter_review_ids.sorted(key=lambda s: s.sequence)[0]
+        partner =\
+            sorted_review_ids.mapped("reviewer_ids").mapped("partner_id")
         return partner
 
     @api.model
@@ -228,6 +242,9 @@ class TierValidation(models.AbstractModel):
             user_reviews = rec.review_ids.filtered(
                 lambda r: r.status in ("pending") and
                 (self.env.user.id in r.reviewer_ids.ids))
+            if rec.definition_id.validate_sequence:
+                if not rec._check_validate_by_sequence(user_reviews):
+                    return
             user_reviews.write({
                 "status": "rejected",
                 "date": fields.Datetime.now(),
