@@ -72,16 +72,15 @@ class TierValidation(models.AbstractModel):
     )
     def _compute_reviewer_partner_ids(self):
         for rec in self:
-            if rec.reviewer_ids:
-                if self.definition_id.validate_sequence:
-                    rec.reviewer_partner_ids =\
-                        rec._get_partner_by_sequence()
-                else:
-                    rec.reviewer_partner_ids =\
-                        rec._get_partner()
+            if rec.definition_id.validate_sequence:
+                rec.reviewer_partner_ids =\
+                    rec._get_reviewer_partner_ids_by_sequence()
+            else:
+                rec.reviewer_partner_ids =\
+                    rec._get_reviewer_partner_ids()
 
     @api.multi
-    def _get_partner(self):
+    def _get_reviewer_partner_ids(self):
         self.ensure_one()
         filter_review_ids =\
             self.review_ids.filtered(lambda r: r.status in ("pending"))
@@ -90,7 +89,7 @@ class TierValidation(models.AbstractModel):
         return partner
 
     @api.multi
-    def _get_partner_by_sequence(self):
+    def _get_reviewer_partner_ids_by_sequence(self):
         self.ensure_one()
         filter_review_ids =\
             self.review_ids.filtered(lambda r: r.status in ("pending"))
