@@ -199,6 +199,8 @@ class TierValidation(models.AbstractModel):
                 raise ValidationError(_("The operation is under validation."))
         if vals.get(self._state_field) in self._state_from:
             self.mapped("review_ids").unlink()
+            self.mapped("reviewer_partner_ids").unlink()
+            self.definition_id = False
         return super(TierValidation, self).write(vals)
 
     @api.multi
@@ -270,10 +272,11 @@ class TierValidation(models.AbstractModel):
                         criteria_definition,
                         order="sequence desc",
                     )
-                    for definition in definition_ids:
-                        if self.evaluate_tier(definition):
-                            rec.write({"definition_id": definition.id})
-                            break
+                    if definition_ids:
+                        for definition in definition_ids:
+                            if self.evaluate_tier(definition):
+                                rec.write({"definition_id": definition.id})
+                                break
                 reviewer_ids = rec.create_reviewer()
         return reviewer_ids
 
@@ -292,14 +295,15 @@ class TierValidation(models.AbstractModel):
                 criteria_reviewer,
                 order="sequence"
             )
-        for reviewer in reviewer_ids:
-            sequence += 1
-            created_trs += tr_obj.create({
-                "model": self._name,
-                "res_id": self.id,
-                "definition_review_id": reviewer.id,
-                "sequence": sequence,
-            })
+        if reviewer_ids:
+            for reviewer in reviewer_ids:
+                sequence += 1
+                created_trs += tr_obj.create({
+                    "model": self._name,
+                    "res_id": self.id,
+                    "definition_review_id": reviewer.id,
+                    "sequence": sequence,
+                })
         return created_trs
 
     @api.multi
