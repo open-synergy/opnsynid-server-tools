@@ -82,21 +82,25 @@ class TierValidation(models.AbstractModel):
     @api.multi
     def _get_reviewer_partner_ids(self):
         self.ensure_one()
-        filter_review_ids =\
-            self.review_ids.filtered(lambda r: r.status in ("pending"))
-        partner =\
-            filter_review_ids.mapped("reviewer_ids").mapped("partner_id")
+        partner = False
+        if self.review_ids:
+            filter_review_ids =\
+                self.review_ids.filtered(lambda r: r.status in ("pending"))
+            partner =\
+                filter_review_ids.mapped("reviewer_ids").mapped("partner_id")
         return partner
 
     @api.multi
     def _get_reviewer_partner_ids_by_sequence(self):
         self.ensure_one()
-        filter_review_ids =\
-            self.review_ids.filtered(lambda r: r.status in ("pending"))
-        sorted_review_ids =\
-            filter_review_ids.sorted(key=lambda s: s.sequence)[0]
-        partner =\
-            sorted_review_ids.mapped("reviewer_ids").mapped("partner_id")
+        partner = False
+        if self.review_ids:
+            filter_review_ids =\
+                self.review_ids.filtered(lambda r: r.status in ("pending"))
+            sorted_review_ids =\
+                filter_review_ids.sorted(key=lambda s: s.sequence)[0]
+            partner =\
+                sorted_review_ids.mapped("reviewer_ids").mapped("partner_id")
         return partner
 
     @api.model
