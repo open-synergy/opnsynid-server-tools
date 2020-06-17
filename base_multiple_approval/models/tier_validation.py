@@ -86,8 +86,10 @@ class TierValidation(models.AbstractModel):
         if self.review_ids:
             filter_review_ids =\
                 self.review_ids.filtered(lambda r: r.status in ("pending"))
-            partner =\
-                filter_review_ids.mapped("reviewer_ids").mapped("partner_id")
+            if filter_review_ids:
+                partner = (filter_review_ids
+                           .mapped("reviewer_ids")
+                           .mapped("partner_id"))
         return partner
 
     @api.multi
@@ -97,10 +99,12 @@ class TierValidation(models.AbstractModel):
         if self.review_ids:
             filter_review_ids =\
                 self.review_ids.filtered(lambda r: r.status in ("pending"))
-            sorted_review_ids =\
-                filter_review_ids.sorted(key=lambda s: s.sequence)[0]
-            partner =\
-                sorted_review_ids.mapped("reviewer_ids").mapped("partner_id")
+            if filter_review_ids:
+                sorted_review_ids =\
+                    filter_review_ids.sorted(key=lambda s: s.sequence)[0]
+                partner = (sorted_review_ids
+                           .mapped("reviewer_ids")
+                           .mapped("partner_id"))
         return partner
 
     @api.model
