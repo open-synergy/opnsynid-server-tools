@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: base_multiple_approval
-#: code:addons/base_multiple_approval/models/tier_validation.py:196
+#: code:addons/base_multiple_approval/models/tier_validation.py:200
 #, python-format
 msgid "A validation process is still open for at least one record."
 msgstr ""
@@ -85,7 +85,7 @@ msgid "Display Name"
 msgstr ""
 
 #. module: base_multiple_approval
-#: code:addons/base_multiple_approval/models/tier_validation.py:159
+#: code:addons/base_multiple_approval/models/tier_validation.py:163
 #, python-format
 msgid "Error evaluating tier validation conditions.\n"
 " %s"
@@ -231,13 +231,13 @@ msgid "Status"
 msgstr ""
 
 #. module: base_multiple_approval
-#: code:addons/base_multiple_approval/models/tier_validation.py:203
+#: code:addons/base_multiple_approval/models/tier_validation.py:207
 #, python-format
 msgid "The operation is under validation."
 msgstr ""
 
 #. module: base_multiple_approval
-#: code:addons/base_multiple_approval/models/tier_validation.py:192
+#: code:addons/base_multiple_approval/models/tier_validation.py:196
 #, python-format
 msgid "This action needs to be validated for at least one record. \n"
 "Please request a validation."
