@@ -15,6 +15,7 @@
                     <field name="sequence"/>
                     <field name="review_type"/>
                     <field name="reviewer_ids"/>
+                    <field name="reviewer_partner_ids"/>
                     <field name="user_id"/>
                     <field name="date"/>
                     <field name="status"/>

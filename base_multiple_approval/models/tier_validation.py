@@ -214,18 +214,26 @@ class TierValidation(models.AbstractModel):
     @api.multi
     def _validate_tier(self, tiers=False):
         self.ensure_one()
+        ctx = {}
         tier_reviews = tiers or self.review_ids
         user_reviews = tier_reviews.filtered(
             lambda r: r.status in ("pending") and
             (self.env.user.id in r.reviewer_ids.ids))
-        if self.definition_id.validate_sequence:
-            if not self._check_validate_by_sequence(user_reviews):
-                return
-        user_reviews.write({
-            "status": "approved",
-            "date": fields.Datetime.now(),
-            "user_id": self.env.user.id,
-        })
+        if user_reviews:
+            if self.definition_id.validate_sequence:
+                if not self._check_validate_by_sequence(user_reviews):
+                    return
+                else:
+                    next_validator =\
+                        self._get_next_validate_by_sequence(user_reviews)
+                    if next_validator:
+                        ctx["next_validator"] = next_validator
+
+            user_reviews.with_context(ctx).write({
+                "status": "approved",
+                "date": fields.Datetime.now(),
+                "user_id": self.env.user.id,
+            })
 
     @api.multi
     def _check_validate_by_sequence(self, user_reviews):
@@ -241,6 +249,16 @@ class TierValidation(models.AbstractModel):
         return result
 
     @api.multi
+    def _get_next_validate_by_sequence(self, user_reviews):
+        result = False
+        next_reviews = self.review_ids.filtered(
+            lambda r: r.status in ("pending") and
+            r.sequence == (user_reviews.sequence + 1))
+        if next_reviews:
+            result = next_reviews
+        return result
+
+    @api.multi
     def validate_tier(self):
         for rec in self:
             rec._validate_tier()
@@ -251,14 +269,15 @@ class TierValidation(models.AbstractModel):
             user_reviews = rec.review_ids.filtered(
                 lambda r: r.status in ("pending") and
                 (self.env.user.id in r.reviewer_ids.ids))
-            if rec.definition_id.validate_sequence:
-                if not rec._check_validate_by_sequence(user_reviews):
-                    return
-            user_reviews.write({
-                "status": "rejected",
-                "date": fields.Datetime.now(),
-                "user_id": self.env.user.id,
-            })
+            if user_reviews:
+                if rec.definition_id.validate_sequence:
+                    if not rec._check_validate_by_sequence(user_reviews):
+                        return
+                user_reviews.write({
+                    "status": "rejected",
+                    "date": fields.Datetime.now(),
+                    "user_id": self.env.user.id,
+                })
 
     @api.multi
     def request_validation(self):
@@ -310,6 +329,7 @@ class TierValidation(models.AbstractModel):
                     "model": self._name,
                     "res_id": self.id,
                     "definition_review_id": reviewer.id,
+                    "definition_id": self.definition_id.id,
                     "sequence": sequence,
                 })
         return created_trs

@@ -60,6 +60,10 @@ class TierDefinition(models.Model):
         string="Special Validation",
         help="This validation can only be selected manually. ",
     )
+    email_template_id = fields.Many2one(
+        string="Email Template",
+        comodel_name="email.template",
+    )
 
     @api.onchange(
         "model_id"
