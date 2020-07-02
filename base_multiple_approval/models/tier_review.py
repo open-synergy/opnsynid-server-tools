@@ -15,11 +15,12 @@ class TierReview(models.Model):
     status = fields.Selection(
         string="Status",
         selection=[
+            ("draft", "Draft"),
             ("pending", "Pending"),
             ("rejected", "Rejected"),
             ("approved", "Approved")
         ],
-        default="pending",
+        default="draft",
     )
     model = fields.Char(
         string="Related Document Model",
