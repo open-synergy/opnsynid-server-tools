@@ -40,6 +40,7 @@
                         <group name="right">
                             <field name="validate_sequence"/>
                             <field name="special_validation"/>
+                            <field name="email_template_id"/>
                             <field name="sequence"/>
                             <field name="active"/>
                         </group>

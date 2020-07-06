@@ -30,6 +30,9 @@ class TierReview(models.Model):
         string="Related Document ID",
         index=True,
     )
+    definition_id = fields.Many2one(
+        comodel_name="tier.definition",
+    )
     definition_review_id = fields.Many2one(
         comodel_name="tier.definition.review",
     )
@@ -43,6 +46,11 @@ class TierReview(models.Model):
         compute="_compute_reviewer_ids",
         store=True,
     )
+    reviewer_partner_ids = fields.Many2many(
+        string="Review Partners",
+        comodel_name="res.partner",
+        compute="_compute_reviewer_partner_ids",
+    )
     sequence = fields.Integer(
         string="Tier"
     )
@@ -55,6 +63,30 @@ class TierReview(models.Model):
         comodel_name="res.users",
         readonly=True,
     )
+
+    @api.multi
+    def write(self, vals):
+        for rec in self:
+            if vals.get("status") == "pending":
+                rec._send_email_notification()
+        return super(TierReview, self).write(vals)
+
+    @api.multi
+    @api.depends(
+        "reviewer_ids",
+    )
+    def _compute_reviewer_partner_ids(self):
+        for rec in self:
+            rec.reviewer_partner_ids =\
+                rec._get_reviewer_partner_ids()
+
+    @api.multi
+    def _get_reviewer_partner_ids(self):
+        self.ensure_one()
+        partner_ids = False
+        if self.reviewer_ids:
+            partner_ids = (self.reviewer_ids.mapped("partner_id"))
+        return partner_ids
 
     @api.multi
     def _get_object(self):
@@ -117,3 +149,37 @@ class TierReview(models.Model):
                             msg_err = "No User defines on python code"
                             raise UserError(_(msg_err))
                 rec.reviewer_ids = list(set(list_user))
+
+    @api.multi
+    def get_context(self):
+        self.ensure_one()
+        result = {}
+        return result
+
+    @api.multi
+    def create_mail(self):
+        self.ensure_one()
+        ctx = self.get_context()
+        mail = False
+        obj_template = self.env["email.template"]
+        obj_mail = self.env["mail.mail"]
+
+        template = self.definition_id.email_template_id
+        if template:
+            email_dict = obj_template.with_context(ctx).generate_email(
+                template_id=template.id, res_id=self.res_id)
+            mail = obj_mail.create(email_dict)
+        return mail
+
+    @api.multi
+    def _send_email_notification(self):
+        self.ensure_one()
+        mail = self.create_mail()
+        if mail:
+            mail.write(
+                {"recipient_ids": [(6, 0, self.reviewer_partner_ids.ids)]})
+            try:
+                mail.send()
+            except Exception as error:
+                raise UserError(_(
+                    "Error when sending notification.\n %s") % error)

@@ -47,9 +47,14 @@ class TierValidation(models.AbstractModel):
         compute="_compute_reviewer_ids",
         search="_search_reviewer_ids",
     )
+    active_reviewer_ids = fields.Many2many(
+        string="Active Reviewers",
+        comodel_name="tier.review",
+        compute="_compute_active_reviewer_ids",
+    )
     next_reviewer_ids = fields.Many2many(
         string="Next Reviewers",
-        comodel_name="res.users",
+        comodel_name="tier.review",
         compute="_compute_next_reviewer_ids",
     )
     reviewer_partner_ids = fields.Many2many(
@@ -60,20 +65,24 @@ class TierValidation(models.AbstractModel):
 
     @api.multi
     @api.depends(
-        "review_ids"
+        "review_ids",
+    )
+    def _compute_active_reviewer_ids(self):
+        for rec in self:
+            rec.active_reviewer_ids = rec.review_ids.filtered(
+                lambda r: r.status == "pending")
+
+    @api.multi
+    @api.depends(
+        "review_ids",
     )
     def _compute_next_reviewer_ids(self):
         for rec in self:
-            if rec.definition_id.validate_sequence:
-                next_reviewer = \
-                    rec._check_next_validate_by_sequence(rec.review_ids)
-                if next_reviewer:
-                    rec.next_reviewer_ids = next_reviewer
-                else:
-                    rec.next_reviewer_ids = False
-            else:
-                rec.next_reviewer_ids = rec.review_ids.filtered(
-                    lambda r: r.status == "pending").mapped("reviewer_ids")
+            rec.next_reviewer_ids = rec.review_ids.filtered(
+                lambda r: r.status == "draft")
+            if rec.definition_id.validate_sequence and \
+                    len(rec.next_reviewer_ids) > 0:
+                rec.next_reviewer_ids = rec.next_reviewer_ids[0]
 
     @api.multi
     @api.depends(
@@ -230,45 +239,29 @@ class TierValidation(models.AbstractModel):
         return super(TierValidation, self).write(vals)
 
     @api.multi
-    def set_active(self, tiers):
+    def set_active(self, reviewer):
         self.ensure_one()
-        tier_reviews = tiers or self.review_ids
-        check_pending_approval_ids = tier_reviews.filtered(
-            lambda r: r.status in ("pending"))
-        if not check_pending_approval_ids:
-            approval_ids = tier_reviews.filtered(
-                lambda r: r.status in ("draft"))
-            if approval_ids:
-                if self.definition_id.validate_sequence:
-                    approval_ids = approval_ids[0]
-                approval_ids.write({
-                    "status": "pending",
-                })
+        if reviewer and self.definition_id:
+            reviewer_ids = reviewer.filtered(
+                lambda r: r.status == "draft")
+            if self.definition_id.validate_sequence and \
+                    len(reviewer_ids) > 0:
+                reviewer_ids = reviewer_ids[0]
+            reviewer_ids.write({"status": "pending"})
 
     @api.multi
-    def _validate_tier(self, tiers=False):
+    def _validate_tier(self):
         self.ensure_one()
-        tier_reviews = tiers or self.review_ids
-        user_reviews = tier_reviews.filtered(
-            lambda r: r.status in ("pending") and
-            (self.env.user.id in r.reviewer_ids.ids))
-        user_reviews.write({
-            "status": "approved",
-            "date": fields.Datetime.now(),
-            "user_id": self.env.user.id,
-        })
-        self.set_active(tier_reviews)
-
-    @api.multi
-    def _check_next_validate_by_sequence(self, user_reviews):
-        result = False
-        filter_review_ids = self.review_ids.filtered(
-            lambda r: r.status in ("draft"))
-        if filter_review_ids:
-            sorted_review_ids =\
-                filter_review_ids.sorted(key=lambda s: s.sequence)[0]
-            result = sorted_review_ids.mapped("reviewer_ids")
-        return result
+        review_ids = self.active_reviewer_ids
+        user_reviews = review_ids.filtered(
+            lambda r: self.env.user.id in r.reviewer_ids.ids)
+        if user_reviews:
+            user_reviews.write({
+                "status": "approved",
+                "date": fields.Datetime.now(),
+                "user_id": self.env.user.id,
+            })
+            self.set_active(self.next_reviewer_ids)
 
     @api.multi
     def validate_tier(self):
@@ -278,9 +271,9 @@ class TierValidation(models.AbstractModel):
     @api.multi
     def reject_tier(self):
         for rec in self:
-            user_reviews = rec.review_ids.filtered(
-                lambda r: r.status in ("pending") and
-                (self.env.user.id in r.reviewer_ids.ids))
+            review_ids = rec.active_reviewer_ids
+            user_reviews = review_ids.filtered(
+                lambda r: self.env.user.id in r.reviewer_ids.ids)
             user_reviews.write({
                 "status": "rejected",
                 "date": fields.Datetime.now(),
@@ -337,6 +330,7 @@ class TierValidation(models.AbstractModel):
                 created_trs += tr_obj.create({
                     "model": self._name,
                     "res_id": self.id,
+                    "definition_id": self.definition_id.id,
                     "definition_review_id": reviewer.id,
                     "sequence": sequence,
                 })
