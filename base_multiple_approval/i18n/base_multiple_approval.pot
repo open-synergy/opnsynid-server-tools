@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: base_multiple_approval
-#: code:addons/base_multiple_approval/models/tier_validation.py:200
+#: code:addons/base_multiple_approval/models/tier_validation.py:227
 #, python-format
 msgid "A validation process is still open for at least one record."
 msgstr ""
@@ -23,6 +23,11 @@ msgstr ""
 #: field:tier.definition,active:0
 #: field:tier.definition.review,active:0
 msgid "Active"
+msgstr ""
+
+#. module: base_multiple_approval
+#: field:tier.validation,active_reviewer_ids:0
+msgid "Active Reviewers"
 msgstr ""
 
 #. module: base_multiple_approval
@@ -72,6 +77,11 @@ msgid "Definition"
 msgstr ""
 
 #. module: base_multiple_approval
+#: field:tier.review,definition_id:0
+msgid "Definition id"
+msgstr ""
+
+#. module: base_multiple_approval
 #: field:tier.review,definition_review_id:0
 msgid "Definition review id"
 msgstr ""
@@ -85,9 +95,26 @@ msgid "Display Name"
 msgstr ""
 
 #. module: base_multiple_approval
-#: code:addons/base_multiple_approval/models/tier_validation.py:163
+#: selection:tier.review,status:0
+msgid "Draft"
+msgstr ""
+
+#. module: base_multiple_approval
+#: field:tier.definition,email_template_id:0
+msgid "Email Template"
+msgstr ""
+
+#. module: base_multiple_approval
+#: code:addons/base_multiple_approval/models/tier_validation.py:192
 #, python-format
 msgid "Error evaluating tier validation conditions.\n"
+" %s"
+msgstr ""
+
+#. module: base_multiple_approval
+#: code:addons/base_multiple_approval/models/tier_review.py:184
+#, python-format
+msgid "Error when sending notification.\n"
 " %s"
 msgstr ""
 
@@ -142,6 +169,11 @@ msgid "Need Validation"
 msgstr ""
 
 #. module: base_multiple_approval
+#: field:tier.validation,next_reviewer_ids:0
+msgid "Next Reviewers"
+msgstr ""
+
+#. module: base_multiple_approval
 #: selection:tier.review,status:0
 msgid "Pending"
 msgstr ""
@@ -183,6 +215,7 @@ msgid "Related Document Model"
 msgstr ""
 
 #. module: base_multiple_approval
+#: field:tier.review,reviewer_partner_ids:0
 #: field:tier.validation,reviewer_partner_ids:0
 msgid "Review Partners"
 msgstr ""
@@ -231,13 +264,13 @@ msgid "Status"
 msgstr ""
 
 #. module: base_multiple_approval
-#: code:addons/base_multiple_approval/models/tier_validation.py:207
+#: code:addons/base_multiple_approval/models/tier_validation.py:234
 #, python-format
 msgid "The operation is under validation."
 msgstr ""
 
 #. module: base_multiple_approval
-#: code:addons/base_multiple_approval/models/tier_validation.py:196
+#: code:addons/base_multiple_approval/models/tier_validation.py:223
 #, python-format
 msgid "This action needs to be validated for at least one record. \n"
 "Please request a validation."
