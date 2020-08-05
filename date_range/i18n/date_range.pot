@@ -1,22 +1,17 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * date_range
+#	* date_range
 #
-# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: server-tools (9.0)\n"
+"Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-04 02:55+0000\n"
-"PO-Revision-Date: 2016-04-29 09:59+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Basque (http://www.transifex.com/oca/OCA-server-tools-9-0/"
-"language/eu/)\n"
-"Language: eu\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: \n"
 
 #. module: date_range
 #: code:addons/date_range/models/date_range.py:43
@@ -41,7 +36,8 @@ msgid "A date range type must be unique per company !"
 msgstr ""
 
 #. module: date_range
-#: field:date.range,active:0 field:date.range.type,active:0
+#: field:date.range,active:0
+#: field:date.range.type,active:0
 msgid "Active"
 msgstr ""
 
@@ -53,25 +49,28 @@ msgstr ""
 #. module: date_range
 #: view:date.range.generator:date_range.date_range_generator_view_form
 msgid "Cancel"
-msgstr "Ezeztatu"
+msgstr ""
 
 #. module: date_range
-#: field:date.range,company_id:0 field:date.range.generator,company_id:0
+#: field:date.range,company_id:0
+#: field:date.range.generator,company_id:0
 #: field:date.range.type,company_id:0
 msgid "Company"
-msgstr "Enpresa"
+msgstr ""
 
 #. module: date_range
-#: field:date.range,create_uid:0 field:date.range.generator,create_uid:0
+#: field:date.range,create_uid:0
+#: field:date.range.generator,create_uid:0
 #: field:date.range.type,create_uid:0
 msgid "Created by"
-msgstr "Nork sortua"
+msgstr ""
 
 #. module: date_range
-#: field:date.range,create_date:0 field:date.range.generator,create_date:0
+#: field:date.range,create_date:0
+#: field:date.range.generator,create_date:0
 #: field:date.range.type,create_date:0
 msgid "Created on"
-msgstr "Created on"
+msgstr ""
 
 #. module: date_range
 #: view:date.range:date_range.view_date_range_form_view
@@ -116,10 +115,11 @@ msgid "Date start"
 msgstr ""
 
 #. module: date_range
-#: field:date.range,display_name:0 field:date.range.generator,display_name:0
+#: field:date.range,display_name:0
+#: field:date.range.generator,display_name:0
 #: field:date.range.type,display_name:0
 msgid "Display Name"
-msgstr "Izena erakutsi"
+msgstr ""
 
 #. module: date_range
 #: field:date.range.generator,duration_count:0
@@ -143,10 +143,11 @@ msgid "Genrate Date Ranges"
 msgstr ""
 
 #. module: date_range
-#: field:date.range,id:0 field:date.range.generator,id:0
+#: field:date.range,id:0
+#: field:date.range.generator,id:0
 #: field:date.range.type,id:0
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: date_range
 #: help:date.range.type,allow_overlap:0
@@ -154,27 +155,31 @@ msgid "If sets date range of same type must not overlap."
 msgstr ""
 
 #. module: date_range
-#: field:date.range,__last_update:0 field:date.range.generator,__last_update:0
+#: field:date.range,__last_update:0
+#: field:date.range.generator,__last_update:0
 #: field:date.range.type,__last_update:0
 msgid "Last Modified on"
 msgstr ""
 
 #. module: date_range
-#: field:date.range,write_uid:0 field:date.range.generator,write_uid:0
+#: field:date.range,write_uid:0
+#: field:date.range.generator,write_uid:0
 #: field:date.range.type,write_uid:0
 msgid "Last Updated by"
-msgstr "Last Updated by"
+msgstr ""
 
 #. module: date_range
-#: field:date.range,write_date:0 field:date.range.generator,write_date:0
+#: field:date.range,write_date:0
+#: field:date.range.generator,write_date:0
 #: field:date.range.type,write_date:0
 msgid "Last Updated on"
-msgstr "Last Updated on"
+msgstr ""
 
 #. module: date_range
-#: field:date.range,name:0 field:date.range.type,name:0
+#: field:date.range,name:0
+#: field:date.range.type,name:0
 msgid "Name"
-msgstr "Izena"
+msgstr ""
 
 #. module: date_range
 #: field:date.range.generator,count:0
@@ -197,15 +202,17 @@ msgid "Submit"
 msgstr ""
 
 #. module: date_range
-#: help:date.range,active:0 help:date.range.type,active:0
+#: help:date.range,active:0
+#: help:date.range.type,active:0
 msgid "The active field allows you to hide the date range without removing it."
 msgstr ""
 
 #. module: date_range
-#: field:date.range,type_id:0 field:date.range,type_name:0
+#: field:date.range,type_id:0
+#: field:date.range,type_name:0
 #: field:date.range.generator,type_id:0
 msgid "Type"
-msgstr "Mota"
+msgstr ""
 
 #. module: date_range
 #: field:date.range.generator,unit_of_time:0
@@ -231,3 +238,4 @@ msgstr ""
 #: selection:date.range.generator,unit_of_time:0
 msgid "years"
 msgstr ""
+
