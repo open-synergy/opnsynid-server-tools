@@ -12,10 +12,22 @@ class BaseCancelReasonWizard(models.TransientModel):
     _name = "base.cancel.reason_wizard"
     _description = "Base Cancel Wizard"
 
+    @api.model
+    def _default_cancel_reason_id(self):
+        active_model = self.env.context.get("active_model", "")
+        return self._get_cancel_reason_ids(active_model)[0]
+
     cancel_reason_id = fields.Many2one(
         string="Reason",
         comodel_name="base.cancel.reason",
+        default=lambda self: self._default_cancel_reason_id(),
         required=True,
+    )
+    type = fields.Selection(
+        related="cancel_reason_id.type",
+    )
+    other_reason = fields.Text(
+        string="Other Reason",
     )
 
     @api.model
@@ -98,7 +110,14 @@ class BaseCancelReasonWizard(models.TransientModel):
 
     @api.model
     def _prepare_cancel_reason_data(self):
+        if self.type == "fixed":
+            reason = self.cancel_reason_id.name
+        else:
+            reason = \
+                ("[%s] %s") % (self.cancel_reason_id.name, self.other_reason)
+
         result = {
-            "cancel_reason_id": self.cancel_reason_id.id
+            "cancel_reason_id": self.cancel_reason_id.id,
+            "reason": reason,
         }
         return result

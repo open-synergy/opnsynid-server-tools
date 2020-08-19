@@ -13,6 +13,18 @@ class BaseCancelReason(models.Model):
         string="Cancel Reason",
         required=True,
     )
+    type = fields.Selection(
+        string="Type",
+        selection=[
+            ("fixed", "Fixed"),
+            ("not_fixed", "Need more explanation"),
+        ],
+        default="fixed",
+    )
+    default = fields.Boolean(
+        string="Create as Default",
+        default=False,
+    )
     active = fields.Boolean(
         string="Active",
         default=True,

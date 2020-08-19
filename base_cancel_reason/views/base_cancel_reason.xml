@@ -11,6 +11,8 @@
     <field name="arch" type="xml">
         <tree>
             <field name="name"/>
+            <field name="type"/>
+            <field name="default"/>
             <field name="active"/>
         </tree>
     </field>
@@ -25,6 +27,8 @@
                 <group name="group_1" col="2" colspan="2">
                     <field name="id" invisible="1"/>
                     <field name="name"/>
+                    <field name="type"/>
+                    <field name="default"/>
                     <field name="active"/>
                 </group>
                 <notebook>
@@ -49,11 +53,6 @@
         </p>
     </field>
 </record>
-
-<menuitem 
-    name="Cancel Reason"
-    id="menu_cancel_reason"
-    parent="base.menu_administration"/>
 
 <menuitem
     name="Cancel Reason"

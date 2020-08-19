@@ -8,6 +8,8 @@
                 <form>
                     <group name="group_1" colspan="4" col="2">
                         <field name="cancel_reason_id" widget="selection"/>
+                        <field name="type" invisible="1"/>
+                        <field name="other_reason" attrs="{'required': [('type', '=', 'not_fixed')], 'invisible': [('type', 'in', ['fixed', False])]}"/>
                     </group>
                     <footer>
                         <button string="Confirm" name="action_confirm" type="object" class="oe_highlight" confirm="Are you sure?"/>

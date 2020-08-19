@@ -11,11 +11,15 @@ class BaseCancelReasonCommon(models.AbstractModel):
     _description = "Base Cancel Reason Common"
 
     cancel_reason_id = fields.Many2one(
-        string="Cancel Reason",
+        string="# Reason",
         comodel_name="base.cancel.reason",
         readonly=True,
         copy=False,
     )
+    reason = fields.Text(
+        string="Cancellation Reason",
+    )
+
 
     @api.model
     def fields_view_get(self, view_id=None, view_type="form",
