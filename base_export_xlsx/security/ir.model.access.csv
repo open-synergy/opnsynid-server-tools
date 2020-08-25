@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_base_xlsx_template_all,base.xlsx.template - All user ,model_base_xlsx_template,,1,0,0,0
+access_base_xlsx_template_admin,base.xlsx.template - Administrator Setting,model_base_xlsx_template,base.group_system,1,1,1,1
+access_base_xlsx_template_sheet_all,base.xlsx.template.sheet - All user ,model_base_xlsx_template_sheet,,1,0,0,0
+access_base_xlsx_template_sheet_admin,base.xlsx.template.sheet - Administrator Setting,model_base_xlsx_template_sheet,base.group_system,1,1,1,1
+access_base_xlsx_template_sheet_header_all,base.xlsx.template.sheet.header - All user ,model_base_xlsx_template_sheet_header,,1,0,0,0
+access_base_xlsx_template_sheet_header_admin,base.xlsx.template.sheet.header - Administrator Setting,model_base_xlsx_template_sheet_header,base.group_system,1,1,1,1
+access_base_xlsx_template_sheet_detail_all,base.xlsx.template.sheet.detail - All user ,model_base_xlsx_template_sheet_detail,,1,0,0,0
+access_base_xlsx_template_sheet_detail_admin,base.xlsx.template.sheet.detail - Administrator Setting,model_base_xlsx_template_sheet_detail,base.group_system,1,1,1,1
+access_base_xlsx_template_sheet_detail_detail_all,base.xlsx.template.sheet.detail.detail - All user ,model_base_xlsx_template_sheet_detail_detail,,1,0,0,0
+access_base_xlsx_template_sheet_detail_detail_admin,base.xlsx.template.sheet.detail.detail - Administrator Setting,model_base_xlsx_template_sheet_detail_detail,base.group_system,1,1,1,1
