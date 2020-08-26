@@ -6,8 +6,8 @@
 <openerp>
     <data>
         <menuitem
-            name="Export Xlsx"
+            name="Export xlsx"
             id="base_xlsx_template_root_menu"
-            parent="base.menu_administration"/>
+            parent="base.menu_custom"/>
     </data>
 </openerp>

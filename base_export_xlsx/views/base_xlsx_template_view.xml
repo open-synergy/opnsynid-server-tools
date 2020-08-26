@@ -97,7 +97,7 @@
 </record>
 
 <record id="base_xlsx_template_action" model="ir.actions.act_window">
-    <field name="name">Xlsx Template</field>
+    <field name="name">xlsx Templates</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">base.xlsx.template</field>
     <field name="view_type">form</field>
@@ -110,7 +110,7 @@
 </record>
 
 <menuitem
-    name="Xlsx Template"
+    name="xlsx Templates"
     id="base_xlsx_template_menu"
     action="base_xlsx_template_action"
     parent="base_export_xlsx.base_xlsx_template_root_menu"
