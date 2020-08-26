@@ -139,7 +139,7 @@ class BaseExportXlsxWizard(models.TransientModel):
             eval(python_condition,
                  localdict, mode="exec", nocopy=True)
             result = localdict["result"]
-        except:
+        except:  # noqa: E722
             result = False
 
         return result
