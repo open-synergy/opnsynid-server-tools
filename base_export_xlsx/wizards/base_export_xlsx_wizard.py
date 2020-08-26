@@ -111,9 +111,8 @@ class BaseExportXlsxWizard(models.TransientModel):
                 result = True
         return result
 
-    @api.multi
+    @api.model
     def _get_object(self):
-        self.ensure_one()
         active_id = self.env.context.get("active_id", False)
         active_model = self.env.context.get("active_model", "")
         object = self.env[active_model].browse(
