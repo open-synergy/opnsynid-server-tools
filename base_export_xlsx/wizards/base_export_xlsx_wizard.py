@@ -4,6 +4,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from openerp import models, fields, api, SUPERUSER_ID, _
 from openerp.exceptions import Warning as UserError
+from openerp.tools.safe_eval import safe_eval as eval
 
 
 class BaseExportXlsxWizard(models.TransientModel):
@@ -135,7 +136,7 @@ class BaseExportXlsxWizard(models.TransientModel):
                  localdict, mode="exec", nocopy=True)
             result = localdict["result"]
         except:
-            result = True
+            result = False
 
         return result
 
