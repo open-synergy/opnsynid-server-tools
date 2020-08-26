@@ -1,0 +1,369 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* base_export_xlsx
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base_export_xlsx
+#: field:base.xlsx.template.sheet.detail.detail,template_sheet_detail_id:0
+msgid "#Template Sheet"
+msgstr ""
+
+#. module: base_export_xlsx
+#: model:ir.actions.act_window,help:base_export_xlsx.base_xlsx_template_action
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"        Click to add a Xlsx Template.\n"
+"        </p>\n"
+"    "
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.xlsx.template,active:0
+msgid "Active"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.xlsx.template,group_ids:0
+msgid "Allowed Groups"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.export.xlsx.wizard,allowed_template_ids:0
+msgid "Allowed Template"
+msgstr ""
+
+#. module: base_export_xlsx
+#: model:ir.model,name:base_export_xlsx.model_base_xlsx_template
+msgid "Base Xlsx Template"
+msgstr ""
+
+#. module: base_export_xlsx
+#: model:ir.model,name:base_export_xlsx.model_base_xlsx_template_sheet
+msgid "Base Xlsx Template Sheet"
+msgstr ""
+
+#. module: base_export_xlsx
+#: model:ir.model,name:base_export_xlsx.model_base_xlsx_template_sheet_detail
+msgid "Base Xlsx Template Sheet Detail"
+msgstr ""
+
+#. module: base_export_xlsx
+#: model:ir.model,name:base_export_xlsx.model_base_xlsx_template_sheet_detail_detail
+msgid "Base Xlsx Template Sheet Detail Detail"
+msgstr ""
+
+#. module: base_export_xlsx
+#: model:ir.model,name:base_export_xlsx.model_base_xlsx_template_sheet_header
+msgid "Base Xlsx Template Sheet Header"
+msgstr ""
+
+#. module: base_export_xlsx
+#: view:base.export.xlsx.wizard:base_export_xlsx.base_export_xlsx_wizard_view_form
+msgid "Cancel"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.xlsx.template.sheet.detail.detail,cell:0
+#: field:base.xlsx.template.sheet.header,cell:0
+msgid "Cell"
+msgstr ""
+
+#. module: base_export_xlsx
+#: selection:base.export.xlsx.wizard,state:0
+msgid "Choose"
+msgstr ""
+
+#. module: base_export_xlsx
+#: view:base.export.xlsx.wizard:base_export_xlsx.base_export_xlsx_wizard_view_form
+msgid "Close"
+msgstr ""
+
+#. module: base_export_xlsx
+#: view:base.xlsx.template:base_export_xlsx.base_xlsx_template_view_form
+#: field:base.xlsx.template,python_condition:0
+msgid "Condition"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.export.xlsx.wizard,create_uid:0
+#: field:base.xlsx.template,create_uid:0
+#: field:base.xlsx.template.sheet,create_uid:0
+#: field:base.xlsx.template.sheet.detail,create_uid:0
+#: field:base.xlsx.template.sheet.detail.detail,create_uid:0
+#: field:base.xlsx.template.sheet.header,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.export.xlsx.wizard,create_date:0
+#: field:base.xlsx.template,create_date:0
+#: field:base.xlsx.template.sheet,create_date:0
+#: field:base.xlsx.template.sheet.detail,create_date:0
+#: field:base.xlsx.template.sheet.detail.detail,create_date:0
+#: field:base.xlsx.template.sheet.header,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.xlsx.template.sheet.detail,detail_ids:0
+msgid "Detail"
+msgstr ""
+
+#. module: base_export_xlsx
+#: view:base.xlsx.template:base_export_xlsx.base_xlsx_template_view_form
+msgid "Details"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.export.xlsx,display_name:0
+#: field:base.export.xlsx.wizard,display_name:0
+#: field:base.xlsx.template,display_name:0
+#: field:base.xlsx.template.sheet,display_name:0
+#: field:base.xlsx.template.sheet.detail,display_name:0
+#: field:base.xlsx.template.sheet.detail.detail,display_name:0
+#: field:base.xlsx.template.sheet.header,display_name:0
+msgid "Display Name"
+msgstr ""
+
+#. module: base_export_xlsx
+#: view:base.export.xlsx.wizard:base_export_xlsx.base_export_xlsx_wizard_view_form
+msgid "Export"
+msgstr ""
+
+#. module: base_export_xlsx
+#: view:base.export.xlsx.wizard:base_export_xlsx.base_export_xlsx_wizard_view_form
+msgid "Export Completed!"
+msgstr ""
+
+#. module: base_export_xlsx
+#: model:ir.actions.act_window,name:base_export_xlsx.base_export_xlsx_wizard_action
+msgid "Export Xlsx"
+msgstr ""
+
+#. module: base_export_xlsx
+#: model:ir.ui.menu,name:base_export_xlsx.base_xlsx_template_root_menu
+msgid "Export xlsx"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.xlsx.template.sheet.detail,field_name:0
+#: field:base.xlsx.template.sheet.detail.detail,field_name:0
+#: field:base.xlsx.template.sheet.header,field_name:0
+msgid "Field"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.xlsx.template.sheet.detail.detail,field_cond:0
+#: field:base.xlsx.template.sheet.header,field_cond:0
+msgid "Field Cond."
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.export.xlsx.wizard,data:0
+msgid "File"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.xlsx.template,file:0
+msgid "File Content"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.export.xlsx.wizard,name:0
+#: field:base.xlsx.template,file_name:0
+msgid "File Name"
+msgstr ""
+
+#. module: base_export_xlsx
+#: selection:base.export.xlsx.wizard,state:0
+msgid "Get"
+msgstr ""
+
+#. module: base_export_xlsx
+#: view:base.export.xlsx.wizard:base_export_xlsx.base_export_xlsx_wizard_view_form
+msgid "Get Import Template"
+msgstr ""
+
+#. module: base_export_xlsx
+#: view:base.xlsx.template:base_export_xlsx.base_xlsx_template_view_form
+msgid "Groups"
+msgstr ""
+
+#. module: base_export_xlsx
+#: view:base.xlsx.template:base_export_xlsx.base_xlsx_template_view_form
+msgid "Headers"
+msgstr ""
+
+#. module: base_export_xlsx
+#: view:base.export.xlsx.wizard:base_export_xlsx.base_export_xlsx_wizard_view_form
+msgid "Here is the exported file (.xlsx):"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.export.xlsx,id:0
+#: field:base.export.xlsx.wizard,id:0
+#: field:base.xlsx.template,id:0
+#: field:base.xlsx.template.sheet,id:0
+#: field:base.xlsx.template.sheet.detail,id:0
+#: field:base.xlsx.template.sheet.detail.detail,id:0
+#: field:base.xlsx.template.sheet.header,id:0
+msgid "ID"
+msgstr ""
+
+#. module: base_export_xlsx
+#: code:addons/base_export_xlsx/reports/base_xlsx_report.py:119
+#, python-format
+msgid "Invalid style type %s"
+msgstr ""
+
+#. module: base_export_xlsx
+#: code:addons/base_export_xlsx/reports/base_xlsx_report.py:122
+#, python-format
+msgid "Invalid value %s for style type %s"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.export.xlsx,__last_update:0
+#: field:base.export.xlsx.wizard,__last_update:0
+#: field:base.xlsx.template,__last_update:0
+#: field:base.xlsx.template.sheet,__last_update:0
+#: field:base.xlsx.template.sheet.detail,__last_update:0
+#: field:base.xlsx.template.sheet.detail.detail,__last_update:0
+#: field:base.xlsx.template.sheet.header,__last_update:0
+msgid "Last Modified on"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.export.xlsx.wizard,write_uid:0
+#: field:base.xlsx.template,write_uid:0
+#: field:base.xlsx.template.sheet,write_uid:0
+#: field:base.xlsx.template.sheet.detail,write_uid:0
+#: field:base.xlsx.template.sheet.detail.detail,write_uid:0
+#: field:base.xlsx.template.sheet.header,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.export.xlsx.wizard,write_date:0
+#: field:base.xlsx.template,write_date:0
+#: field:base.xlsx.template.sheet,write_date:0
+#: field:base.xlsx.template.sheet.detail,write_date:0
+#: field:base.xlsx.template.sheet.detail.detail,write_date:0
+#: field:base.xlsx.template.sheet.header,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.xlsx.template,name:0
+#: field:base.xlsx.template.sheet,name:0
+msgid "Name"
+msgstr ""
+
+#. module: base_export_xlsx
+#: code:addons/base_export_xlsx/wizards/base_export_xlsx_wizard.py:90
+#, python-format
+msgid "No file in %s"
+msgstr ""
+
+#. module: base_export_xlsx
+#: code:addons/base_export_xlsx/wizards/base_export_xlsx_wizard.py:93
+#, python-format
+msgid "No template found"
+msgstr ""
+
+#. module: base_export_xlsx
+#: view:base.xlsx.template:base_export_xlsx.base_xlsx_template_view_form
+#: field:base.xlsx.template,description:0
+msgid "Notes"
+msgstr ""
+
+#. module: base_export_xlsx
+#: code:addons/base_export_xlsx/reports/base_xlsx_report.py:142
+#, python-format
+msgid "Position %s is not valid"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.export.xlsx.wizard,res_id:0
+msgid "Resource ID"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.export.xlsx.wizard,res_model:0
+#: field:base.xlsx.template,model_id:0
+msgid "Resource Model"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.xlsx.template.sheet,template_sheet_detail_ids:0
+msgid "Sheet Detail"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.xlsx.template.sheet,template_sheet_header_ids:0
+msgid "Sheet Header"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.xlsx.template,template_sheet_ids:0
+msgid "Sheet Name"
+msgstr ""
+
+#. module: base_export_xlsx
+#: view:base.xlsx.template:base_export_xlsx.base_xlsx_template_view_form
+msgid "Sheets"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.export.xlsx.wizard,state:0
+msgid "Status"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.xlsx.template.sheet.detail.detail,style:0
+#: field:base.xlsx.template.sheet.header,style:0
+msgid "Style"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.export.xlsx.wizard,template_id:0
+#: field:base.xlsx.template.sheet,template_id:0
+msgid "Template"
+msgstr ""
+
+#. module: base_export_xlsx
+#: field:base.xlsx.template.sheet.detail,template_sheet_id:0
+#: field:base.xlsx.template.sheet.header,template_sheet_id:0
+msgid "Template Sheet"
+msgstr ""
+
+#. module: base_export_xlsx
+#: help:base.xlsx.template,python_condition:0
+msgid "The result of executing the expresion must be a boolean."
+msgstr ""
+
+#. module: base_export_xlsx
+#: view:base.xlsx.template:base_export_xlsx.base_xlsx_template_view_form
+msgid "Xlsx Template"
+msgstr ""
+
+#. module: base_export_xlsx
+#: view:base.export.xlsx.wizard:base_export_xlsx.base_export_xlsx_wizard_view_form
+msgid "or"
+msgstr ""
+
+#. module: base_export_xlsx
+#: model:ir.actions.act_window,name:base_export_xlsx.base_xlsx_template_action
+#: model:ir.ui.menu,name:base_export_xlsx.base_xlsx_template_menu
+msgid "xlsx Templates"
+msgstr ""
+
