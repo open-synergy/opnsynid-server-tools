@@ -3,7 +3,7 @@
    :alt: License: AGPL-3
 
 ================
-Base Export Xlsx
+Base Export xlsx
 ================
 
 Installation
@@ -15,7 +15,7 @@ To install this module, you need to:
 2.  Add the path to this repository in your configuration (addons-path)
 3.  Update the module list
 4.  Go to menu *Setting -> Modules -> Local Modules*
-5.  Search For *Base Export Xlsx*
+5.  Search For *Base Export xlsx*
 6.  Install the module
 
 Bug Tracker

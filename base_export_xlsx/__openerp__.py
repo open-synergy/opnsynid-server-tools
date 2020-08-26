@@ -4,7 +4,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 # pylint: disable=locally-disabled, manifest-required-author
 {
-    "name": "Base Export Xlsx",
+    "name": "Base Export xlsx",
     "version": "8.0.1.0.0",
     "category": "Base",
     "website": "https://simetri-sinergi.id/",
@@ -27,5 +27,5 @@
     ],
     "images": [
         "static/description/banner.png",
-    ],    
+    ],
 }
