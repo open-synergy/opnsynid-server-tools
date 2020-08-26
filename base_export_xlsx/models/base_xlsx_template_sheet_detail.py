@@ -13,11 +13,11 @@ class BaseXlsxTemplateSheetDetail(models.Model):
         string="Field",
     )
     template_sheet_id = fields.Many2one(
-        string="#Template Sheet",
+        string="Template Sheet",
         comodel_name="base.xlsx.template.sheet",
     )
     detail_ids = fields.One2many(
-        string="# Detail",
+        string="Detail",
         comodel_name="base.xlsx.template.sheet.detail.detail",
         inverse_name="template_sheet_detail_id",
     )

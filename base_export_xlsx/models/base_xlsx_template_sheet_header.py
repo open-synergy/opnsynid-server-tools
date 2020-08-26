@@ -11,7 +11,7 @@ class BaseXlsxTemplateSheetHeader(models.Model):
     _description = "Base Xlsx Template Sheet Header"
 
     template_sheet_id = fields.Many2one(
-        string="#Template Sheet",
+        string="Template Sheet",
         comodel_name="base.xlsx.template.sheet",
     )
     cell = fields.Char(
