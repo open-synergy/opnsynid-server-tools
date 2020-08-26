@@ -95,9 +95,8 @@ class BaseExportXlsxWizard(models.TransientModel):
         defaults["res_model"] = res_model
         return defaults
 
-    @api.multi
+    @api.model
     def _check_allowed_print(self, object):
-        self.ensure_one()
         user = self.env.user
         if user.id == SUPERUSER_ID:
             result = True
@@ -122,17 +121,15 @@ class BaseExportXlsxWizard(models.TransientModel):
         )[0]
         return object
 
-    @api.multi
+    @api.model
     def _get_localdict(self):
-        self.ensure_one()
         return {
             "record": self._get_object(),
             "env": self.env,
         }
 
-    @api.multi
+    @api.model
     def check_python_cond(self, python_condition):
-        self.ensure_one()
         localdict = self._get_localdict()
 
         try:
