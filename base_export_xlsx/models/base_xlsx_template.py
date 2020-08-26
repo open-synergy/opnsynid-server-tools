@@ -23,7 +23,7 @@ class BaseXlsxTemplate(models.Model):
         comodel_name="ir.model",
     )
     template_sheet_ids = fields.One2many(
-        string="# Sheet",
+        string="Sheet Name",
         comodel_name="base.xlsx.template.sheet",
         inverse_name="template_id",
     )
