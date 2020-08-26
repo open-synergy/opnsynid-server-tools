@@ -23,7 +23,9 @@
     <field name="model">base.xlsx.template</field>
     <field name="arch" type="xml">
         <form string="Xlsx Template">
+            <header/>
             <sheet>
+                <div class="oe_right oe_button_box" style="width: 300px;" name="buttons"/>
                 <group colspan="4" col="4">
                     <group name="group_1" col="2" colspan="2">
                         <field name="name"/>
