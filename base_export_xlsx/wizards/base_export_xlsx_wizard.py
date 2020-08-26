@@ -122,7 +122,8 @@ class BaseExportXlsxWizard(models.TransientModel):
     @api.multi
     def _get_localdict(self):
         return {
-            "record": self._get_object()
+            "record": self._get_object(),
+            "env": self.env,
         }
 
     @api.multi
