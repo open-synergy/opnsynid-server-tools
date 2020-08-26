@@ -25,4 +25,7 @@
         "wizards/base_export_xlsx_wizard.xml",
         "views/base_xlsx_template_view.xml",
     ],
+    "images": [
+        "static/description/banner.png",
+    ],    
 }
