@@ -97,6 +97,7 @@ class BaseExportXlsxWizard(models.TransientModel):
 
     @api.multi
     def _check_allowed_print(self, object):
+        self.ensure_one()
         user = self.env.user
         if user.id == SUPERUSER_ID:
             result = True
@@ -113,6 +114,7 @@ class BaseExportXlsxWizard(models.TransientModel):
 
     @api.multi
     def _get_object(self):
+        self.ensure_one()
         active_id = self.env.context.get("active_id", False)
         active_model = self.env.context.get("active_model", "")
         object = self.env[active_model].browse(
@@ -122,6 +124,7 @@ class BaseExportXlsxWizard(models.TransientModel):
 
     @api.multi
     def _get_localdict(self):
+        self.ensure_one()
         return {
             "record": self._get_object(),
             "env": self.env,
@@ -129,6 +132,7 @@ class BaseExportXlsxWizard(models.TransientModel):
 
     @api.multi
     def check_python_cond(self, python_condition):
+        self.ensure_one()
         localdict = self._get_localdict()
 
         try:
