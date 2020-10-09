@@ -23,7 +23,7 @@ class BaseQrDocument(models.AbstractModel):
     def _compute_qr_image(self):
 
         for document in self:
-            qrcode_content = self._get_qrcode_content()
+            qrcode_content = document._get_qrcode_content()
             qr = QRCode(
                 version=1,
                 error_correction=qr_constants.ERROR_CORRECT_L,
