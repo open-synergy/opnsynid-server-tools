@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 OpenSynergy Indonesia
+     Copyright 2020 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<openerp>
+    <data>
+
+        <record id="signature_definition_view_tree" model="ir.ui.view">
+            <field name="name">signature.definition.tree</field>
+            <field name="model">signature.definition</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="model_id"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="signature_definition_view_form" model="ir.ui.view">
+            <field name="name">signature.definition.form</field>
+            <field name="model">signature.definition</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                    </header>
+                    <sheet>
+                        <div name="div_smart_buttons" class="oe_right oe_button_box">
+                        </div>
+
+                        <group>
+                            <group name="left">
+                                <field name="name"/>
+                                <field name="model_id" options="{'no_create': True}"/>
+                            </group>
+                            <group name="right">
+                                <field name="sequence"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="page_signee_ids" string="Signee">
+                                <field name="signature_signee_ids" colspan="4" nolabel="1">
+                                    <tree>
+                                        <field name="signature_key"/>
+                                        <field name="signature_item_id"/>
+                                        <field name="signature_type" />
+                                        <field name="signature_user_id"/>
+                                        <field name="python_code"/>
+                                    </tree>
+                                    <form>
+                                        <group name="grp_signee_ids">
+                                            <field name="signature_key"/>
+                                            <field name="signature_item_id"/>
+                                            <field name="signature_type" />
+                                            <field name="signature_user_id"
+                                                attrs="{
+                                                     'invisible': [('signature_type', '!=', 'user')],
+                                                     'required': [('signature_type', '=', 'user')]}"/>
+                                            <field name="python_code"
+                                                   attrs="{
+                                                        'invisible': [('signature_type', '!=', 'python')],
+                                                        'required': [('signature_type', '=', 'python')]}"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page name="page_python_expression" string="Signature Definition Expression">
+                                <field name="python_code" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="signature_definition_action" model="ir.actions.act_window">
+            <field name="name">Signature Definition</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">signature.definition</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_signature_definition"
+                  parent="menu_signature_root"
+                  action="signature_definition_action"
+                  sequence="1"/>
+    </data>
+</openerp>

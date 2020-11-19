@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2020 OpenSynergy Indonesia
+     Copyright 2020 PT.Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<openerp>
+<data>
+
+<record id="signature_item_view_tree" model="ir.ui.view">
+    <field name="name">signature.item.tree</field>
+    <field name="model">signature.item</field>
+    <field name="arch" type="xml">
+        <tree>
+            <field name="name"/>
+            <field name="active"/>
+        </tree>
+    </field>
+</record>
+
+<record id="signature_item_view_form" model="ir.ui.view">
+    <field name="name">signature.item.form</field>
+    <field name="model">signature.item</field>
+    <field name="arch" type="xml">
+        <form string="Signature Item">
+            <sheet>
+                <group name="group_1" col="2" colspan="2">
+                    <field name="id" invisible="1"/>
+                    <field name="name"/>
+                    <field name="active"/>
+                </group>
+                <notebook>
+                    <page string="Notes">
+                        <field name="description"/>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<record id="signature_item_view_action" model="ir.actions.act_window">
+    <field name="name">Signature Item</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">signature.item</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+        Click to add a Signature Item.
+        </p>
+    </field>
+</record>
+
+<menuitem
+    name="Signature Item"
+    id="signature_item_menu"
+    action="signature_item_view_action"
+    parent="menu_signature_root"
+    sequence="2"/>
+
+</data>
+</openerp>
