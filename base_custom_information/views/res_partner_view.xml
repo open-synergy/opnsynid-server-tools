@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
+     Copyright 2017 Pedro M. Baeza <pedro.baeza@tecnativa.com>
+     Copyright 2020 OpenSynergy Indonesia
+     Copyright 2020 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<openerp>
+<data>
+
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[1]">
+                <page name="custom_info"
+                      string="Custom Information"
+                      groups="base_custom_information.group_partner">
+                    <group name="grp_1">
+                        <label for="custom_info_template_id"/>
+                        <div>
+                            <field name="custom_info_template_id" options='{"no_quick_create": True}'/>
+                            <button name="button_update_info"
+                                type="object"
+                                string="(update)"
+                                class="oe_link"
+                            />
+                        </div>
+                        <field name="custom_info_ids"
+                               colspan="4"
+                               nolabel="1"
+                               context="{'embed': True, 'tree_view_ref': 'base_custom_information.custom_info_value_tree_editable'}"
+                        />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</data>
+</openerp>
