@@ -30,7 +30,7 @@ msgstr ""
 
 #. module: base_user_role_menu
 #: view:ir.ui.menu:base_user_role_menu.ir_ui_menu_view_form
-msgid "[('category_id','=',51)]"
+msgid "[('category_id','=',52)]"
 msgstr ""
 
 #. module: base_user_role_menu
