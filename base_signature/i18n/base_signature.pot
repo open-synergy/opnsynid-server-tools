@@ -1,0 +1,255 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* base_signature
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: base_signature
+#: model:ir.actions.act_window,help:base_signature.signature_item_view_action
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"        Click to add a Signature Item.\n"
+"        </p>\n"
+"    "
+msgstr ""
+
+#. module: base_signature
+#: field:signature.definition,active:0
+#: field:signature.definition.signee,active:0
+#: field:signature.item,active:0
+msgid "Active"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.definition,create_uid:0
+#: field:signature.definition.signee,create_uid:0
+#: field:signature.item,create_uid:0
+#: field:signature.signee,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.definition,create_date:0
+#: field:signature.definition.signee,create_date:0
+#: field:signature.item,create_date:0
+#: field:signature.signee,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.definition,display_name:0
+#: field:signature.definition.signee,display_name:0
+#: field:signature.item,display_name:0
+#: field:signature.mixin,display_name:0
+#: field:signature.signee,display_name:0
+msgid "Display Name"
+msgstr ""
+
+#. module: base_signature
+#: code:addons/base_signature/models/signature_mixin.py:32
+#, python-format
+msgid "Error evaluating signature conditions.\n"
+" %s"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.definition,id:0
+#: field:signature.definition.signee,id:0
+#: field:signature.item,id:0
+#: field:signature.mixin,id:0
+#: field:signature.signee,id:0
+msgid "ID"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.item,name:0
+msgid "Item"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.definition,__last_update:0
+#: field:signature.definition.signee,__last_update:0
+#: field:signature.item,__last_update:0
+#: field:signature.mixin,__last_update:0
+#: field:signature.signee,__last_update:0
+msgid "Last Modified on"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.definition,write_uid:0
+#: field:signature.definition.signee,write_uid:0
+#: field:signature.item,write_uid:0
+#: field:signature.signee,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.definition,write_date:0
+#: field:signature.definition.signee,write_date:0
+#: field:signature.item,write_date:0
+#: field:signature.signee,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: base_signature
+#: model:ir.model,name:base_signature.model_signature_definition_signee
+msgid "List Of Signee"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.definition,model:0
+msgid "Model"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.definition,name:0
+msgid "Name"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.item,description:0
+msgid "Note"
+msgstr ""
+
+#. module: base_signature
+#: view:signature.item:base_signature.signature_item_view_form
+msgid "Notes"
+msgstr ""
+
+#. module: base_signature
+#: help:signature.definition.signee,python_code:0
+msgid "Python Code for determines User who can be a reviewer"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.definition.signee,python_code:0
+msgid "Python Expression"
+msgstr ""
+
+#. module: base_signature
+#: selection:signature.definition.signee,signature_type:0
+msgid "Python Expression."
+msgstr ""
+
+#. module: base_signature
+#: field:signature.definition,model_id:0
+msgid "Referenced Model"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.signee,res_id:0
+msgid "Related Document ID"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.signee,model:0
+msgid "Related Document Model"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.definition,sequence:0
+msgid "Sequence"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.definition.signee,signature_user_id:0
+msgid "Sign By User"
+msgstr ""
+
+#. module: base_signature
+#: model:ir.ui.menu,name:base_signature.menu_signature_root
+#: field:signature.definition.signee,signature_id:0
+msgid "Signature"
+msgstr ""
+
+#. module: base_signature
+#: model:ir.actions.act_window,name:base_signature.signature_definition_action
+#: model:ir.model,name:base_signature.model_signature_definition
+#: model:ir.ui.menu,name:base_signature.menu_signature_definition
+msgid "Signature Definition"
+msgstr ""
+
+#. module: base_signature
+#: view:signature.definition:base_signature.signature_definition_view_form
+#: field:signature.definition,python_code:0
+msgid "Signature Definition Expression"
+msgstr ""
+
+#. module: base_signature
+#: model:ir.actions.act_window,name:base_signature.signature_item_view_action
+#: model:ir.ui.menu,name:base_signature.signature_item_menu
+#: field:signature.definition.signee,signature_item_id:0
+#: view:signature.item:base_signature.signature_item_view_form
+#: field:signature.signee,signature_item_id:0
+msgid "Signature Item"
+msgstr ""
+
+#. module: base_signature
+#: model:ir.model,name:base_signature.model_signature_item
+msgid "Signature Items"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.definition.signee,signature_key:0
+#: field:signature.signee,signature_key:0
+msgid "Signature Key"
+msgstr ""
+
+#. module: base_signature
+#: model:ir.model,name:base_signature.model_signature_mixin
+msgid "Signature Mixin"
+msgstr ""
+
+#. module: base_signature
+#: model:ir.model,name:base_signature.model_signature_signee
+msgid "Signature Signee"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.mixin,signature_definition_id:0
+msgid "Signature Template"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.signee,signature_definition_id:0
+msgid "Signature definition id"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.signee,signature_definition_signee_id:0
+msgid "Signature definition signee id"
+msgstr ""
+
+#. module: base_signature
+#: view:signature.definition:base_signature.signature_definition_view_form
+#: field:signature.definition,signature_signee_ids:0
+#: field:signature.mixin,signature_signee_ids:0
+#: view:signature.signee:base_signature.signature_signee_view_tree
+#: field:signature.signee,signee_id:0
+msgid "Signee"
+msgstr ""
+
+#. module: base_signature
+#: field:signature.definition.signee,signature_type:0
+#: field:signature.signee,signature_type:0
+msgid "Type"
+msgstr ""
+
+#. module: base_signature
+#: selection:signature.definition.signee,signature_type:0
+msgid "User."
+msgstr ""
+
+#. module: base_signature
+#: help:signature.definition,python_code:0
+msgid "Write Python code that defines when this signature will be needed. The result of executing the expresion must be a boolean."
+msgstr ""
+
