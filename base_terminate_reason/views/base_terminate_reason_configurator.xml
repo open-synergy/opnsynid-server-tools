@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2019 OpenSynergy Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <openerp>
 <data>
 
@@ -10,8 +9,8 @@
     <field name="model">base.terminate.reason_config</field>
     <field name="arch" type="xml">
         <tree>
-            <field name="name"/>
-            <field name="active"/>
+            <field name="name" />
+            <field name="active" />
         </tree>
     </field>
 </record>
@@ -23,17 +22,17 @@
         <form string="Termination Reason">
             <sheet>
                 <group name="group_1" col="2" colspan="2">
-                    <field name="id" invisible="1"/>
-                    <field name="name"/>
-                    <field name="method_terminate_name"/>
-                    <field name="active"/>
+                    <field name="id" invisible="1" />
+                    <field name="name" />
+                    <field name="method_terminate_name" />
+                    <field name="active" />
                 </group>
                 <notebook>
                     <page string="Reasons">
-                        <field name="terminate_reason_ids"/>
+                        <field name="terminate_reason_ids" />
                     </page>
                     <page string="Notes">
-                        <field name="description"/>
+                        <field name="description" />
                     </page>
                 </notebook>
             </sheet>
@@ -55,11 +54,12 @@
 </record>
 
 <menuitem
-    name="Termination Reason Configuration"
-    id="terminate_reason_menu_config"
-    action="base_terminate_reason_config_action"
-    parent="base_terminate_reason.menu_terminate_reason"
-    sequence="2"/>
+            name="Termination Reason Configuration"
+            id="terminate_reason_menu_config"
+            action="base_terminate_reason_config_action"
+            parent="base_terminate_reason.menu_terminate_reason"
+            sequence="2"
+        />
 
 </data>
 </openerp>

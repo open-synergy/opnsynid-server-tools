@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright 2019 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, fields
+from openerp import fields, models
 
 
 class BaseTerminateReasonConfigurator(models.Model):
@@ -13,9 +12,7 @@ class BaseTerminateReasonConfigurator(models.Model):
         string="Model",
         comodel_name="ir.model",
     )
-    method_terminate_name = fields.Char(
-        string="Method Termination Name"
-    )
+    method_terminate_name = fields.Char(string="Method Termination Name")
     terminate_reason_ids = fields.Many2many(
         string="Termination Reason",
         comodel_name="base.terminate.reason",
