@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, api, fields
+from openerp import api, fields, models
 
 
 class BaseDocumentVersion(models.AbstractModel):
@@ -57,9 +56,11 @@ class BaseDocumentVersion(models.AbstractModel):
     def _get_version_number(self):
         self.ensure_one()
         total_revision = self.total_revision + 1
-        self.write({
-            "total_revision": self.total_revision + 1,
-        })
+        self.write(
+            {
+                "total_revision": self.total_revision + 1,
+            }
+        )
         if not self.origin_version_id:
             return str(total_revision)
         else:
