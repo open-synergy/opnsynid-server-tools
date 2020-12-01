@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright 2019 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, fields
+from openerp import fields, models
 
 
 class BaseCancelReasonConfigurator(models.Model):
@@ -13,9 +12,7 @@ class BaseCancelReasonConfigurator(models.Model):
         string="Model",
         comodel_name="ir.model",
     )
-    method_cancel_name = fields.Char(
-        string="Method Cancel Name"
-    )
+    method_cancel_name = fields.Char(string="Method Cancel Name")
     cancel_reason_ids = fields.Many2many(
         string="Cancel Reason",
         comodel_name="base.cancel.reason",

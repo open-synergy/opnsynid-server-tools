@@ -1,7 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2019 OpenSynergy Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <openerp>
 <data>
 
@@ -10,8 +9,8 @@
     <field name="model">base.cancel.reason</field>
     <field name="arch" type="xml">
         <tree>
-            <field name="name"/>
-            <field name="active"/>
+            <field name="name" />
+            <field name="active" />
         </tree>
     </field>
 </record>
@@ -23,13 +22,13 @@
         <form string="Cancel Reason">
             <sheet>
                 <group name="group_1" col="2" colspan="2">
-                    <field name="id" invisible="1"/>
-                    <field name="name"/>
-                    <field name="active"/>
+                    <field name="id" invisible="1" />
+                    <field name="name" />
+                    <field name="active" />
                 </group>
                 <notebook>
                     <page string="Notes">
-                        <field name="description"/>
+                        <field name="description" />
                     </page>
                 </notebook>
             </sheet>
@@ -50,17 +49,19 @@
     </field>
 </record>
 
-<menuitem 
-    name="Cancel Reason"
-    id="menu_cancel_reason"
-    parent="base.menu_administration"/>
+<menuitem
+            name="Cancel Reason"
+            id="menu_cancel_reason"
+            parent="base.menu_administration"
+        />
 
 <menuitem
-    name="Cancel Reason"
-    id="cancel_reason_menu"
-    action="base_cancel_reason_action"
-    parent="menu_cancel_reason"
-    sequence="1"/>
+            name="Cancel Reason"
+            id="cancel_reason_menu"
+            action="base_cancel_reason_action"
+            parent="menu_cancel_reason"
+            sequence="1"
+        />
 
 </data>
 </openerp>
