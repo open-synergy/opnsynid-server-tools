@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright 2019 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, api, fields
+from openerp import api, fields, models
 from openerp.tools.safe_eval import safe_eval as eval
 
 
@@ -49,8 +48,7 @@ class BaseQrContentPolicy(models.Model):
         result = ""
         localdict = self._get_localdict(document)
         try:
-            eval(self.python_code,
-                 localdict, mode="exec", nocopy=True)
+            eval(self.python_code, localdict, mode="exec", nocopy=True)
             result = localdict["result"]
         except:  # noqa: E722
             result = ""
