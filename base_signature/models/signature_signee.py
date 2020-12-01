@@ -20,12 +20,10 @@ class SignatureSignee(models.Model):
         string="Related Document ID",
         index=True,
     )
-    signature_definition_id = fields.Many2one(
-        comodel_name="signature.definition",
-        required=True,
-    )
     signature_definition_signee_id = fields.Many2one(
         comodel_name="signature.definition.signee",
+        ondelete="restrict",
+        required=True,
     )
     signature_key = fields.Char(
         related="signature_definition_signee_id.signature_key",

@@ -15,6 +15,7 @@ class SignatureMixin(models.AbstractModel):
     signature_definition_id = fields.Many2one(
         string="Signature Template",
         comodel_name="signature.definition",
+        domain=lambda self: [("model", "=", self._name)],
     )
     signature_signee_ids = fields.One2many(
         string="Signee",
@@ -25,6 +26,19 @@ class SignatureMixin(models.AbstractModel):
     )
 
     @api.multi
+    def onchange(self, values, field_name, field_onchange):
+        x2many_field = "signature_signee_ids"
+        if x2many_field in field_onchange:
+            subfields = getattr(self, x2many_field)._fields.keys()
+            for subfield in subfields:
+                field_onchange.setdefault(
+                    u"{}.{}".format(x2many_field, subfield), u"",
+                )
+        return super(SignatureMixin, self).onchange(
+            values, field_name, field_onchange,
+        )
+
+    @api.multi
     def evaluate_signature(self, signature):
         try:
             res = safe_eval(signature.python_code, globals_dict={"rec": self})
@@ -33,67 +47,37 @@ class SignatureMixin(models.AbstractModel):
                 "Error evaluating signature conditions.\n %s") % error)
         return res
 
-    @api.multi
-    def get_signature(self):
-        obj_signature_definition = \
-            self.env["signature.definition"]
-        signature_signee_ids = False
-        for rec in self:
-            if not rec.signature_definition_id:
-                criteria_definition = [
-                    ("model", "=", self._name),
-                ]
-                definition_ids = obj_signature_definition.search(
-                    criteria_definition,
-                )
-                if definition_ids:
-                    for definition in definition_ids:
-                        if self.evaluate_signature(definition):
-                            rec.write({
-                                "signature_definition_id": definition.id
-                            })
-                            break
-            else:
-                rec.delete_signature()
-            signature_signee_ids = rec.create_signature()
-        return signature_signee_ids
+    @api.onchange(
+        "signature_definition_id",
+    )
+    def _onchange_signature_definition_id(self):
+        tmpls = self.get_definition_templates()
+        props_good = tmpls.mapped("signature_signee_ids")
+        props_enabled = \
+            self.mapped(
+                "signature_signee_ids.signature_definition_signee_id")
+        to_add = props_good - props_enabled
+        to_remove = props_enabled - props_good
+        values = self.signature_signee_ids
+        values = values.filtered(
+            lambda r: r.signature_definition_signee_id not in to_remove)
+        for prop in to_add.sorted():
+            newvalue = self.signature_signee_ids.new({
+                "model": self._name,
+                "res_id": self.id,
+                "signature_definition_id": self.signature_definition_id.id,
+                "signature_definition_signee_id": prop.id,
+            })
+            values += newvalue
+        self.signature_signee_ids = values
+        if self.get_definition_templates() != tmpls:
+            self._onchange_signature_definition_id()
 
     @api.multi
-    def create_signature(self):
+    def get_definition_templates(self):
+        return self.mapped("signature_definition_id")
+
+    @api.multi
+    def button_update_signature(self):
         self.ensure_one()
-        obj_sign_def_signee = self.env["signature.definition.signee"]
-        obj_sign_signee = created_trs = self.env["signature.signee"]
-
-        criteria = [
-            ("signature_id", "=", self.signature_definition_id.id)
-        ]
-        definition_signee_ids =\
-            obj_sign_def_signee.search(
-                criteria,
-            )
-        if definition_signee_ids:
-            for signee in definition_signee_ids:
-                created_trs += obj_sign_signee.create({
-                    "model": self._name,
-                    "res_id": self.id,
-                    "signature_definition_id": self.signature_definition_id.id,
-                    "signature_definition_signee_id": signee.id,
-                })
-        return created_trs
-
-    @api.multi
-    def delete_signature(self):
-        self.ensure_one()
-        obj_sign_signee = self.env["signature.signee"]
-
-        criteria = [
-            ("model", "=", self._name),
-            ("res_id", "=", self.id),
-        ]
-        signee_ids =\
-            obj_sign_signee.search(
-                criteria,
-            )
-        if signee_ids:
-            signee_ids.unlink()
-        return True
+        self._onchange_signature_definition_id()
