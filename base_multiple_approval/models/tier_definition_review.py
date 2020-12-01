@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 OpenSynergy Indonesia
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from openerp import fields, models, api
+from openerp import api, fields, models
 
 
 class TierDefinitionReview(models.Model):
@@ -46,13 +45,12 @@ class TierDefinitionReview(models.Model):
     )
     python_code = fields.Text(
         string="Python Expression",
-        help="Python Code for determines User or Group "
-             "who can be a reviewer",
+        help="Python Code for determines User or Group " "who can be a reviewer",
         default="# Available Locals:"
-                "\n# - env: environment"
-                "\n# - rec: current record"
-                "\n# Available Return:"
-                "\n# - user: List ID of User"
+        "\n# - env: environment"
+        "\n# - rec: current record"
+        "\n# Available Return:"
+        "\n# - user: List ID of User",
     )
     active = fields.Boolean(
         string="Active",

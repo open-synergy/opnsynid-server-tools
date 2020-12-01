@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 Eficent Business and IT Consulting Services S.L.
 # Copyright 2020 OpenSynergy Indonesia
 # Copyright 2020 PT. Simetri Sinergi Indonesia
@@ -10,7 +9,7 @@
     "category": "Tools",
     "website": "https://simetri-sinergi.id",
     "author": "Eficent, Odoo Community Association (OCA), "
-              "PT. Simetri Sinergi Indonesia, OpenSynergy Indonesia",
+    "PT. Simetri Sinergi Indonesia, OpenSynergy Indonesia",
     "license": "AGPL-3",
     "application": False,
     "installable": True,

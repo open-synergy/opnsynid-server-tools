@@ -1,19 +1,16 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 OpenSynergy Indonesia
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from openerp import api, SUPERUSER_ID
+from openerp import SUPERUSER_ID, api
 from openupgradelib import openupgrade
 
 
 def migrate(cr, version):
     if not version:
         return
-    legacy_reviewer_id =\
-        openupgrade.get_legacy_name("reviewer_id")
-    legacy_reviewer_group_id =\
-        openupgrade.get_legacy_name("reviewer_group_id")
+    legacy_reviewer_id = openupgrade.get_legacy_name("reviewer_id")
+    legacy_reviewer_group_id = openupgrade.get_legacy_name("reviewer_group_id")
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
         openupgrade.m2o_to_x2m(
