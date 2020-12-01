@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright 2018 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, api
+from openerp import api, models
 
 
 class IrUiMenu(models.Model):
@@ -13,7 +12,8 @@ class IrUiMenu(models.Model):
         self.ensure_one()
         application = self.env.ref("base_user_role.ir_module_category_role")
         to_be_preserve_ids = self.groups_id.filtered(
-            lambda r: r.category_id.id == application.id).ids
+            lambda r: r.category_id.id == application.id
+        ).ids
         self.write({"groups_id": [(6, 0, to_be_preserve_ids)]})
 
     @api.multi
@@ -21,8 +21,7 @@ class IrUiMenu(models.Model):
         _super = super(IrUiMenu, self)
         result = _super.write(values)
 
-        remove_non_role_groups = self._context.get(
-            "remove_non_role_groups", True)
+        remove_non_role_groups = self._context.get("remove_non_role_groups", True)
         if remove_non_role_groups:
             context = {"remove_non_role_groups": False}
             for menu in self:
