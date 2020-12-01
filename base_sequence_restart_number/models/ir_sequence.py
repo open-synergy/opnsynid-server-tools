@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, api, fields
+from openerp import api, fields, models
 from openerp.exceptions import Warning as UserError
 from openerp.tools.translate import _
 
@@ -24,7 +23,7 @@ class IrSequence(models.Model):
     @api.multi
     def create_cron(self):
         for sequence in self:
-            self._create_cron()
+            sequence._create_cron()
 
     @api.multi
     def delete_cron(self):
@@ -44,16 +43,17 @@ class IrSequence(models.Model):
             strWarning = _("Sequence already have a cron")
             raise UserError(strWarning)
 
-        obj_cron = self.env[
-            "ir.cron"]
+        obj_cron = self.env["ir.cron"]
         name = "Sequence: %s" % self.name
         args = "[%s]" % (str(self.id))
-        cron = obj_cron.create({
-            "name": name,
-            "user_id": self.env.user.id,
-            "active": True,
-            "model": "ir.sequence",
-            "function": "restart_sequence",
-            "args": args,
-        })
+        cron = obj_cron.create(
+            {
+                "name": name,
+                "user_id": self.env.user.id,
+                "active": True,
+                "model": "ir.sequence",
+                "function": "restart_sequence",
+                "args": args,
+            }
+        )
         self.cron_id = cron
