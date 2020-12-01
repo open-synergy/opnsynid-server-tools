@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2018 Eficent Business and IT Consulting Services S.L.
      Copyright 2020 OpenSynergy Indonesia
      Copyright 2020 PT. Simetri Sinergi Indonesia
@@ -10,9 +10,9 @@
             <field name="model">signature.signee</field>
             <field name="arch" type="xml">
                 <tree string="Signee">
-                    <field name="signature_key"/>
-                    <field name="signature_item_id"/>
-                    <field name="signee_id"/>
+                    <field name="signature_key" />
+                    <field name="signature_item_id" />
+                    <field name="signee_id" />
                 </tree>
             </field>
         </record>

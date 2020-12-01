@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 OpenSynergy Indonesia
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
@@ -32,8 +31,8 @@ class SignatureDefinition(models.Model):
     python_code = fields.Text(
         string="Signature Definition Expression",
         help="Write Python code that defines when this signature "
-             "will be needed. The result of executing the expresion must be "
-             "a boolean.",
+        "will be needed. The result of executing the expresion must be "
+        "a boolean.",
         default="""# Available locals:\n#  - rec: current record""",
     )
     sequence = fields.Integer(
@@ -48,11 +47,7 @@ class SignatureDefinition(models.Model):
         inverse_name="signature_id",
     )
 
-    @api.onchange(
-        "model_id"
-    )
+    @api.onchange("model_id")
     def onchange_model_id(self):
         model = self._get_signature_validation_model_names()
-        return {"domain": {
-            "model_id": [
-                ("model", "in", model)]}}
+        return {"domain": {"model_id": [("model", "in", model)]}}

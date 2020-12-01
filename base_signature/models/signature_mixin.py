@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 OpenSynergy Indonesia
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from openerp import api, fields, models, _
+from openerp import _, api, fields, models
 from openerp.exceptions import Warning as UserError
 from openerp.tools.safe_eval import safe_eval
 
@@ -29,14 +28,12 @@ class SignatureMixin(models.AbstractModel):
         try:
             res = safe_eval(signature.python_code, globals_dict={"rec": self})
         except Exception as error:
-            raise UserError(_(
-                "Error evaluating signature conditions.\n %s") % error)
+            raise UserError(_("Error evaluating signature conditions.\n %s") % error)
         return res
 
     @api.multi
     def get_signature(self):
-        obj_signature_definition = \
-            self.env["signature.definition"]
+        obj_signature_definition = self.env["signature.definition"]
         signature_signee_ids = False
         for rec in self:
             if not rec.signature_definition_id:
@@ -49,9 +46,7 @@ class SignatureMixin(models.AbstractModel):
                 if definition_ids:
                     for definition in definition_ids:
                         if self.evaluate_signature(definition):
-                            rec.write({
-                                "signature_definition_id": definition.id
-                            })
+                            rec.write({"signature_definition_id": definition.id})
                             break
             else:
                 rec.delete_signature()
@@ -64,21 +59,20 @@ class SignatureMixin(models.AbstractModel):
         obj_sign_def_signee = self.env["signature.definition.signee"]
         obj_sign_signee = created_trs = self.env["signature.signee"]
 
-        criteria = [
-            ("signature_id", "=", self.signature_definition_id.id)
-        ]
-        definition_signee_ids =\
-            obj_sign_def_signee.search(
-                criteria,
-            )
+        criteria = [("signature_id", "=", self.signature_definition_id.id)]
+        definition_signee_ids = obj_sign_def_signee.search(
+            criteria,
+        )
         if definition_signee_ids:
             for signee in definition_signee_ids:
-                created_trs += obj_sign_signee.create({
-                    "model": self._name,
-                    "res_id": self.id,
-                    "signature_definition_id": self.signature_definition_id.id,
-                    "signature_definition_signee_id": signee.id,
-                })
+                created_trs += obj_sign_signee.create(
+                    {
+                        "model": self._name,
+                        "res_id": self.id,
+                        "signature_definition_id": self.signature_definition_id.id,
+                        "signature_definition_signee_id": signee.id,
+                    }
+                )
         return created_trs
 
     @api.multi
@@ -90,10 +84,9 @@ class SignatureMixin(models.AbstractModel):
             ("model", "=", self._name),
             ("res_id", "=", self.id),
         ]
-        signee_ids =\
-            obj_sign_signee.search(
-                criteria,
-            )
+        signee_ids = obj_sign_signee.search(
+            criteria,
+        )
         if signee_ids:
             signee_ids.unlink()
         return True

@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 OpenSynergy Indonesia
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from openerp import api, fields, models, _
-from openerp.tools.safe_eval import safe_eval as eval
+from openerp import _, api, fields, models
 from openerp.exceptions import Warning as UserError
+from openerp.tools.safe_eval import safe_eval as eval
 
 
 class SignatureSignee(models.Model):
@@ -51,9 +50,7 @@ class SignatureSignee(models.Model):
         document_id = self.res_id
         document_model = self.model
 
-        object = self.env[document_model].browse(
-            [document_id]
-        )[0]
+        object = self.env[document_model].browse([document_id])[0]
         return object
 
     @api.multi
@@ -68,10 +65,9 @@ class SignatureSignee(models.Model):
         localdict = self._get_localdict()
         result = False
         try:
-            eval(python_condition,
-                 globals_dict=localdict, mode="exec", nocopy=True)
+            eval(python_condition, globals_dict=localdict, mode="exec", nocopy=True)
             result = localdict
-        except:
+        except Exception:
             msg_err = "Error when execute python code"
             raise UserError(_(msg_err))
 
@@ -86,14 +82,12 @@ class SignatureSignee(models.Model):
             signee_id = False
             if document.signature_definition_signee_id:
                 signature_type = document.signature_type
-                user_id =\
-                    document.signature_definition_signee_id.signature_user_id
+                user_id = document.signature_definition_signee_id.signature_user_id
                 if user_id:
                     signee_id = user_id.id
 
                 if signature_type == "python":
-                    python_code = \
-                        document.signature_definition_signee_id.python_code
+                    python_code = document.signature_definition_signee_id.python_code
                     result = document._evaluate_python_code(python_code)
                     if result:
                         if "user" in result:

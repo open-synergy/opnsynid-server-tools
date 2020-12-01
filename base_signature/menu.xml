@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2020 OpenSynergy Indonesia
      Copyright 2020 PT. Simetri Sinergi Indonesia
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
@@ -7,6 +7,7 @@
         <menuitem
             name="Signature"
             id="menu_signature_root"
-            parent="base.menu_administration"/>
+            parent="base.menu_administration"
+        />
     </data>
 </openerp>
