@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, api, fields, _
+from openerp import _, api, fields, models
 from openerp.exceptions import Warning as UserError
 from openerp.tools.safe_eval import safe_eval as eval
 
@@ -19,9 +18,7 @@ class BaseSequenceConfigurator(models.Model):
         string="Active",
         default=True,
     )
-    note = fields.Text(
-        string="Note"
-    )
+    note = fields.Text(string="Note")
     line_ids = fields.One2many(
         string="Lines",
         comodel_name="base.sequence_configurator_line",
@@ -110,10 +107,9 @@ class BaseSequenceConfiguratorLine(models.Model):
         result = False
         localdict = self._get_localdict(document)
         try:
-            eval(self.domain,
-                 localdict, mode="exec", nocopy=True)
+            eval(self.domain, localdict, mode="exec", nocopy=True)
             result = localdict["result"]
-        except:
+        except Exception:
             result = False
         return result
 
@@ -123,10 +119,9 @@ class BaseSequenceConfiguratorLine(models.Model):
         result = False
         localdict = self._get_localdict(document)
         try:
-            eval(self.sequence_computation_code,
-                 localdict, mode="exec", nocopy=True)
+            eval(self.sequence_computation_code, localdict, mode="exec", nocopy=True)
             result = localdict["result"]
-        except:
+        except:  # noqa: E722
             raise UserError(_("Error on get sequence"))
         return result
 
