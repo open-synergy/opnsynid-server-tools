@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
 # Copyright 2017 Pedro M. Baeza <pedro.baeza@tecnativa.com>
 # Copyright 2020 OpenSynergy Indonesia
@@ -6,18 +5,21 @@
 # License LGPL-3 - See http://www.gnu.org/licenses/lgpl-3.0.html
 
 from openerp import _, api, fields, models
-from openerp.exceptions import Warning as UserError, ValidationError
+from openerp.exceptions import ValidationError, Warning as UserError
 
 
 class CustomInfoProperty(models.Model):
     """Name of the custom information property."""
+
     _description = "Custom information property"
     _name = "custom.info.property"
     _order = "template_id, category_sequence, category_id, sequence, id"
     _sql_constraints = [
-        ("name_template",
-         "UNIQUE (name, template_id)",
-         "Another property with that name exists for that template."),
+        (
+            "name_template",
+            "UNIQUE (name, template_id)",
+            "Another property with that name exists for that template.",
+        ),
     ]
 
     name = fields.Char(
@@ -55,20 +57,20 @@ class CustomInfoProperty(models.Model):
     default_value = fields.Char(
         translate=True,
         help="Will be applied by default to all custom values of this "
-             "property. This is a char field, so you have to enter some value "
-             "that can be converted to the field type you choose.",
+        "property. This is a char field, so you have to enter some value "
+        "that can be converted to the field type you choose.",
     )
     required = fields.Boolean()
     minimum = fields.Float(
         help="For numeric fields, it means the minimum possible value; "
-             "for text fields, it means the minimum possible length. "
-             "If it is bigger than the maximum, then this check is skipped",
+        "for text fields, it means the minimum possible length. "
+        "If it is bigger than the maximum, then this check is skipped",
     )
     maximum = fields.Float(
         default=-1,
         help="For numeric fields, it means the maximum possible value; "
-             "for text fields, it means the maximum possible length. "
-             "If it is smaller than the minimum, then this check is skipped",
+        "for text fields, it means the maximum possible length. "
+        "If it is smaller than the minimum, then this check is skipped",
     )
     field_type = fields.Selection(
         selection=[
@@ -86,7 +88,7 @@ class CustomInfoProperty(models.Model):
         comodel_name="custom.info.option",
         string="Options",
         help="When the field type is 'selection', choose the available "
-             "options here.",
+        "options here.",
     )
 
     @api.multi
@@ -106,14 +108,16 @@ class CustomInfoProperty(models.Model):
         if self.default_value:
             try:
                 self.env["custom.info.value"]._transform_value(
-                    self.default_value, self.field_type, self)
+                    self.default_value, self.field_type, self
+                )
             except ValueError:
                 selection = dict(
-                    self._fields["field_type"].get_description(self.env)
-                    ["selection"])
+                    self._fields["field_type"].get_description(self.env)["selection"]
+                )
                 raise ValidationError(
-                    _("Default value %s cannot be converted to type %s.") %
-                    (self.default_value, selection[self.field_type]))
+                    _("Default value %s cannot be converted to type %s.")
+                    % (self.default_value, selection[self.field_type])
+                )
 
     @api.multi
     @api.onchange(
@@ -125,8 +129,9 @@ class CustomInfoProperty(models.Model):
         if self.required:
             if self.field_type == "bool":
                 raise UserError(
-                    _("If you require a Yes/No field, you can only set Yes."))
+                    _("If you require a Yes/No field, you can only set Yes.")
+                )
             if self.field_type in {"int", "float"}:
                 raise UserError(
-                    _("If you require a numeric field, you cannot set it to "
-                      "zero."))
+                    _("If you require a numeric field, you cannot set it to " "zero.")
+                )

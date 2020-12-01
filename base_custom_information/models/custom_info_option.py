@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
 # Copyright 2017 Pedro M. Baeza <pedro.baeza@tecnativa.com>
 # Copyright 2020 OpenSynergy Indonesia
@@ -33,7 +32,7 @@ class CustomInfoOption(models.Model):
         string="Additional template",
         comodel_name="custom.info.template",
         help="Additional template to be applied to the owner if this option "
-             "is chosen.",
+        "is chosen.",
     )
 
     @api.multi
@@ -44,7 +43,7 @@ class CustomInfoOption(models.Model):
             try:
                 prop.check_access_rule(operation)
                 return
-            except Exception as last:
+            except Exception as last:  # noqa: F841
                 pass
         if last:
             raise last

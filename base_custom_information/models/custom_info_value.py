@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
 # Copyright 2017 Pedro M. Baeza <pedro.baeza@tecnativa.com>
 # Copyright 2020 OpenSynergy Indonesia
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License LGPL-3 - See http://www.gnu.org/licenses/lgpl-3.0.html
-from openerp import _, api, fields, models, SUPERUSER_ID
+from openerp import SUPERUSER_ID, _, api, fields, models
 from openerp.exceptions import ValidationError
 from openerp.tools.safe_eval import safe_eval
 
@@ -13,12 +12,16 @@ class CustomInfoValue(models.Model):
     _description = "Custom information value"
     _name = "custom.info.value"
     _rec_name = "value"
-    _order = ("model, res_id, category_sequence, category_id, "
-              "property_sequence, property_id")
+    _order = (
+        "model, res_id, category_sequence, category_id, "
+        "property_sequence, property_id"
+    )
     _sql_constraints = [
-        ("property_owner",
-         "UNIQUE (property_id, model, res_id)",
-         "Another property with that name exists for that resource."),
+        (
+            "property_owner",
+            "UNIQUE (property_id, model, res_id)",
+            "Another property with that name exists for that resource.",
+        ),
     ]
 
     model = fields.Char(
@@ -86,11 +89,7 @@ class CustomInfoValue(models.Model):
         search="_search_value",
         help="Value, always converted to/from the typed field.",
     )
-    value_str = fields.Char(
-        string="Text value",
-        translate=True,
-        index=True
-    )
+    value_str = fields.Char(string="Text value", translate=True, index=True)
     value_int = fields.Integer(
         string="Whole number value",
         index=True,
@@ -114,14 +113,14 @@ class CustomInfoValue(models.Model):
     def check_access_rule(self, operation):
         """You access a value if you access its owner record."""
         if self.env.uid != SUPERUSER_ID:
-            for record in self.filtered('owner_id'):
+            for record in self.filtered("owner_id"):
                 record.owner_id.check_access_rights(operation)
                 record.owner_id.check_access_rule(operation)
         return super(CustomInfoValue, self).check_access_rule(operation)
 
     @api.model
     def _selection_owner_id(self):
-        models = self.env['ir.model'].search([])
+        models = self.env["ir.model"].search([])
         return [(model.model, model.name) for model in models]
 
     @api.multi
@@ -146,7 +145,7 @@ class CustomInfoValue(models.Model):
     @api.multi
     def _inverse_owner_id(self):
         """Store the owner according to the model and ID."""
-        for record in self.filtered('owner_id'):
+        for record in self.filtered("owner_id"):
             record.model = record.owner_id._name
             record.res_id = record.owner_id.id
 
@@ -174,12 +173,16 @@ class CustomInfoValue(models.Model):
     def _inverse_value(self):
         """Write the value correctly converted in the typed field."""
         for record in self:
-            if (record.field_type == "id" and
-                    record.value == record.value_id.display_name):
+            if (
+                record.field_type == "id"
+                and record.value == record.value_id.display_name
+            ):
                 # Avoid another search that can return a different value
                 continue
             record[record.field_name] = self._transform_value(
-                record.value, record.field_type, record.property_id,
+                record.value,
+                record.field_type,
+                record.property_id,
             )
 
     @api.multi
@@ -202,26 +205,32 @@ class CustomInfoValue(models.Model):
                 number = len(self.value_str)
                 message = _(
                     "Length for %(prop)s is %(val)s, but it should be "
-                    "between %(min)d and %(max)d.")
+                    "between %(min)d and %(max)d."
+                )
             elif self.field_type in {"int", "float"}:
                 number = value
                 if self.field_type == "int":
                     message = _(
                         "Value for %(prop)s is %(val)s, but it should be "
-                        "between %(min)d and %(max)d.")
+                        "between %(min)d and %(max)d."
+                    )
                 else:
                     message = _(
                         "Value for %(prop)s is %(val)s, but it should be "
-                        "between %(min)f and %(max)f.")
+                        "between %(min)f and %(max)f."
+                    )
             else:
                 return
             if not minimum <= number <= maximum:
-                raise ValidationError(message % {
-                    "prop": self.property_id.display_name,
-                    "val": number,
-                    "min": minimum,
-                    "max": maximum,
-                })
+                raise ValidationError(
+                    message
+                    % {
+                        "prop": self.property_id.display_name,
+                        "val": number,
+                        "min": minimum,
+                        "max": maximum,
+                    }
+                )
 
     @api.multi
     @api.onchange(
@@ -261,13 +270,22 @@ class CustomInfoValue(models.Model):
         if not value:
             value = False
         elif format_ == "id" and properties:
-            value = self.env["custom.info.option"].search([
-                ("property_ids", "in", properties.ids),
-                ("name", "ilike", u"%{}%".format(value)),
-            ], limit=1)
+            value = self.env["custom.info.option"].search(
+                [
+                    ("property_ids", "in", properties.ids),
+                    ("name", "ilike", u"%{}%".format(value)),
+                ],
+                limit=1,
+            )
         elif format_ == "bool":
             value = value.strip().lower() not in {
-                "0", "false", "", "no", "off", _("No").lower()}
+                "0",
+                "false",
+                "",
+                "no",
+                "off",
+                _("No").lower(),
+            }
         elif format_ not in {"str", "id"}:
             value = safe_eval("{!s}({!r})".format(format_, value))
         return value
@@ -276,15 +294,19 @@ class CustomInfoValue(models.Model):
     def _search_value(self, operator, value):
         """Search from the stored field directly."""
         options = (
-            o[0] for o in
-            self.property_id._fields["field_type"]
-            .get_description(self.env)["selection"])
+            o[0]
+            for o in self.property_id._fields["field_type"].get_description(self.env)[
+                "selection"
+            ]
+        )
         domain = []
         for fmt in options:
             try:
-                _value = (self._transform_value(value, fmt)
-                          if not isinstance(value, list) else
-                          [self._transform_value(v, fmt) for v in value])
+                _value = (
+                    self._transform_value(value, fmt)
+                    if not isinstance(value, list)
+                    else [self._transform_value(v, fmt) for v in value]
+                )
             except ValueError:
                 # If you are searching something that cannot be casted, then
                 # your property is probably from another type

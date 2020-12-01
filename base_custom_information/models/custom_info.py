@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2015 Sergio Teruel <sergio.teruel@tecnativa.com>
 # Copyright 2015 Carlos Dauden <carlos.dauden@tecnativa.com>
 # Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
@@ -18,6 +17,7 @@ class CustomInfoMixin(models.AbstractModel):
 
     See example in :mod:`res_partner`.
     """
+
     _description = "Inheritable abstract model to add custom info in any model"
     _name = "custom.info.mixin"
 
@@ -41,10 +41,13 @@ class CustomInfoMixin(models.AbstractModel):
             subfields = getattr(self, x2many_field)._fields.keys()
             for subfield in subfields:
                 field_onchange.setdefault(
-                    u"{}.{}".format(x2many_field, subfield), u"",
+                    u"{}.{}".format(x2many_field, subfield),
+                    u"",
                 )
         return super(CustomInfoMixin, self).onchange(
-            values, field_name, field_onchange,
+            values,
+            field_name,
+            field_onchange,
         )
 
     @api.onchange(
@@ -59,11 +62,13 @@ class CustomInfoMixin(models.AbstractModel):
         values = self.custom_info_ids
         values = values.filtered(lambda r: r.property_id not in to_remove)
         for prop in to_add.sorted():
-            newvalue = self.custom_info_ids.new({
-                "property_id": prop.id,
-                "res_id": self.id,
-                "value": prop.default_value,
-            })
+            newvalue = self.custom_info_ids.new(
+                {
+                    "property_id": prop.id,
+                    "res_id": self.id,
+                    "value": prop.default_value,
+                }
+            )
             newvalue._inverse_value()
             newvalue._compute_value()
             values += newvalue
@@ -76,7 +81,7 @@ class CustomInfoMixin(models.AbstractModel):
         """Remove linked custom info this way, as can't be handled
         automatically.
         """
-        info_values = self.mapped('custom_info_ids')
+        info_values = self.mapped("custom_info_ids")
         res = super(CustomInfoMixin, self).unlink()
         if res:
             info_values.unlink()
@@ -88,17 +93,20 @@ class CustomInfoMixin(models.AbstractModel):
     )
     def get_custom_info_value(self, properties):
         """Get ``custom.info.value`` records for the given property."""
-        return self.env["custom.info.value"].search([
-            ("model", "=", self._name),
-            ("res_id", "in", self.ids),
-            ("property_id", "in", properties.ids),
-        ])
+        return self.env["custom.info.value"].search(
+            [
+                ("model", "=", self._name),
+                ("res_id", "in", self.ids),
+                ("property_id", "in", properties.ids),
+            ]
+        )
 
     @api.multi
     def all_custom_info_templates(self):
         """Get all custom info templates involved in these owners."""
-        return (self.mapped("custom_info_template_id") |
-                self.mapped("custom_info_ids.value_id.template_id"))
+        return self.mapped("custom_info_template_id") | self.mapped(
+            "custom_info_ids.value_id.template_id"
+        )
 
     @api.multi
     def button_update_info(self):
@@ -110,12 +118,14 @@ class CustomInfoMixin(models.AbstractModel):
             template_prop_ids = tmpls.mapped("property_ids")
             to_update = template_prop_ids - custom_info_prop_ids
             for prop in to_update.sorted():
-                newvalue = obj_custom_info_val.create({
-                    "model": self._name,
-                    "property_id": prop.id,
-                    "res_id": self.id,
-                    "value": prop.default_value,
-                })
+                newvalue = obj_custom_info_val.create(
+                    {
+                        "model": self._name,
+                        "property_id": prop.id,
+                        "res_id": self.id,
+                        "value": prop.default_value,
+                    }
+                )
                 newvalue._inverse_value()
                 newvalue._compute_value()
         return True

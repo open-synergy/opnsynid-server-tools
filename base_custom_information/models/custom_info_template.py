@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
 # Copyright 2017 Pedro M. Baeza <pedro.baeza@tecnativa.com>
 # Copyright 2020 OpenSynergy Indonesia
@@ -11,19 +10,19 @@ from openerp.exceptions import ValidationError
 
 class CustomInfoTemplate(models.Model):
     """Defines custom properties expected for a given database object."""
+
     _description = "Custom information template"
     _name = "custom.info.template"
     _order = "model_id, name"
     _sql_constraints = [
-        ("name_model",
-         "UNIQUE (name, model_id)",
-         "Another template with that name exists for that model."),
+        (
+            "name_model",
+            "UNIQUE (name, model_id)",
+            "Another template with that name exists for that model.",
+        ),
     ]
 
-    name = fields.Char(
-        required=True,
-        translate=True
-    )
+    name = fields.Char(required=True, translate=True)
     model = fields.Char(
         string="Model technical name",
         inverse="_inverse_model",
@@ -82,8 +81,7 @@ class CustomInfoTemplate(models.Model):
         """
         for document in self:
             with self.env.norecompute():
-                oldmodels = \
-                    document.mapped("property_ids.info_value_ids.model")
+                oldmodels = document.mapped("property_ids.info_value_ids.model")
                 if oldmodels and document.model not in oldmodels:
                     raise ValidationError(
                         _("You cannot change the model because it is in use.")

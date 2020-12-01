@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 Jairo Llopis <jairo.llopis@tecnativa.com>
 # Copyright 2017 Pedro M. Baeza <pedro.baeza@tecnativa.com>
 # Copyright 2020 OpenSynergy Indonesia
@@ -14,6 +13,7 @@ class ResPartner(models.Model):
     Besides adding some visible feature to the module, this is useful for
     testing and example purposes.
     """
+
     _name = "res.partner"
     _inherit = [_name, "custom.info.mixin"]
 

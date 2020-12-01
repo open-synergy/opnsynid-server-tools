@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2015 Antiun Ingeniería S.L. - Sergio Teruel
 # Copyright 2015 Antiun Ingeniería S.L. - Carlos Dauden
 # Copyright 2015-2016 Jairo Llopis <jairo.llopis@tecnativa.com>
@@ -25,8 +24,8 @@
         "views/res_partner_view.xml",
     ],
     "author": "Tecnativa, "
-              "Odoo Community Association (OCA), "
-              "PT. Simetri Sinergi Indonesia, OpenSynergy Indonesia",
+    "Odoo Community Association (OCA), "
+    "PT. Simetri Sinergi Indonesia, OpenSynergy Indonesia",
     "website": "https://simetri-sinergi.id",
     "license": "LGPL-3",
     "application": True,
