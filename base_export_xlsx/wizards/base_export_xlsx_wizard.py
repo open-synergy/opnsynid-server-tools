@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 OpenSynergy Indonesia
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from openerp import models, fields, api, SUPERUSER_ID, _
+from openerp import SUPERUSER_ID, _, api, fields, models
 from openerp.exceptions import Warning as UserError
 from openerp.tools.safe_eval import safe_eval as eval
 
@@ -23,20 +22,15 @@ class BaseExportXlsxWizard(models.TransientModel):
     @api.model
     def _compute_allowed_template_ids(self):
         result = []
-        obj_xlsx_template =\
-            self.env["base.xlsx.template"]
+        obj_xlsx_template = self.env["base.xlsx.template"]
         active_model = self.env.context.get("active_model", "")
-        criteria = [
-            ("model_id.model", "=", active_model)
-        ]
+        criteria = [("model_id.model", "=", active_model)]
         template_ids = obj_xlsx_template.search(criteria)
         if template_ids:
             for template in template_ids:
                 allowed_print = self._check_allowed_print(template)
                 if allowed_print:
-                    condition =\
-                        self.check_python_cond(
-                            template.python_condition)
+                    condition = self.check_python_cond(template.python_condition)
                     if condition:
                         result.append(template.id)
         return result
@@ -68,10 +62,7 @@ class BaseExportXlsxWizard(models.TransientModel):
     )
     state = fields.Selection(
         string="Status",
-        selection=[
-            ("choose", "Choose"),
-            ("get", "Get")
-        ],
+        selection=[("choose", "Choose"), ("get", "Get")],
         default="choose",
     )
 
@@ -103,7 +94,7 @@ class BaseExportXlsxWizard(models.TransientModel):
         else:
             if object.group_ids:
                 user_group_ids = user.groups_id.ids
-                if (set(object.group_ids.ids) & set(user_group_ids)):
+                if set(object.group_ids.ids) & set(user_group_ids):
                     result = True
                 else:
                     result = False
@@ -115,9 +106,7 @@ class BaseExportXlsxWizard(models.TransientModel):
     def _get_object(self):
         active_id = self.env.context.get("active_id", False)
         active_model = self.env.context.get("active_model", "")
-        object = self.env[active_model].browse(
-            [active_id]
-        )[0]
+        object = self.env[active_model].browse([active_id])[0]
         return object
 
     @api.model
@@ -132,8 +121,7 @@ class BaseExportXlsxWizard(models.TransientModel):
         localdict = self._get_localdict()
 
         try:
-            eval(python_condition,
-                 localdict, mode="exec", nocopy=True)
+            eval(python_condition, localdict, mode="exec", nocopy=True)
             result = localdict["result"]
         except:  # noqa: E722
             result = False
@@ -145,7 +133,8 @@ class BaseExportXlsxWizard(models.TransientModel):
         self.ensure_one()
         obj_export_xlsx = self.env["base.export.xlsx"]
         data, name = obj_export_xlsx.create_xlsx_report(
-            self.template_id, self.res_model, self.res_id)
+            self.template_id, self.res_model, self.res_id
+        )
 
         self.write({"state": "get", "data": data, "name": name})
         return {

@@ -1,12 +1,13 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 OpenSynergy Indonesia
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from openerp.tools.safe_eval import safe_eval
-from datetime import datetime as dt
-from openerp import api, fields, models
-from dateutil.parser import parse
 import logging
+from datetime import datetime as dt
+
+from dateutil.parser import parse
+from openerp import api, fields, models
+from openerp.tools.safe_eval import safe_eval
+
 _logger = logging.getLogger(__name__)
 
 
@@ -51,9 +52,9 @@ class BaseXlsxTemplateSheetDetailDetail(models.Model):
     def isdatetime(self, input_val):
         try:
             if len(input_val) == 10:
-                dt.strptime(input_val, '%Y-%m-%d')
+                dt.strptime(input_val, "%Y-%m-%d")
             elif len(input_val) == 19:
-                dt.strptime(input_val, '%Y-%m-%d %H:%M:%S')
+                dt.strptime(input_val, "%Y-%m-%d %H:%M:%S")
             else:
                 return False
             return True
@@ -63,7 +64,7 @@ class BaseXlsxTemplateSheetDetailDetail(models.Model):
     @api.model
     def str_to_number(self, input_val):
         if isinstance(input_val, str):
-            if ' ' not in input_val:
+            if " " not in input_val:
                 if self.isdatetime(input_val):
                     return parse(input_val)
                 elif self.isinteger(input_val):
@@ -83,15 +84,13 @@ class BaseXlsxTemplateSheetDetailDetail(models.Model):
             data,
         )
         eval_cond = self.field_cond or 'value or ""'
-        eval_context = \
-            obj_xlsx_template.get_eval_context(self._name, self, field_data)
+        eval_context = obj_xlsx_template.get_eval_context(self._name, self, field_data)
         value = safe_eval(eval_cond, eval_context)
         if value is not None:
             col, row = obj_xlsx_template.split_row_col(self.cell)
             row_line = row + index
-            index_line = '%s%s' % (col, row_line)
+            index_line = "{}{}".format(col, row_line)
             sheet[index_line] = self.str_to_number(value)
         if self.style:
             styles = obj_xlsx_template.get_styles()
-            obj_xlsx_template.set_style(
-                sheet[index_line], self.style, styles)
+            obj_xlsx_template.set_style(sheet[index_line], self.style, styles)

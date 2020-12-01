@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2020 OpenSynergy Indonesia
      Copyright 2020 PT. Simetri Sinergi Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <openerp>
 <data>
 
@@ -11,9 +10,9 @@
     <field name="model">base.xlsx.template</field>
     <field name="arch" type="xml">
         <tree>
-            <field name="name"/>
-            <field name="model_id"/>
-            <field name="active"/>
+            <field name="name" />
+            <field name="model_id" />
+            <field name="active" />
         </tree>
     </field>
 </record>
@@ -23,57 +22,74 @@
     <field name="model">base.xlsx.template</field>
     <field name="arch" type="xml">
         <form string="Xlsx Template">
-            <header/>
+            <header />
             <sheet>
-                <div class="oe_right oe_button_box" style="width: 300px;" name="buttons"/>
+                <div
+                            class="oe_right oe_button_box"
+                            style="width: 300px;"
+                            name="buttons"
+                        />
                 <group colspan="4" col="4">
                     <group name="group_1" col="2" colspan="2">
-                        <field name="name"/>
-                        <field name="active"/>
+                        <field name="name" />
+                        <field name="active" />
                     </group>
                     <group name="group_2" col="2" colspan="2">
-                        <field name="file_name" invisible="1"/>
-                        <field name="file" filename="file_name"/>
-                        <field name="model_id"/>
+                        <field name="file_name" invisible="1" />
+                        <field name="file" filename="file_name" />
+                        <field name="model_id" />
                     </group>
                 </group>
                 <notebook>
                     <page name="page_sheet" string="Sheets">
                         <field name="template_sheet_ids">
                             <tree>
-                                <field name="name"/>
+                                <field name="name" />
                             </tree>
                             <form>
                                 <group name="group_1" col="2" colspan="2">
-                                    <field name="name"/>
+                                    <field name="name" />
                                 </group>
                                 <notebook>
                                     <page name="page_sheet_header" string="Headers">
-                                        <field name="template_sheet_header_ids" nolabel="1">
+                                        <field
+                                                    name="template_sheet_header_ids"
+                                                    nolabel="1"
+                                                >
                                             <tree editable="bottom">
-                                                <field name="cell"/>
-                                                <field name="field_name"/>
-                                                <field name="field_cond"/>
-                                                <field name="style"/>
+                                                <field name="cell" />
+                                                <field name="field_name" />
+                                                <field name="field_cond" />
+                                                <field name="style" />
                                             </tree>
                                         </field>
                                     </page>
                                     <page name="page_sheet_detail" string="Details">
-                                        <field name="template_sheet_detail_ids" nolabel="1">
+                                        <field
+                                                    name="template_sheet_detail_ids"
+                                                    nolabel="1"
+                                                >
                                             <tree>
-                                                <field name="field_name"/>
+                                                <field name="field_name" />
                                             </tree>
                                             <form>
-                                                <group name="group_1" col="2" colspan="2">
-                                                    <field name="field_name"/>
+                                                <group
+                                                            name="group_1"
+                                                            col="2"
+                                                            colspan="2"
+                                                        >
+                                                    <field name="field_name" />
                                                 </group>
-                                                <separator string="Details" colspan="4"/>
+                                                <separator
+                                                            string="Details"
+                                                            colspan="4"
+                                                        />
                                                 <field name="detail_ids" nolabel="1">
                                                     <tree editable="bottom">
-                                                        <field name="cell"/>
-                                                        <field name="field_name"/>
-                                                        <field name="field_cond"/>
-                                                        <field name="style"/>
+                                                        <field name="cell" />
+                                                        <field name="field_name" />
+                                                        <field name="field_cond" />
+                                                        <field name="style" />
                                                     </tree>
                                                 </field>
                                             </form>
@@ -84,13 +100,13 @@
                         </field>
                     </page>
                     <page name="groups" string="Groups">
-                        <field name="group_ids"/>
+                        <field name="group_ids" />
                     </page>
                     <page name="condition" string="Condition">
-                        <field name="python_condition"/>
+                        <field name="python_condition" />
                     </page>
                     <page string="Notes">
-                        <field name="description"/>
+                        <field name="description" />
                     </page>
                 </notebook>
             </sheet>
@@ -112,11 +128,12 @@
 </record>
 
 <menuitem
-    name="xlsx Templates"
-    id="base_xlsx_template_menu"
-    action="base_xlsx_template_action"
-    parent="base_export_xlsx.base_xlsx_template_root_menu"
-    sequence="1"/>
+            name="xlsx Templates"
+            id="base_xlsx_template_menu"
+            action="base_xlsx_template_action"
+            parent="base_export_xlsx.base_xlsx_template_root_menu"
+            sequence="1"
+        />
 
 </data>
 </openerp>

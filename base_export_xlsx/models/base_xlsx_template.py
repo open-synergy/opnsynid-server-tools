@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 OpenSynergy Indonesia
 # Copyright 2020 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
@@ -13,7 +12,7 @@ class BaseXlsxTemplate(models.Model):
         string="Name",
     )
     file_name = fields.Char(
-        string='File Name',
+        string="File Name",
     )
     file = fields.Binary(
         string="File Content",
@@ -29,8 +28,7 @@ class BaseXlsxTemplate(models.Model):
     )
     python_condition = fields.Text(
         string="Condition",
-        help="The result of executing the expresion must be "
-             "a boolean.",
+        help="The result of executing the expresion must be " "a boolean.",
         default="""# Available locals:\n#  - record: current record""",
     )
     group_ids = fields.Many2many(

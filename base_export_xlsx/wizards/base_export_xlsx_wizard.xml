@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <openerp>
     <data>
 
@@ -7,28 +7,46 @@
         <field name="model">base.export.xlsx.wizard</field>
         <field name="arch" type="xml">
           <form string="Get Import Template">
-              <field invisible="1" name="state"/>
-              <field name="name" invisible="1"/>
+              <field invisible="1" name="state" />
+              <field name="name" invisible="1" />
               <group states="choose">
                   <group>
-                      <field name="allowed_template_ids" invisible="1"/>
-                      <field name="template_id" widget="selection" domain="[('id', 'in', allowed_template_ids[0][2])]"/>
+                      <field name="allowed_template_ids" invisible="1" />
+                      <field
+                                name="template_id"
+                                widget="selection"
+                                domain="[('id', 'in', allowed_template_ids[0][2])]"
+                            />
                   </group>
                   <group>
-                      <field name="res_model" invisible="1"/>
-                      <field name="res_id" invisible="1"/>
+                      <field name="res_model" invisible="1" />
+                      <field name="res_id" invisible="1" />
                   </group>
               </group>
               <div states="get">
                   <h2>Export Completed!</h2>
-                  <p>Here is the exported file (.xlsx): <field name="data" readonly="1" filename="name"/></p>
+                  <p>Here is the exported file (.xlsx): <field
+                                name="data"
+                                readonly="1"
+                                filename="name"
+                            /></p>
               </div>
               <footer states="choose">
-                  <button name="action_export" string="Export" type="object" class="oe_highlight"/> or
-                  <button special="cancel" string="Cancel" type="object" class="oe_link"/>
+                  <button
+                            name="action_export"
+                            string="Export"
+                            type="object"
+                            class="oe_highlight"
+                        /> or
+                  <button
+                            special="cancel"
+                            string="Cancel"
+                            type="object"
+                            class="oe_link"
+                        />
               </footer>
               <footer states="get">
-                  <button special="cancel" string="Close" type="object"/>
+                  <button special="cancel" string="Close" type="object" />
               </footer>
           </form>
 
@@ -40,7 +58,7 @@
         <field name="res_model">base.export.xlsx.wizard</field>
         <field name="view_type">form</field>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="base_export_xlsx_wizard_view_form"/>
+        <field name="view_id" ref="base_export_xlsx_wizard_view_form" />
         <field name="target">new</field>
     </record>
 

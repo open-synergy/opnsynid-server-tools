@@ -1,24 +1,24 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-import re
-import os
-import time
-from openerp.tools.float_utils import float_compare
-from openerp import models, fields, api, _
-from openerp.exceptions import Warning as UserError
-from io import BytesIO
 import base64
 import logging
+import os
+import re
+import time
 from datetime import date, datetime as dt
+from io import BytesIO
+
+from openerp import _, api, fields, models
+from openerp.exceptions import Warning as UserError
+from openerp.tools.float_utils import float_compare
+
 _logger = logging.getLogger(__name__)
 
 try:
     from openpyxl import load_workbook
-    from openpyxl.styles import colors, PatternFill, Alignment, Font
+    from openpyxl.styles import Alignment, Font, PatternFill, colors
 except ImportError:
-    _logger.debug(
-        "Cannot import 'openpyxl'. Please make sure it is installed.")
+    _logger.debug("Cannot import 'openpyxl'. Please make sure it is installed.")
 
 
 class BaseExportXlsx(models.AbstractModel):
@@ -44,8 +44,7 @@ class BaseExportXlsx(models.AbstractModel):
         return {
             "font": {
                 "bold": Font(name="Arial", size=10, bold=True),
-                "bold_red": Font(name="Arial", size=10,
-                                 color=colors.RED, bold=True),
+                "bold_red": Font(name="Arial", size=10, color=colors.RED, bold=True),
             },
             "fill": {
                 "red": PatternFill("solid", fgColor="FF0000"),
@@ -76,7 +75,7 @@ class BaseExportXlsx(models.AbstractModel):
         obj_ir_config = self.env["ir.config_parameter"]
         ptemp = obj_ir_config.sudo().get_param("path_temp_file") or "/tmp"
         stamp = dt.utcnow().strftime("%H%M%S%f")[:-3]
-        ftemp = "%s/temp%s.xlsx" % (ptemp, stamp)
+        ftemp = "{}/temp{}.xlsx".format(ptemp, stamp)
         f = open(ftemp, "wb")
         f.write(decoded_data)
         f.seek(0)
@@ -89,16 +88,16 @@ class BaseExportXlsx(models.AbstractModel):
         wb.save(content)
         content.seek(0)
         out_file = base64.encodestring(content.read())
-        if record and 'name' in record and record.name:
+        if record and "name" in record and record.name:
             out_name = record.name.replace(" ", "").replace("/", "")
         else:
             fname = out_name.replace(" ", "").replace("/", "")
             ts = fields.Datetime.context_timestamp(self, dt.now())
-            out_name = "%s_%s" % (fname, ts.strftime("%Y%m%d_%H%M%S"))
+            out_name = "{}_{}".format(fname, ts.strftime("%Y%m%d_%H%M%S"))
         if not out_name or len(out_name) == 0:
             out_name = "unknown"
         out_ext = "xlsx"
-        return (out_file, "%s.%s" % (out_name, out_ext))
+        return (out_file, "{}.{}".format(out_name, out_ext))
 
     @api.model
     def get_field_data(self, field_name, data):
@@ -119,7 +118,8 @@ class BaseExportXlsx(models.AbstractModel):
                 raise UserError(_("Invalid style type %s" % key))
             if value.lower() not in styles[key].keys():
                 raise UserError(
-                    _("Invalid value %s for style type %s" % (value, key)))
+                    _("Invalid value {} for style type {}".format(value, key))
+                )
             cell_style = styles[key][value]
             if key == "font":
                 field.font = cell_style
