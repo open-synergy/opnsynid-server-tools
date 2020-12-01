@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright 2019 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, api, fields, SUPERUSER_ID
+from openerp import SUPERUSER_ID, api, fields, models
 from openerp.tools.safe_eval import safe_eval as eval
 
 
@@ -13,20 +12,15 @@ class BasePrintDocument(models.TransientModel):
     @api.model
     def _compute_allowed_print_action_ids(self):
         result = []
-        obj_print_policy =\
-            self.env["base.print.policy"]
+        obj_print_policy = self.env["base.print.policy"]
         active_model = self.env.context.get("active_model", "")
-        criteria = [
-            ("report_action_id.model", "=", active_model)
-        ]
+        criteria = [("report_action_id.model", "=", active_model)]
         print_policy_ids = obj_print_policy.search(criteria)
         if print_policy_ids:
             for print_policy in print_policy_ids:
                 allowed_print = self._check_allowed_print(print_policy)
                 if allowed_print:
-                    policy =\
-                        self.get_print_policy(
-                            print_policy.python_condition)
+                    policy = self.get_print_policy(print_policy.python_condition)
                     if policy:
                         result.append(print_policy.report_action_id.id)
         return result
@@ -54,7 +48,7 @@ class BasePrintDocument(models.TransientModel):
         else:
             if object.group_ids:
                 user_group_ids = user.groups_id.ids
-                if (set(object.group_ids.ids) & set(user_group_ids)):
+                if set(object.group_ids.ids) & set(user_group_ids):
                     result = True
                 else:
                     result = False
@@ -67,26 +61,21 @@ class BasePrintDocument(models.TransientModel):
         active_id = self.env.context.get("active_id", False)
         active_model = self.env.context.get("active_model", "")
         # TODO: Assert when invalid active_id or active_model
-        object = self.env[active_model].browse(
-            [active_id]
-        )[0]
+        object = self.env[active_model].browse([active_id])[0]
         return object
 
     @api.multi
     def _get_localdict(self):
-        return {
-            "record": self._get_object()
-        }
+        return {"record": self._get_object()}
 
     @api.multi
     def get_print_policy(self, python_condition):
         localdict = self._get_localdict()
 
         try:
-            eval(python_condition,
-                 localdict, mode="exec", nocopy=True)
+            eval(python_condition, localdict, mode="exec", nocopy=True)
             result = localdict["result"]
-        except:
+        except Exception:
             result = True
 
         return result
@@ -94,5 +83,4 @@ class BasePrintDocument(models.TransientModel):
     @api.multi
     def action_print(self):
         object = self._get_object()
-        return self.env["report"].get_action(
-            object, self.report_action_id.report_name)
+        return self.env["report"].get_action(object, self.report_action_id.report_name)
