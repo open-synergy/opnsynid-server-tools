@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -7,11 +6,8 @@ from .base import BaseCase
 
 class TestCreate(BaseCase):
     def create_application(self):
-        val = {
-            'name': 'Test Application'
-        }
-        category_id =\
-            self.obj_ir_module_category.create(val)
+        val = {"name": "Test Application"}
+        category_id = self.obj_ir_module_category.create(val)
         return category_id
 
     def test_create_menu_access(self):
@@ -28,8 +24,7 @@ class TestCreate(BaseCase):
         new.onchange_root_menu_id()
         new.create_menu_access()
 
-        child_menu_ids =\
-            self.check_child_menu_ids(True)['ids']
+        child_menu_ids = self.check_child_menu_ids(True)["ids"]
 
         # Search Custom Group Ids
         for child_menu in child_menu_ids:

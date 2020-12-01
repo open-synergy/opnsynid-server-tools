@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -14,8 +13,6 @@ class TestOnChange(BaseCase):
 
             new.onchange_root_menu_id()
 
-            child_menu_ids =\
-                self.check_child_menu_ids()['value']
+            child_menu_ids = self.check_child_menu_ids()["value"]
 
-            self.assertEqual(
-                child_menu_ids, [x.id for x in new.child_menu_ids])
+            self.assertEqual(child_menu_ids, [x.id for x in new.child_menu_ids])
