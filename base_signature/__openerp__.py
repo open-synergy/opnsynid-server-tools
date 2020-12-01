@@ -5,7 +5,7 @@
 {
     "name": "Base Signature",
     "summary": "Implement a signature information for document.",
-    "version": "8.0.1.0.0",
+    "version": "8.0.1.1.0",
     "category": "Tools",
     "website": "https://simetri-sinergi.id",
     "author": "PT. Simetri Sinergi Indonesia, OpenSynergy Indonesia",

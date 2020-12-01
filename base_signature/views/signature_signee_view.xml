@@ -9,7 +9,7 @@
             <field name="name">signature.signee.tree</field>
             <field name="model">signature.signee</field>
             <field name="arch" type="xml">
-                <tree string="Signee">
+                <tree string="Signee" editable="bottom" create="false" edit="false">
                     <field name="signature_key"/>
                     <field name="signature_item_id"/>
                     <field name="signee_id"/>
