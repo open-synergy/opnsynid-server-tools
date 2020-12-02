@@ -54,7 +54,7 @@ msgid "Display Name"
 msgstr ""
 
 #. module: base_signature
-#: code:addons/base_signature/models/signature_mixin.py:32
+#: code:addons/base_signature/models/signature_mixin.py:46
 #, python-format
 msgid "Error evaluating signature conditions.\n"
 " %s"
@@ -216,11 +216,6 @@ msgstr ""
 #. module: base_signature
 #: field:signature.mixin,signature_definition_id:0
 msgid "Signature Template"
-msgstr ""
-
-#. module: base_signature
-#: field:signature.signee,signature_definition_id:0
-msgid "Signature definition id"
 msgstr ""
 
 #. module: base_signature
