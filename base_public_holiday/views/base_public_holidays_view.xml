@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<openerp>
+    <data>
+
+        <record id="base_public_holiday_view_tree" model="ir.ui.view">
+            <field name="name">base.public.holiday.tree</field>
+            <field name="model">base.public.holiday</field>
+            <field name="arch" type="xml">
+                <tree string="Public Holidays">
+                    <field name="year"/>
+                    <field name="country_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="base_public_holiday_view_form" model="ir.ui.view">
+            <field name="name">base.public.holiday.form</field>
+            <field name="model">base.public.holiday</field>
+            <field name="arch" type="xml">
+                <form string="Public Holidays">
+                    <group>
+                        <field name="year"/>
+                        <field name="country_id"/>
+                    </group>
+                    <newline />
+                    <group string="Public Holidays">
+                        <button name="%(action_view_import_ics_wizard)d" string="Import from ics"
+                                type="action" class="btn-primary" colspan="4"/>
+                        <field name="line_ids" nolabel="1">
+                            <tree string="Public Holidays"
+                                editable="top">
+                                <field name="date" />
+                                <field name="name" />
+                                <field name="state_ids" widget="many2many_tags"
+                                    domain="[('country_id','=',parent.country_id)]" />
+                                <field name="variable" />
+                            </tree>
+                        </field>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="base_public_holiday_action" model="ir.actions.act_window">
+            <field name="name">Public Holidays</field>
+            <field name="res_model">base.public.holiday</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+            id="menu_public_holidays_view"
+            parent="resource.menu_resource_config"
+            action="base_public_holiday_action"
+            sequence="20"/>
+
+    </data>
+</openerp>
