@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2021 OpenSynergy Indonesia
+     Copyright 2021 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<openerp>
+<data>
+
+<record id="ir_sequence_view_form" model="ir.ui.view">
+    <field name="name">ir.sequence form</field>
+    <field name="model">ir.sequence</field>
+    <field name="inherit_id" ref="base.sequence_view"/>
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//notebook/page/group[last()]" position="after">
+                <group attrs="{'invisible': [('use_date_range', '=', False)]}">
+                    <div>
+                        When subsequences per date range are used, you can prefix variables with 'range_'
+                        to use the beginning of the range instead of the current date, e.g. %%(range_year)s instead of %%(year)s.
+                    </div>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='suffix']" position="after">
+                <field name="use_date_range"/>
+            </xpath>
+            <xpath expr="//notebook/page[1]/group[1]" position="after">
+                <field name="date_range_ids" attrs="{'invisible': [('use_date_range', '=', False)]}">
+                    <tree string="Sequences" editable="top">
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="number_next_actual" string="Next Number"/>
+                    </tree>
+                </field>
+            </xpath>
+        </data>
+    </field>
+</record>
+
+</data>
+</openerp>
