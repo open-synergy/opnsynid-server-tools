@@ -3,7 +3,7 @@
 # pylint: disable=locally-disabled, manifest-required-author
 {
     "name": "Configurable Sequence Generator",
-    "version": "8.0.1.0.1",
+    "version": "8.0.2.0.0",
     "category": "Administration",
     "website": "https://simetri-sinergi.id",
     "author": "OpenSynergy Indonesia",
@@ -11,6 +11,7 @@
     "installable": True,
     "depends": [
         "base",
+        "sequence_range",
     ],
     "data": [
         "security/ir.model.access.csv",
