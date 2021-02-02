@@ -141,8 +141,8 @@ class IrSequenceDateRange(models.Model):
             raise UserError(_("Step must not be zero."))
         query_select = """SELECT relname
                           FROM pg_class
-                          WHERE relkind=%s AND
-                          relname=%s""", ('S', seq_name)
+                          WHERE relkind='S' AND
+                          relname='%s'""" % (str(seq_name))
         cr.execute(query_select)
         if not cr.fetchone():
             return

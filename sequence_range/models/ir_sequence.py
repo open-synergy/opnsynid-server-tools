@@ -97,28 +97,44 @@ class IrSequence(models.Model):
             ir_sequence_date_range=seq_date.date_from)._next()
 
     def _interpolation_dict_context(self, context=None):
-        if context is None:
-            context = {}
         res = super(IrSequence, self)._interpolation_dict_context(context)
         dict = res.copy()
         range_date = datetime.now(pytz.timezone(context.get("tz") or "UTC"))
-
         if context.get("ir_sequence_date_range"):
             range_date = \
                 fields.Datetime.from_string(
                     context.get("ir_sequence_date_range"))
-        for key, value in res.iteritems():
-            dict["range_" + key] =\
-                range_date.strftime(value)
+            sequences = {
+                "year": "%Y",
+                "month": "%m",
+                "day": "%d",
+                "y": "%y",
+                "doy": "%j",
+                "woy": "%W",
+                "weekday": "%w",
+                "h24": "%H",
+                "h12": "%I",
+                "min": "%M",
+                "sec": "%S",
+            }
+            for key, value in sequences.iteritems():
+                dict["range_" + key] =\
+                    range_date.strftime(value)
         return dict
 
     @api.multi
     def _get_prefix_suffix(self):
         self.ensure_one()
         d = self._interpolation_dict()
+        prefix = self.prefix
+        suffix = self.suffix
+        if self._context.get("custom_prefix"):
+            prefix = self._context.get("custom_prefix")
+        if self._context.get("custom_sufix"):
+            suffix = self._context.get("custom_suffix")
         try:
-            interpolated_prefix = self._interpolate(self.prefix, d)
-            interpolated_suffix = self._interpolate(self.suffix, d)
+            interpolated_prefix = self._interpolate(prefix, d)
+            interpolated_suffix = self._interpolate(suffix, d)
         except ValueError:
             msg = _("Invalid prefix or suffix for sequence \'%s\'")
             raise UserError(msg) % (self.get("name"))
