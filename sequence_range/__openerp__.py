@@ -4,7 +4,7 @@
 # pylint: disable=locally-disabled, manifest-required-author
 {
     "name": "Sequence Range",
-    "version": "8.0.1.0.0",
+    "version": "8.0.1.1.0",
     "category": "Tools",
     "website": "https://simetri-sinergi.id",
     "author": "PT. Simetri Sinergi Indonesia, OpenSynergy Indonesia",
