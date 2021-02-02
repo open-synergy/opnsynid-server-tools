@@ -20,7 +20,11 @@ class BaseSequenceDocument(models.AbstractModel):
         result = configurator.initial_string
 
         if getattr(self, configurator.sequence_field_id.name) == result:
-            result = configurator._create_sequence(self)
+            sequence_date = False
+            if configurator.date_field_id:
+                sequence_date = getattr(self, configurator.date_field_id.name)
+
+            result = configurator._create_sequence(self, sequence_date)
         else:
             result = getattr(self, configurator.sequence_field_id.name)
 
