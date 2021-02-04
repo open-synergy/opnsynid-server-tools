@@ -99,33 +99,34 @@ class IrSequence(models.Model):
     def _interpolation_dict_context(self, context=None):
         res = super(IrSequence, self)._interpolation_dict_context(context)
         dict = res.copy()
-        range_date = datetime.now(pytz.timezone(context.get("tz") or "UTC"))
+        range_date = \
+            datetime.now(pytz.timezone(context.get("tz") or "UTC"))
         if context.get("ir_sequence_date_range"):
             range_date = \
                 fields.Datetime.from_string(
                     context.get("ir_sequence_date_range"))
-            sequences = {
-                "year": "%Y",
-                "month": "%m",
-                "day": "%d",
-                "y": "%y",
-                "doy": "%j",
-                "woy": "%W",
-                "weekday": "%w",
-                "h24": "%H",
-                "h12": "%I",
-                "min": "%M",
-                "sec": "%S",
-            }
-            for key, value in sequences.iteritems():
-                dict["range_" + key] =\
-                    range_date.strftime(value)
+        sequences = {
+            "year": "%Y",
+            "month": "%m",
+            "day": "%d",
+            "y": "%y",
+            "doy": "%j",
+            "woy": "%W",
+            "weekday": "%w",
+            "h24": "%H",
+            "h12": "%I",
+            "min": "%M",
+            "sec": "%S",
+        }
+        for key, value in sequences.iteritems():
+            dict["range_" + key] =\
+                range_date.strftime(value)
         return dict
 
     @api.multi
     def _get_prefix_suffix(self):
         self.ensure_one()
-        d = self._interpolation_dict()
+        d = self._interpolation_dict_context(self._context)
         prefix = self.prefix
         suffix = self.suffix
         if self._context.get("custom_prefix"):
