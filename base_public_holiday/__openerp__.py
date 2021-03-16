@@ -5,7 +5,7 @@
 {
     "name": "Base Public Holidays",
     "summary": "Manage Public Holidays.",
-    "version": "8.0.1.0.0",
+    "version": "8.0.2.0.0",
     "category": "Base",
     "website": "https://simetri-sinergi.id",
     "author": "Michael Telahun Makonnen <mmakonnen@gmail.com>, "
@@ -17,6 +17,7 @@
     },
     "depends": [
         "base",
+        "resource",
     ],
     "data": [
         "security/ir.model.access.csv",
