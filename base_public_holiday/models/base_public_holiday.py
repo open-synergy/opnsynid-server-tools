@@ -83,34 +83,33 @@ class BasePublicHoliday(models.Model):
     @api.returns(
         "base.public.holiday.line"
     )
-    def get_holidays_list(self, year, employee_id=None):
-        """
-        Returns recordset of hr.holidays.public.line
-        for the specified year and employee
-        :param year: year as string
-        :param employee_id: ID of the employee
-        :return: recordset of hr.holidays.public.line
-        """
-        holidays_filter = [("year", "=", year)]
-        employee = False
-        if employee_id:
-            employee = self.env["hr.employee"].browse(employee_id)
-            if employee.address_id and employee.address_id.country_id:
-                holidays_filter.append((
-                    "country_id",
-                    "in",
-                    [False, employee.address_id.country_id.id]))
+    def get_holidays_list(self, year, country_id=None, state_id=None):
+        holidays_filter = [
+            ("year", "=", year),
+        ]
+        if country_id:
+            holidays_filter.append((
+                "country_id",
+                "=",
+                country_id))
+        else:
+            holidays_filter.append((
+                "country_id",
+                "=",
+                False))
 
         pholidays = self.search(holidays_filter)
         if not pholidays:
             return list()
 
-        states_filter = [("year_id", "in", pholidays.ids)]
-        if employee and employee.address_id and employee.address_id.state_id:
+        states_filter = [
+            ("year_id", "in", pholidays.ids),
+        ]
+        if state_id:
             states_filter += ["|",
                               ("state_ids", "=", False),
                               ("state_ids", "=",
-                               employee.address_id.state_id.id)]
+                               state_id)]
         else:
             states_filter.append(("state_ids", "=", False))
 
@@ -119,17 +118,11 @@ class BasePublicHoliday(models.Model):
         return holidays_lines
 
     @api.model
-    def is_public_holiday(self, selected_date, employee_id=None):
-        """
-        Returns True if selected_date is a public holiday for the employee
-        :param selected_date: datetime object or string
-        :param employee_id: ID of the employee
-        :return: bool
-        """
+    def is_public_holiday(self, selected_date, country_id=None, state_id=None):
         if isinstance(selected_date, basestring):
             selected_date = fields.Date.from_string(selected_date)
         holidays_lines = self.get_holidays_list(
-            selected_date.year, employee_id=employee_id)
+            selected_date.year, country_id=country_id, state_id=state_id)
         if holidays_lines and len(holidays_lines.filtered(
                 lambda r: r.date == fields.Date.to_string(selected_date))):
             return True
