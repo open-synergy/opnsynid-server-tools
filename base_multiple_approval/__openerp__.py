@@ -6,7 +6,7 @@
 {
     "name": "Base Multiple Approval",
     "summary": "Implement a validation process based on tiers.",
-    "version": "8.0.2.4.0",
+    "version": "8.0.2.4.1",
     "category": "Tools",
     "website": "https://simetri-sinergi.id",
     "author": "Eficent, Odoo Community Association (OCA), "

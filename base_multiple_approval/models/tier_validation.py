@@ -32,10 +32,12 @@ class TierValidation(models.AbstractModel):
     need_validation = fields.Boolean(
         string="Need Validation",
         compute="_compute_need_validation",
+        search="_search_need_validation",
     )
     rejected = fields.Boolean(
         string="Rejected",
         compute="_compute_validated_rejected",
+        search="_search_rejected",
     )
     definition_id = fields.Many2one(
         string="Definition",
@@ -135,6 +137,28 @@ class TierValidation(models.AbstractModel):
                            .mapped("reviewer_ids")
                            .mapped("partner_id"))
         return partner
+
+    @api.model
+    def _search_rejected(self, operator, value):
+        rec = self.search([])
+        if operator == "=":
+            rec = rec.filtered(
+                lambda r: r.review_ids and r.rejected == value)
+        else:
+            rec = rec.filtered(
+                lambda r: r.review_ids and r.rejected != value)
+        return [("id", "in", rec.ids)]
+
+    @api.model
+    def _search_need_validation(self, operator, value):
+        rec = self.search([])
+        if operator == "=":
+            rec = rec.filtered(
+                lambda r: r.review_ids and r.need_validation == value)
+        else:
+            rec = rec.filtered(
+                lambda r: r.review_ids and r.need_validation != value)
+        return [("id", "in", rec.ids)]
 
     @api.model
     def _search_validated(self, operator, value):
