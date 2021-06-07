@@ -365,3 +365,9 @@ class TierValidation(models.AbstractModel):
         for rec in self:
             if getattr(rec, self._state_field) in self._state_from:
                 rec.mapped("review_ids").unlink()
+
+    @api.multi
+    def unlink(self):
+        for document in self:
+            document.mapped("review_ids").unlink()
+        return super(TierValidation, self).unlink()
