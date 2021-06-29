@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2019 OpenSynergy Indonesia
+     Copyright 2020 PT. Simetri Sinergi Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <openerp>
     <data>
 
@@ -10,10 +10,10 @@
             <field name="model">base.print.policy</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name"/>
-                    <field name="report_action_id"/>
-                    <field name="model"/>
-                    <field name="active"/>
+                    <field name="name" />
+                    <field name="report_action_id" />
+                    <field name="model" />
+                    <field name="active" />
                 </tree>
             </field>
         </record>
@@ -25,20 +25,20 @@
                 <form string="Print Policy">
                     <sheet>
                         <group name="group_1" col="2" colspan="2">
-                            <field name="name"/>
-                            <field name="report_action_id"/>
-                            <field name="model"/>
-                            <field name="active"/>
+                            <field name="name" />
+                            <field name="report_action_id" />
+                            <field name="model" />
+                            <field name="active" />
                         </group>
                         <notebook>
                             <page name="condition" string="Condition">
-                                <field name="python_condition"/>
+                                <field name="python_condition" />
                             </page>
                             <page name="groups" string="Groups">
-                                <field name="group_ids"/>
+                                <field name="group_ids" />
                             </page>
                             <page name="note" string="Notes">
-                                <field name="description"/>
+                                <field name="description" />
                             </page>
                         </notebook>
                     </sheet>
@@ -64,7 +64,8 @@
             name="Print Policy"
             action="base_print_policy_action"
             parent="report.reporting_menuitem"
-            sequence="999"/>
+            sequence="999"
+        />
 
     </data>
 </openerp>

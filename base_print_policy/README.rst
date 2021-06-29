@@ -38,6 +38,7 @@ Contributors
 
 * Andhitia Rama <andhitia.r@gmail.com>
 * Michael Viriyananda <viriyananda.michael@gmail.com>
+* Nur Azmi <azmimr67@gmail.com>
 
 Maintainer
 ----------
