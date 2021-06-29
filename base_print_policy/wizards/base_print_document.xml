@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <openerp>
     <data>
         <record id="base_print_document_view_form" model="ir.ui.view">
@@ -7,13 +7,23 @@
             <field name="arch" type="xml">
                 <form>
                     <group name="group_1" colspan="4" col="2">
-                        <field name="allowed_print_action_ids" invisible="1"/>
-                        <field name="report_action_id" domain="[('id', 'in', allowed_print_action_ids[0][2])]"/>
+                        <field name="allowed_print_action_ids" invisible="1" />
+                        <field
+                            name="report_action_id"
+                            widget="radio"
+                            domain="[('id', 'in', allowed_print_action_ids[0][2])]"
+                        />
                     </group>
                     <footer>
-                        <button string="Print" name="action_print" type="object" class="oe_highlight" icon="gtk-print"/>
+                        <button
+                            string="Print"
+                            name="action_print"
+                            type="object"
+                            class="oe_highlight"
+                            icon="gtk-print"
+                        />
                         or
-                        <button string="Cancel" class="oe_link" special="cancel"/>
+                        <button string="Cancel" class="oe_link" special="cancel" />
                     </footer>
                 </form>
             </field>
@@ -24,7 +34,7 @@
             <field name="res_model">base.print.document</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="base_print_document_view_form"/>
+            <field name="view_id" ref="base_print_document_view_form" />
             <field name="target">new</field>
         </record>
     </data>
