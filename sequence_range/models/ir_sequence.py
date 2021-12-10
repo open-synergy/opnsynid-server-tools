@@ -1,17 +1,19 @@
 # Copyright 2021 OpenSynergy Indonesia
 # Copyright 2021 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+import logging
 from datetime import datetime, timedelta
+
 import pytz
-from openerp import models, api, fields
+from openerp import api, fields, models
 from openerp.exceptions import Warning as UserError
 from openerp.tools.translate import _
-import logging
+
 _logger = logging.getLogger(__name__)
 
 try:
-    import pandas as pd
     import numpy as np
+    import pandas as pd
 except (ImportError, IOError) as err:
     _logger.debug(err)
 
@@ -46,8 +48,7 @@ class IrSequence(models.Model):
                     pass
                 else:
                     for sub_seq in seq.date_range_ids:
-                        seq_name = \
-                            "ir_sequence_%03d_%03d" % (seq.id, sub_seq.id)
+                        seq_name = "ir_sequence_%03d_%03d" % (seq.id, sub_seq.id)
                         sub_seq._create_sequence(seq_name, i, n)
         return super(IrSequence, self).write(values)
 
@@ -57,25 +58,37 @@ class IrSequence(models.Model):
         year = fields.Date.from_string(date).strftime("%Y")
         date_from = "{}-01-01".format(year)
         date_to = "{}-12-31".format(year)
-        date_range = obj_sequence_range.search([
-            ("sequence_id", "=", self.id),
-            ("date_from", ">=", date),
-            ("date_from", "<=", date_to)], order="date_from desc", limit=1)
+        date_range = obj_sequence_range.search(
+            [
+                ("sequence_id", "=", self.id),
+                ("date_from", ">=", date),
+                ("date_from", "<=", date_to),
+            ],
+            order="date_from desc",
+            limit=1,
+        )
         if date_range and date_range.date_from:
             dt_from = pd.to_datetime(date_range.date_from)
             date_to = dt_from + timedelta(days=-1)
-        date_range = obj_sequence_range.search([
-            ("sequence_id", "=", self.id),
-            ("date_to", ">=", date_from),
-            ("date_to", "<=", date)], order="date_to desc", limit=1)
+        date_range = obj_sequence_range.search(
+            [
+                ("sequence_id", "=", self.id),
+                ("date_to", ">=", date_from),
+                ("date_to", "<=", date),
+            ],
+            order="date_to desc",
+            limit=1,
+        )
         if date_range and date_range.date_to:
             dt_to = pd.to_datetime(date_range.date_to)
             date_from = dt_to + np.timedelta64(1, "D")
-        seq_date_range = obj_sequence_range.sudo().create({
-            "date_from": date_from,
-            "date_to": date_to,
-            "sequence_id": self.id,
-        })
+        seq_date_range = obj_sequence_range.sudo().create(
+            {
+                "date_from": date_from,
+                "date_to": date_to,
+                "sequence_id": self.id,
+            }
+        )
         return seq_date_range
 
     @api.multi
@@ -87,24 +100,26 @@ class IrSequence(models.Model):
         dt = fields.Date.today()
         if self._context.get("ir_sequence_date"):
             dt = self._context.get("ir_sequence_date")
-        seq_date = obj_sequence_range.search([
-            ("sequence_id", "=", self.id),
-            ("date_from", "<=", dt),
-            ("date_to", ">=", dt)], limit=1)
+        seq_date = obj_sequence_range.search(
+            [
+                ("sequence_id", "=", self.id),
+                ("date_from", "<=", dt),
+                ("date_to", ">=", dt),
+            ],
+            limit=1,
+        )
         if not seq_date:
             seq_date = self._create_date_range_seq(dt)
-        return seq_date.with_context(
-            ir_sequence_date_range=seq_date.date_from)._next()
+        return seq_date.with_context(ir_sequence_date_range=dt)._next()
 
     def _interpolation_dict_context(self, context=None):
         res = super(IrSequence, self)._interpolation_dict_context(context)
         dict = res.copy()
-        range_date = \
-            datetime.now(pytz.timezone(context.get("tz") or "UTC"))
+        range_date = datetime.now(pytz.timezone(context.get("tz") or "UTC"))
         if context.get("ir_sequence_date_range"):
-            range_date = \
-                fields.Datetime.from_string(
-                    context.get("ir_sequence_date_range"))
+            range_date = fields.Datetime.from_string(
+                context.get("ir_sequence_date_range")
+            )
         sequences = {
             "year": "%Y",
             "month": "%m",
@@ -118,9 +133,8 @@ class IrSequence(models.Model):
             "min": "%M",
             "sec": "%S",
         }
-        for key, value in sequences.iteritems():
-            dict["range_" + key] =\
-                range_date.strftime(value)
+        for key, value in sequences.iteritems():  # noqa: B301
+            dict["range_" + key] = range_date.strftime(value)
         return dict
 
     @api.multi
@@ -137,7 +151,7 @@ class IrSequence(models.Model):
             interpolated_prefix = self._interpolate(prefix, d)
             interpolated_suffix = self._interpolate(suffix, d)
         except ValueError:
-            msg = _("Invalid prefix or suffix for sequence \'%s\'")
+            msg = _("Invalid prefix or suffix for sequence '%s'")
             raise UserError(msg) % (self.get("name"))
         return interpolated_prefix, interpolated_suffix
 
@@ -146,6 +160,7 @@ class IrSequence(models.Model):
         self.ensure_one()
         interpolated_prefix, interpolated_suffix = self._get_prefix_suffix()
         return (
-            interpolated_prefix +
-            "%%0%sd" % self.padding % number_next +
-            interpolated_suffix)
+            interpolated_prefix
+            + "%%0%sd" % self.padding % number_next
+            + interpolated_suffix
+        )
