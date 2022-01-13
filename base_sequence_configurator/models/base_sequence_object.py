@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, api, _
+from openerp import _, api, models
 from openerp.exceptions import Warning as UserError
 
 
@@ -19,7 +18,11 @@ class BaseSequenceDocument(models.AbstractModel):
 
         result = configurator.initial_string
 
-        if getattr(self, configurator.sequence_field_id.name) == result:
+        if (
+            getattr(self, configurator.sequence_field_id.name) == result
+            or getattr(self, configurator.sequence_field_id.name) == ""
+            or not getattr(self, configurator.sequence_field_id.name)
+        ):
             result = configurator._create_sequence(self)
         else:
             result = getattr(self, configurator.sequence_field_id.name)
