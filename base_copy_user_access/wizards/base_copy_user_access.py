@@ -31,8 +31,6 @@ class WizardBaseCopyUserAccess(models.TransientModel):
         res['arch'] = etree.tostring(doc)
         return res
 
-    # @api.multi
-    @api.model
     def copy_access_right(self):
         res = []
         self.ensure_one()
