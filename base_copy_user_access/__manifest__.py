@@ -11,7 +11,10 @@
     "category": "Generic Modules/Base",
     "website": "https://simetri-sinergi.id",
     "depends": ["base"],
-    "data": ["wizards/base_copy_user_access.xml"],
+    "data": [
+        "wizards/base_copy_user_access.xml",
+        "security/ir.model.access.csv",
+    ],
     "installable": True,
     "application": False,
     "license": "AGPL-3",

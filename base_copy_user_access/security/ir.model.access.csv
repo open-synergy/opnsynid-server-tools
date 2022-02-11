@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_base_copy_user_access_all,base.copy_user_access - All user ,model_base_copy_user_access,,1,1,1,1
