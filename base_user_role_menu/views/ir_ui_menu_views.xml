@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 PT. Simetri Sinergi Indonesia
+     Copyright 2022 OpenSynergy Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<data>
+
+<record id="ir_ui_menu_view_form" model="ir.ui.view">
+    <field name="name">ir.ui.menu form</field>
+    <field name="model">ir.ui.menu</field>
+    <field name="inherit_id" ref="base.edit_menu_access" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='groups_id']" position="attributes">
+                <attribute name="widget">many2many_checkboxes</attribute>
+                <attribute
+                            name="domain"
+                        >[('category_id','=',%(base_user_role.ir_module_category_role)d)]</attribute>
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="ir_ui_menu_by_parent_action" model="ir.actions.act_window">
+    <field name="name">Menu Structures</field>
+    <field name="res_model">ir.ui.menu</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[('id','child_of',active_id)]</field>
+</record>
+
+<record id="ir_ui_menu_view_tree" model="ir.ui.view">
+    <field name="name">ir.ui.menu tree</field>
+    <field name="model">ir.ui.menu</field>
+    <field name="inherit_id" ref="base.edit_menu" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='complete_name']" position="after">
+                <button
+                            name="%(base_user_role_menu.ir_ui_menu_by_parent_action)d"
+                            type="action"
+                            string="Open Childs"
+                            icon="gtk-indent"
+                        />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+</data>
+</odoo>
