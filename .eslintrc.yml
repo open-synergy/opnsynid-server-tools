@@ -6,12 +6,6 @@ env:
 parserOptions:
   ecmaVersion: 2017
 
-overrides:
-  - files:
-      - "**/*.esm.js"
-    parserOptions:
-      sourceType: module
-
 # Globals available in Odoo that shouldn't produce errorings
 globals:
   _: readonly
