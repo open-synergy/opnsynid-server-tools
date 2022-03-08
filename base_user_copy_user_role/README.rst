@@ -8,17 +8,17 @@ Base Copy User Role
 
 This Module allows the administrator to copy user role from one user to many users.
 
-This Module created a wizard that can be role on "Action" button in Settings > Users > Users.
+This Module created a wizard that can be role on "Action" button in Settings > Users > Users & Companies.
 
 Installation
 ============
 
 To install this module, you need to:
 
-1.  Clone the branch 8.0 of the repository https://github.com/open-synergy/opnsynid-server-tools
+1.  Clone the branch 14.0 of the repository https://github.com/open-synergy/opnsynid-server-tools
 2.  Add the path to this repository in your configuration (addons-path)
 3.  Update the module list
-4.  Go to menu *Setting -> Modules -> Local Modules*
+4.  Go to menu *Apps -> Apps -> Main Apps*
 5.  Search For *Base Copy User Role*
 6.  Install the module
 
@@ -26,7 +26,7 @@ Usage
 =====
 
 To use this module, you need to:
-    - Go to menu Settings > Users > Users
+    - Go to menu Settings > Users > Users & Companies
     - Select Users on the list of tree view
     - Click "Action" button on the top
     - Click "Copy User Role"
@@ -93,6 +93,7 @@ Contributors
 
 * Nur Azmi <azmimr67@gmail.com>
 * Michael Viriyananda <viriyananda.michael@gmail.com>
+* Andhitia Rama <andhitia.r@gmail.com>
 
 Maintainer
 ----------
