@@ -10,7 +10,7 @@
             <field name="model">base.copy_user_access</field>
             <field name="arch" type="xml">
                 <form string="Copy Access Right From User">
-                    <group col="4">
+                    <group colspan="4" cols="2">
                         <field name="user_id" required="True" />
                     </group>
                     <footer>
@@ -20,8 +20,11 @@
                             type="object"
                             class="oe_highlight"
                         />
-                        Or
-                        <button special="cancel" string="_Cancel" class="oe_link" />
+                        <button
+                            string="Cancel"
+                            class="btn btn-secondary"
+                            special="cancel"
+                        />
                     </footer>
                 </form>
             </field>

@@ -8,7 +8,7 @@ Base Copy User Access
 
 This Module allows the administrator to copy user access from one user to many users.
 
-This Module created a wizard that can be access on "Action" button in Settings > Users > Users.
+This Module created a wizard that can be access on "Action" button in Settings > Users > Users & Companies.
 
 Installation
 ============
@@ -18,7 +18,7 @@ To install this module, you need to:
 1.  Clone the branch 14.0 of the repository https://github.com/open-synergy/opnsynid-server-tools
 2.  Add the path to this repository in your configuration (addons-path)
 3.  Update the module list
-4.  Go to menu *Setting -> Modules -> Local Modules*
+4.  Go to menu *Apps -> Apps -> Main Apps*
 5.  Search For *Base Copy User Access*
 6.  Install the module
 
@@ -26,9 +26,9 @@ Usage
 =====
 
 To use this module, you need to:
-    - Go to menu Settings > Users > Users
+    - Go to menu Settings > Users > Users & Companies
     - Select Users on the list of tree view
-    - Click "More" button on the top
+    - Click "Action" button on the top
     - Click "Copy User Access"
     - Select the user on the selection
     - Click "Copy"
