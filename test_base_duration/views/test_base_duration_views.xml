@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+<record id="test_base_duration_view_tree" model="ir.ui.view">
+    <field name="name">test.base.duration.mixin.tree</field>
+    <field name="model">test.base_duration</field>
+    <field name="arch" type="xml">
+        <tree>
+            <field name="code" />
+            <field name="name" />
+        </tree>
+    </field>
+</record>
+
+<record id="test_base_duration_view_form" model="ir.ui.view">
+    <field name="name">test.base.duration.mixin.form</field>
+    <field name="model">test.base_duration</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <group name="left">
+                        <field name="code" />
+                        <field name="name" />
+                    </group>
+                    <group name="right">
+                        <field name="duration_id" />
+                        <field name="date" />
+                        <field name="date_result" />
+                    </group>
+                </group>
+                <notebook>
+                    <page name="page_note" string="Notes">
+                        <field name="note" />
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<record id="test_base_duration_action" model="ir.actions.act_window">
+    <field name="name">Test Duration</field>
+    <field name="res_model">test.base_duration</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<menuitem
+        id="test_base_duration_menu"
+        name="Test Duration"
+        parent="resource.menu_resource_config"
+        action="test_base_duration_action"
+        sequence="100"
+    />
+</odoo>
