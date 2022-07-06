@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3.0-standalone.html). -->
+<odoo>
+
+    <record id="base_duration_view_search" model="ir.ui.view">
+        <field name="name">base.duration.search</field>
+        <field name="model">base.duration</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_search"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data />
+        </field>
+    </record>
+
+    <record id="base_duration_view_tree" model="ir.ui.view">
+        <field name="name">base.duration.tree</field>
+        <field name="model">base.duration</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_tree"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="number_of_days" />
+                    <field name="include_weekend" widget="boolean_toggle" />
+                    <field name="include_public_holiday" widget="boolean_toggle" />
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="base_duration_view_form" model="ir.ui.view">
+        <field name="name">base.duration.form</field>
+        <field name="model">base.duration</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_form"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='active']" position="before">
+                    <field name="number_of_days" />
+                    <field name="include_weekend" widget="boolean_toggle" />
+                    <field name="include_public_holiday" widget="boolean_toggle" />
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="base_duration_action" model="ir.actions.act_window">
+        <field name="name">Duration</field>
+        <field name="res_model">base.duration</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_base_duration"
+        parent="resource.menu_resource_config"
+        action="base_duration_action"
+        sequence="30"
+    />
+
+</odoo>
