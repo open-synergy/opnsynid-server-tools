@@ -1,5 +1,5 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: a39b200
+_commit: edb24fc
 _src_path: gh:open-synergy/ssi-addons-repo-template
 dependency_installation_mode: OCA
 generate_requirements_txt: true
