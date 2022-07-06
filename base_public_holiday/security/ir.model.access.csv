@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_base_public_holiday_all,access_base_public_holiday - All user ,model_base_public_holiday,,1,0,0,0
+access_base_public_holiday_admin,access_base_public_holiday - Administrator Setting,model_base_public_holiday,base.group_system,1,1,1,1
+access_base_public_holiday_line_all,access_base_public_holiday_line - All user ,model_base_public_holiday_line,,1,0,0,0
+access_base_public_holiday_line_admin,access_base_public_holiday_line - Administrator Setting,model_base_public_holiday_line,base.group_system,1,1,1,1
+access_base_public_holidays_import_ics_wizard_all,base_public_holidays.import_ics_wizard - All user ,model_base_public_holidays_import_ics_wizard,,1,0,0,0
+access_base_public_holidays_import_ics_wizard_admin,base_public_holidays.import_ics_wizard - Administrator Setting ,model_base_public_holidays_import_ics_wizard,base.group_system,1,1,1,1

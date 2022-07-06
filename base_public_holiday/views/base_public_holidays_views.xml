@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3.0-standalone.html). -->
+<odoo>
+
+    <record id="base_public_holiday_view_tree" model="ir.ui.view">
+        <field name="name">base.public.holiday.tree</field>
+        <field name="model">base.public.holiday</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="year" />
+                <field name="country_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="base_public_holiday_view_form" model="ir.ui.view">
+        <field name="name">base.public.holiday.form</field>
+        <field name="model">base.public.holiday</field>
+        <field name="arch" type="xml">
+            <form>
+                <group name="header1" colspan="4" col="2">
+                    <field name="year" options="{'format':0}" />
+                    <field name="country_id" />
+                </group>
+                <notebook>
+                    <page name="public_holiday" string="Public Holidays">
+                        <group name="public_holiday_1">
+                            <button
+                                name="%(action_view_import_ics_wizard)d"
+                                string="Import from ics"
+                                type="action"
+                                class="btn-primary"
+                                icon="fa-download"
+                                colspan="4"
+                            />
+                        </group>
+                        <group name="public_holiday_2">
+                            <field name="line_ids" nolabel="1">
+                                <tree string="Public Holidays" editable="top">
+                                    <field name="date" />
+                                    <field name="name" />
+                                    <field
+                                        name="state_ids"
+                                        widget="many2many_tags"
+                                        domain="[('country_id','=',parent.country_id)]"
+                                    />
+                                    <field name="variable" />
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="base_public_holiday_action" model="ir.actions.act_window">
+        <field name="name">Public Holidays</field>
+        <field name="res_model">base.public.holiday</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_public_holidays_view"
+        parent="resource.menu_resource_config"
+        action="base_public_holiday_action"
+        sequence="20"
+    />
+
+</odoo>
