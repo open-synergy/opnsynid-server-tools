@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-=======
-Webhook
-=======
+==============
+Webhook Events
+==============
 
 Module to receive `webhook <https://en.wikipedia.org/wiki/Webhook>`_ events.
 This module invoke methods to process webhook events.
@@ -21,7 +21,7 @@ Example with gihub consumer and push event.
 
     @api.one
     def run_github_push_task(self):
-        # You will have all request data in 
+        # You will have all request data in
         # variable: self.env.request
         pass
 
@@ -61,7 +61,7 @@ Full example of create a new webhook configuration data.
 .. code-block:: xml
 
     <?xml version="1.0" encoding="UTF-8"?>
-    <openerp>
+    <odoo>
         <data>
 
             <!--webhook github data-->
@@ -76,7 +76,7 @@ Full example of create a new webhook configuration data.
             </record>
 
         </data>
-    </openerp>
+    </odoo>
 
 
 .. figure:: path/to/local/image.png
@@ -91,19 +91,12 @@ To use this module, you need to:
 #. Go to your customer webhook configuration from 3rd-party applications
    and use the odoo webhook url HOST/webhook/NAME_WEBHOOK
 
-.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
-   :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/149/11.0
-
-.. repo_id is available in https://github.com/OCA/maintainer-tools/blob/master/tools/repos_with_ids.txt
-.. branch is "8.0" for example
-
 
 Bug Tracker
 ===========
 
 Bugs are tracked on `GitHub Issues
-<https://github.com/OCA/server-tools/issues>`_. In case of trouble, please
+<https://github.com/open-synergy/opnsynid-server-tools/issues>`_. In case of trouble, please
 check there if your issue has already been reported. If you spotted it first,
 help us smash it by providing detailed and welcomed feedback.
 
@@ -119,6 +112,7 @@ Contributors
 ------------
 
 * Moisés López <moylop260@vauxoo.com>
+* Michael Viriyananda <viriyananda.michael@simetri-sinergi.id>
 
 Funders
 -------
@@ -130,14 +124,8 @@ The development of this module has been financially supported by:
 Maintainer
 ----------
 
-.. image:: https://odoo-community.org/logo.png
-   :alt: Odoo Community Association
-   :target: https://odoo-community.org
+.. image:: https://simetri-sinergi.id/logo.png
+   :alt: PT. Simetri Sinergi Indonesia
+   :target: https://simetri-sinergi.id
 
-This module is maintained by the OCA.
-
-OCA, or the Odoo Community Association, is a nonprofit organization whose
-mission is to support the collaborative development of Odoo features and
-promote its widespread use.
-
-To contribute to this module, please visit https://odoo-community.org.
+This module is maintained by the PT. Simetri Sinergi Indonesia.
