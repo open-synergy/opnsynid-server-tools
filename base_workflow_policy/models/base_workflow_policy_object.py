@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import models, api, SUPERUSER_ID
+from odoo import SUPERUSER_ID, api, models
 
 
 class BaseWorkflowPolicyObject(models.AbstractModel):
@@ -21,9 +20,7 @@ class BaseWorkflowPolicyObject(models.AbstractModel):
                 if self.env.user.id == SUPERUSER_ID:
                     result = True
                 else:
-                    result = policy.\
-                        get_policy(
-                            document)
+                    result = policy.get_policy(document)
                 setattr(
                     document,
                     policy.field_id.name,
