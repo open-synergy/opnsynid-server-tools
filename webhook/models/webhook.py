@@ -1,4 +1,6 @@
 # Copyright 2016 Vauxoo - https://www.vauxoo.com/
+# Copyright 2022 OpenSynergy Indonesia
+# Copyright 2022 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import logging
@@ -16,59 +18,50 @@ except ImportError as err:
     _logger.debug(err)
 
 
-class WebhookAddress(models.Model):
-    _name = 'webhook.address'
-
-    name = fields.Char(
-        'IP or Network Address',
-        required=True,
-        help='IP or network address of your consumer webhook:\n'
-        'ip address e.g.: 10.10.0.8\n'
-        'network address e.g. of: 10.10.0.8/24',
-    )
-    webhook_id = fields.Many2one(
-        'webhook', 'Webhook', required=True, ondelete='cascade')
-
-
 class Webhook(models.Model):
-    _name = 'webhook'
+    _name = "webhook"
 
     name = fields.Char(
-        'Consumer name',
+        string="Consumer name",
         required=True,
-        help='Name of your consumer webhook. '
-             'This name will be used in named of event methods')
+        help="Name of your consumer webhook. "
+        "This name will be used in named of event methods",
+    )
     address_ids = fields.One2many(
-        'webhook.address', 'webhook_id', 'IP or Network Address',
+        string="IP or Network Address",
+        comodel_name="webhook.address",
+        inverse_name="webhook_id",
         required=True,
-        help='This address will be filter to know who is '
-             'consumer webhook')
+        help="This address will be filter to know who is " "consumer webhook",
+    )
     python_code_get_event = fields.Text(
-        'Get event',
+        string="Get event",
         required=True,
-        help='Python code to get event from request data.\n'
-             'You have object.env.request variable with full '
-             'webhook request.',
-        default='# You can use object.env.request variable '
-                'to get full data of webhook request.\n'
-                '# Example:\n#request.httprequest.'
-                'headers.get("X-Github-Event")',
+        help="Python code to get event from request data.\n"
+        "You have object.env.request variable with full "
+        "webhook request.",
+        default="# You can use object.env.request variable "
+        "to get full data of webhook request.\n"
+        "# Example:\n#request.httprequest."
+        "headers.get('X-Github-Event')",
     )
     python_code_get_ip = fields.Text(
-        'Get IP',
+        string="Get IP",
         required=True,
-        help='Python code to get remote IP address '
-             'from request data.\n'
-             'You have object.env.request variable with full '
-             'webhook request.',
-        default='# You can use object.env.request variable '
-                'to get full data of webhook request.\n'
-                '# Example:\n'
-                '#object.env.request.httprequest.remote_addr'
-                '\nrequest.httprequest.remote_addr',
-
+        help="Python code to get remote IP address "
+        "from request data.\n"
+        "You have object.env.request variable with full "
+        "webhook request.",
+        default="# You can use object.env.request variable "
+        "to get full data of webhook request.\n"
+        "# Example:\n"
+        "#object.env.request.httprequest.remote_addr"
+        "\nrequest.httprequest.remote_addr",
     )
-    active = fields.Boolean(default=True)
+    active = fields.Boolean(
+        string="Active",
+        default=True,
+    )
 
     @api.multi
     def process_python_code(self, python_code, request=None):
@@ -82,19 +75,22 @@ class Webhook(models.Model):
         self.ensure_one()
         res = None
         eval_dict = {
-            'user': self.env.user,
-            'object': self,
-            'request': request,
+            "user": self.env.user,
+            "object": self,
+            "request": request,
             # copy context to prevent side-effects of eval
-            'context': dict(self.env.context),
+            "context": dict(self.env.context),
         }
         try:
             res = safe_eval(python_code, eval_dict)
         except BaseException:
             error = tools.ustr(traceback.format_exc())
             _logger.debug(
-                'python_code "%s" with dict [%s] error [%s]',
-                python_code, eval_dict, error)
+                "python_code '%s' with dict [%s] error [%s]",
+                python_code,
+                eval_dict,
+                error,
+            )
         if isinstance(res, str):
             res = tools.ustr(res)
         return res
@@ -112,7 +108,8 @@ class Webhook(models.Model):
         """
         for webhook in self.search([]):
             remote_address = webhook.process_python_code(
-                webhook.python_code_get_ip, request)
+                webhook.python_code_get_ip, request
+            )
             if not remote_address:
                 continue
             if webhook.is_address_range(remote_address):
@@ -130,7 +127,7 @@ class Webhook(models.Model):
         """
         self.ensure_one()
         for address in self.address_ids:
-            ipn = ipaddress.ip_network(u'' + address.name)
+            ipn = ipaddress.ip_network("" + address.name)
             hosts = [host.exploded for host in ipn.hosts()]
             hosts.append(address.name)
             if remote_address in hosts:
@@ -149,10 +146,7 @@ class Webhook(models.Model):
         returns: List of methods with that start wtih method base
         """
         # TODO: Filter just callable attributes
-        return sorted(
-            attr for attr in dir(self) if attr.startswith(
-                event_method_base)
-        )
+        return sorted(attr for attr in dir(self) if attr.startswith(event_method_base))
 
     @api.model
     def get_ping_events(self):
@@ -162,7 +156,7 @@ class Webhook(models.Model):
         know if a provider is working.
         :return: List with names of ping events
         """
-        return ['ping']
+        return ["ping"]
 
     @api.multi
     def run_webhook(self, request):
@@ -176,29 +170,24 @@ class Webhook(models.Model):
         :return: True
         """
         self.ensure_one()
-        event = self.process_python_code(
-            self.python_code_get_event, request)
+        event = self.process_python_code(self.python_code_get_event, request)
         if not event:
-            raise exceptions.ValidationError(_(
-                'event is not defined'))
-        method_event_name_base = \
-            'run_' + self.name + \
-            '_' + event
+            raise exceptions.ValidationError(_("event is not defined"))
+        method_event_name_base = "run_" + self.name + "_" + event
         methods_event_name = self.get_event_methods(method_event_name_base)
         if not methods_event_name:
             # if is a 'ping' event then return True
             # because the request is received fine.
             if event in self.get_ping_events():
                 return True
-            raise exceptions.ValidationError(_(
-                'Not defined methods "%s" yet' % (
-                    method_event_name_base)))
+            raise exceptions.ValidationError(
+                _('Not defined methods "%s" yet' % (method_event_name_base))
+            )
         self.env.request = request
         for method_event_name in methods_event_name:
             method = getattr(self, method_event_name)
             res_method = method()
             if isinstance(res_method, list) and len(res_method) == 1:
                 if res_method[0] is NotImplemented:
-                    _logger.debug(
-                        'Not implemented method "%s" yet', method_event_name)
+                    _logger.debug('Not implemented method "%s" yet', method_event_name)
         return True
