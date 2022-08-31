@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 OpenSynergy Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
-from odoo import models, api, fields
+# pylint: disable=W0622
+from odoo import api, fields, models
 from odoo.tools.safe_eval import safe_eval as eval
 
 
@@ -18,9 +17,7 @@ class BaseWorkflowPolicy(models.Model):
         string="Active",
         default=True,
     )
-    note = fields.Text(
-        string="Note"
-    )
+    note = fields.Text(string="Note")
     line_ids = fields.One2many(
         string="Lines",
         comodel_name="base.workflow_policy_line",
@@ -38,10 +35,7 @@ class BaseWorkflowPolicyLine(models.Model):
         required=True,
         ondelete="cascade",
     )
-    field_id = fields.Many2one(
-        string="Field",
-        comodel_name="ir.model.fields"
-    )
+    field_id = fields.Many2one(string="Field", comodel_name="ir.model.fields")
     python_code = fields.Text(
         string="Python Code",
         required=True,
@@ -65,14 +59,13 @@ class BaseWorkflowPolicyLine(models.Model):
         localdict = self._get_localdict(document)
 
         try:
-            eval(self.python_code,
-                 localdict, mode="exec", nocopy=True)
+            eval(self.python_code, localdict, mode="exec", nocopy=True)
             button_group_ids = localdict["result"]
-        except:
+        except Exception:
             button_group_ids = []
         if not button_group_ids:
             result = True
         else:
-            if (set(button_group_ids) & set(group_ids)):
+            if set(button_group_ids) & set(group_ids):
                 result = True
         return result
