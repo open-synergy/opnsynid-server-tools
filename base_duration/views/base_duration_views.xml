@@ -47,6 +47,14 @@
         <field name="arch" type="xml">
             <data>
                 <xpath expr="//field[@name='active']" position="before">
+                    <field name="relative_delta_year" />
+                    <field name="relative_delta_month" />
+                    <field name="relative_delta_day" />
+                    <field name="relative_delta_years" />
+                    <field name="relative_delta_months" />
+                    <field name="relative_delta_weeks" />
+                    <field name="relative_delta_days" />
+                    <field name="relative_delta_weekday" />
                     <field name="number_of_days" />
                     <field name="include_weekend" widget="boolean_toggle" />
                     <field name="include_public_holiday" widget="boolean_toggle" />
