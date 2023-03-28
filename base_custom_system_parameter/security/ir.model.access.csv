@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_base_custom_system_parameter_all,base.config_system_parameter – All User,model_base_custom_system_parameter,,1,0,0,0
+access_base_custom_system_parameter_admin,base.config_system_parameter – Administrator,model_base_custom_system_parameter,base.group_system,1,1,1,1
