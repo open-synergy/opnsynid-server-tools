@@ -12,6 +12,8 @@ addons:
   apt:
     packages:
       - expect-dev # provides unbuffer utility
+      - swig
+      - python3-pykcs11
 
 stages:
   - test
@@ -29,11 +31,11 @@ env:
     - VERSION="14.0" TESTS="0" LINT_CHECK="0" MAKEPOT="1"
 
 install:
-  - git clone --depth=1
-    https://github.com/simetri-sinergi-id/maintainer-quality-tools.git
+  - git clone --depth=1 https://github.com/akretion/maintainer-quality-tools.git
     ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
+  - pip install PyPDF2==1.26.0
 
 script:
   - travis_run_tests
