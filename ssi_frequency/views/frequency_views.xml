@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 OpenSynergy Indonesia
+     Copyright 2023 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl-3.0-standalone.html). -->
+<odoo>
+    <record id="frequency_view_search" model="ir.ui.view">
+        <field name="name">frequency - Search</field>
+        <field name="model">frequency</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_search"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data/>
+        </field>
+    </record>
+
+    <record id="frequency_view_tree" model="ir.ui.view">
+        <field name="name">frequency - Tree</field>
+        <field name="model">frequency</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_tree"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="interval"/>
+                    <field name="interval_type"/>
+                    <field name="is_exclusive"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="frequency_view_form" model="ir.ui.view">
+        <field name="name">frequency - Form</field>
+        <field name="model">frequency</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_form"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//group[@name='group_1']" position="replace">
+                    <group name="group_1">
+                        <group name="group_1_2">
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="active" widget="boolean_toggle"/>
+                            <label for="interval"/>
+                            <div class="o_row">
+                                <field name="interval"/>
+                                <field name="interval_type"/>
+                            </div>
+                        </group>
+                        <group name="group_1_3">
+                            <field name="is_exclusive"/>
+                        </group>
+                    </group>
+                    <group name="group_2">
+                        <div>
+                            <group name="group_2_1">
+                                <field name="use_byweekday"/>
+                            </group>
+                            <div name="weekdays" attrs="{'invisible': [('use_byweekday', '=', False)]}">
+                                <group name="group_2_2">
+                                    <field name="mo"/>
+                                    <field name="tu"/>
+                                    <field name="we"/>
+                                    <field name="th"/>
+                                    <field name="fr"/>
+                                    <field name="sa"/>
+                                    <field name="su"/>
+                                </group>
+                            </div>
+                            <group name="group_2_3">
+                                <field name="use_bymonthday"/>
+                            </group>
+                            <div name="monthday" attrs="{'invisible': [('use_bymonthday', '=', False)]}">
+                                <group name="group_2_4">
+                                    <field name="month_day"/>
+                                </group>
+                            </div>
+                            <group name="group_2_5">
+                                <field name="use_setpos"/>
+                            </group>
+                            <div name="setpos" attrs="{'invisible': [('use_setpos', '=', False)]}">
+                                <group name="group_2_6">
+                                    <field name="set_pos"/>
+                                </group>
+                            </div>
+                        </div>
+                        <div>
+                            <group name="group_3">
+                                <field name="use_bymonth"/>
+                            </group>
+                            <div name="months" attrs="{'invisible': [('use_bymonth', '=', False)]}">
+                                <group name="group_3_1">
+                                    <field name="jan"/>
+                                    <field name="feb"/>
+                                    <field name="mar"/>
+                                    <field name="apr"/>
+                                    <field name="may"/>
+                                    <field name="jun"/>
+                                    <field name="jul"/>
+                                    <field name="aug"/>
+                                    <field name="sep"/>
+                                    <field name="oct"/>
+                                    <field name="nov"/>
+                                    <field name="des"/>
+                                </group>
+                            </div>
+                        </div>
+                    </group>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="frequency_action" model="ir.actions.act_window">
+        <field name="name">Frequency Rules</field>
+        <field name="res_model">frequency</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_frequency"
+        name="Frequencies"
+        action="frequency_action"
+        parent="menu_frequency_root"
+        sequence="1"
+    />
+</odoo>

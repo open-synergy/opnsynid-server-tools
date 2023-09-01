@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_frequency_all,frequency - All user,model_frequency,,1,0,0,0
+access_frequency_admin,frequency - Administrator Setting,model_frequency,base.group_system,1,1,1,1
+access_frequency_set_all,frequency_set - All user,model_frequency_set,,1,0,0,0
+access_frequency_set_admin,frequency_set - Administrator Setting,model_frequency_set,base.group_system,1,1,1,1
