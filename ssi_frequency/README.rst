@@ -37,11 +37,18 @@ Contributors
 
 * Usamah <usa8bit@gmail.com>
 
+Other credits
+~~~~~~~~~~~~~
+
+The functionality of this module is part of module:
+
+* fieldservice_recurring (https://github.com/OCA/field-service)
+
 Maintainer
 ----------
 
 .. image:: https://simetri-sinergi.id/logo.png
    :alt: PT. Simetri Sinergi Indonesia
-   :target: https://simetri-sinergi.id.com
+   :target: https://simetri-sinergi.id
 
 This module is maintained by the PT. Simetri Sinergi Indonesia.
