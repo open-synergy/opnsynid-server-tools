@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo14-addon-base_public_holiday',
         'odoo14-addon-base_user_copy_user_role',
         'odoo14-addon-base_user_role_menu',
+        'odoo14-addon-ssi_frequency',
         'odoo14-addon-test_base_duration',
     ],
     classifiers=[
