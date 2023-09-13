@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 OpenSynergy Indonesia
+     Copyright 2023 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl-3.0-standalone.html). -->
+<odoo>
+    <record id="frequency_set_view_search" model="ir.ui.view">
+        <field name="name">frequency_set - Search</field>
+        <field name="model">frequency_set</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_search"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data/>
+        </field>
+    </record>
+
+    <record id="frequency_set_view_tree" model="ir.ui.view">
+        <field name="name">frequency_set - Tree</field>
+        <field name="model">frequency_set</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_tree"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data/>
+        </field>
+    </record>
+
+    <record id="frequency_set_view_form" model="ir.ui.view">
+        <field name="name">frequency_set - Form</field>
+        <field name="model">frequency_set</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_form"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='active']" position="after">
+                    <field name="schedule_days"/>
+                    <field name="buffer_early"/>
+                    <field name="buffer_late"/>
+                </xpath>
+                <xpath expr="//group[@name='group_1']" position="after">
+                    <group name="group_2" string="Frequency Rules">
+                        <field name="fsm_frequency_ids" widget="many2many" nolabel="1">
+                            <tree>
+                                <field name="code"/>
+                                <field name="name"/>
+                                <field name="interval"/>
+                                <field name="interval_type"/>
+                                <field name="is_exclusive"/>
+                            </tree>
+                        </field>
+                    </group>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="frequency_set_action" model="ir.actions.act_window">
+        <field name="name">Frequency Rule Sets</field>
+        <field name="res_model">frequency_set</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_frequency_set"
+        name="Frequency Rule Set"
+        action="frequency_set_action"
+        parent="menu_frequency_root"
+        sequence="2"
+    />
+
+</odoo>
