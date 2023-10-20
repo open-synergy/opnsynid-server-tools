@@ -19,8 +19,9 @@ except ImportError:
 
 class HrPublicHolidaysImportIcs(models.TransientModel):
     _name = "base_public_holidays.import_ics_wizard"
+    _description = "Import ICS"
 
-    ics_file = fields.Binary(string="Selected file", filters="*.ics", required=True)
+    ics_file = fields.Binary(string="Selected file", required=True)
     ics_file_name = fields.Char(
         string="File Name",
     )

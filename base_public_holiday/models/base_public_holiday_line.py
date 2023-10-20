@@ -27,7 +27,6 @@ class BasePublicHolidayLine(models.Model):
     state_ids = fields.Many2many(
         string="Related States",
         comodel_name="res.country.state",
-        realation="base_public_holiday_state_rel",
         column1="line_id",
         column2="state_id",
     )
