@@ -19,4 +19,7 @@
         "views/frequency_views.xml",
         "views/frequency_set_views.xml",
     ],
+    "demo": [
+        "demo/frequency_demo.xml",
+    ],
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+<record id="frequency1" model="frequency">
+    <field name="name">Every Work Day - (test)</field>
+    <field name="code">X001</field>
+    <field name="interval" eval="1" />
+    <field name="interval_type">daily</field>
+    <field name="use_byweekday" eval="1" />
+    <field name="mo" eval="1" />
+    <field name="tu" eval="1" />
+    <field name="we" eval="1" />
+    <field name="th" eval="1" />
+    <field name="fr" eval="1" />
+</record>
+
+<record id="frequency2" model="frequency">
+    <field name="name">Every Day - (test)</field>
+    <field name="code">X002</field>
+    <field name="interval" eval="1" />
+    <field name="interval_type">daily</field>
+    <field name="use_byweekday" eval="1" />
+    <field name="mo" eval="1" />
+    <field name="tu" eval="1" />
+    <field name="we" eval="1" />
+    <field name="th" eval="1" />
+    <field name="fr" eval="1" />
+    <field name="sa" eval="1" />
+    <field name="su" eval="1" />
+</record>
+</odoo>
