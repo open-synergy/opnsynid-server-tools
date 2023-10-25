@@ -24,7 +24,7 @@ addon | version | maintainers | summary
 [base_public_holiday](base_public_holiday/) | 14.0.1.1.0 |  | Base Public Holiday
 [base_user_copy_user_role](base_user_copy_user_role/) | 14.0.1.0.1 |  | Base Copy User Role
 [base_user_role_menu](base_user_role_menu/) | 14.0.1.0.1 |  | Manage Menu Access Based on Roles
-[ssi_frequency](ssi_frequency/) | 14.0.1.0.0 |  | Frequency
+[ssi_frequency](ssi_frequency/) | 14.0.1.1.0 |  | Frequency
 [test_base_duration](test_base_duration/) | 14.0.1.0.1 |  | Test Module - Base Duration
 
 [//]: # (end addons)
