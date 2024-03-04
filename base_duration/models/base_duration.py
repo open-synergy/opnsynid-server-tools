@@ -1,6 +1,6 @@
 # Copyright 2022 OpenSynergy Indonesia
 # Copyright 2022 PT. Simetri Sinergi Indonesia
-# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3.0-standalone.html).
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl-3.0-standalone.html).
 
 from dateutil.relativedelta import relativedelta
 from dateutil.rrule import DAILY, FR, MO, SA, SU, TH, TU, WE, rrule
