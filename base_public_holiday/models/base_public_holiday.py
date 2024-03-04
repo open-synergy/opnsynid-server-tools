@@ -2,6 +2,7 @@
 # Copyright 2022 PT. Simetri Sinergi Indonesia
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
+import datetime
 from datetime import date
 
 from odoo import _, api, fields, models
@@ -77,46 +78,65 @@ class BasePublicHoliday(models.Model):
             result.append((rec.id, rec.display_name))
         return result
 
-    @api.model
-    @api.returns("base.public.holiday.line")
-    def get_holidays_list(self, year, country_id=None, state_id=None):
-        holidays_filter = [
-            ("year", "=", year),
-        ]
-        if country_id:
-            holidays_filter.append(("country_id", "=", country_id))
-        else:
-            holidays_filter.append(("country_id", "=", False))
-
-        pholidays = self.search(holidays_filter)
-        if not pholidays:
-            return list()
-
-        states_filter = [
-            ("year_id", "in", pholidays.ids),
-        ]
-        if state_id:
+    def _get_domain_states_filter(self, pholidays, start_dt, end_dt, employee_id=None):
+        employee = False
+        if employee_id:
+            employee = self.env["hr.employee"].browse(employee_id)
+        states_filter = [("year_id", "in", pholidays.ids)]
+        if employee and employee.address_id and employee.address_id.state_id:
             states_filter += [
                 "|",
                 ("state_ids", "=", False),
-                ("state_ids", "=", state_id),
+                ("state_ids", "=", employee.address_id.state_id.id),
             ]
         else:
             states_filter.append(("state_ids", "=", False))
+        states_filter.append(("date", ">=", start_dt))
+        states_filter.append(("date", "<=", end_dt))
+        return states_filter
 
+    @api.model
+    @api.returns("base.public.holiday.line")
+    def get_holidays_list(
+        self, year=None, start_dt=None, end_dt=None, employee_id=None
+    ):
+        if not start_dt and not end_dt:
+            start_dt = datetime.date(year, 1, 1)
+            end_dt = datetime.date(year, 12, 31)
+
+        years = list(range(start_dt.year, end_dt.year + 1))
+        holidays_filter = [("year", "in", years)]
+        employee = False
+        if employee_id:
+            employee = self.env["hr.employee"].browse(employee_id)
+            if employee.address_id and employee.address_id.country_id:
+                holidays_filter.append("|")
+                holidays_filter.append(("country_id", "=", False))
+                holidays_filter.append(
+                    ("country_id", "=", employee.address_id.country_id.id)
+                )
+            else:
+                holidays_filter.append(("country_id", "=", False))
+        pholidays = self.search(holidays_filter)
+        if not pholidays:
+            return self.env["base.public.holiday.line"]
+
+        states_filter = self._get_domain_states_filter(
+            pholidays, start_dt, end_dt, employee_id
+        )
         hhplo = self.env["base.public.holiday.line"]
         holidays_lines = hhplo.search(states_filter)
         return holidays_lines
 
     @api.model
-    def is_public_holiday(self, selected_date, country_id=None, state_id=None):
+    def is_public_holiday(self, selected_date, employee_id=None):
         holidays_lines = self.get_holidays_list(
-            selected_date.year, country_id=country_id, state_id=state_id
+            year=selected_date.year, employee_id=employee_id
         )
-        if holidays_lines and len(
-            holidays_lines.filtered(
+        if holidays_lines:
+            hol_date = holidays_lines.filtered(
                 lambda r: r.date == fields.Date.from_string(selected_date)
             )
-        ):
-            return True
+            if hol_date.ids:
+                return True
         return False
