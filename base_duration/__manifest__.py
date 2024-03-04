@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Base Duration",
-    "version": "14.0.1.1.1",
+    "version": "14.0.1.1.2",
     "author": "OpenSynergy Indonesia, PT. Simetri Sinergi Indonesia",
     "category": "Generic Modules/Base",
     "website": "https://simetri-sinergi.id",
