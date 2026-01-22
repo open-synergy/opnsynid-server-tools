@@ -20,6 +20,7 @@ class BasePublicHoliday(models.Model):
         compute="_compute_display_name",
         readonly=True,
         store=True,
+        compute_sudo=True,
     )
     year = fields.Integer(
         string="Calendar Year",
