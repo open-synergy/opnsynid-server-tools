@@ -20,7 +20,7 @@ addon | version | maintainers | summary
 --- | --- | --- | ---
 [base_copy_user_access](base_copy_user_access/) | 14.0.1.0.1 |  | Copy access right from another user
 [base_custom_system_parameter](base_custom_system_parameter/) | 14.0.1.0.1 |  | Base Custom System Parameter
-[base_duration](base_duration/) | 14.0.1.1.2 |  | Base Duration
+[base_duration](base_duration/) | 14.0.1.1.3 |  | Base Duration
 [base_public_holiday](base_public_holiday/) | 14.0.1.2.0 |  | Base Public Holiday
 [base_user_copy_user_role](base_user_copy_user_role/) | 14.0.1.0.1 |  | Base Copy User Role
 [base_user_role_menu](base_user_role_menu/) | 14.0.1.0.1 |  | Manage Menu Access Based on Roles
