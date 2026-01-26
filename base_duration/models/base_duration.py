@@ -61,6 +61,7 @@ class BaseDuration(models.Model):
         default=True,
     )
 
+    # flake8: noqa: C901
     def get_duration(self, date_value=False, country_id=False, state_id=False):
         def _get_rrule(dt_start, count, weekend):
             if weekend:
@@ -76,16 +77,27 @@ class BaseDuration(models.Model):
 
         self.ensure_one()
         date_value = date_value or fields.Date.context_today(self)
-        date_value = date_value + relativedelta(
-            year=self.relative_delta_year,
-            month=self.relative_delta_month,
-            day=self.relative_delta_day,
-            years=self.relative_delta_years,
-            months=self.relative_delta_months,
-            weeks=self.relative_delta_weeks,
-            days=self.relative_delta_days,
-            weekday=self.relative_delta_weekday,
-        )
+        # message_error = "%s %s" % (self.relative_delta_months, self.relative_delta_days)
+        # raise UserError(message_error)
+        params = {}
+        if self.relative_delta_year:
+            params["year"] = self.relative_delta_year
+        if self.relative_delta_month:
+            params["month"] = self.relative_delta_month
+        if self.relative_delta_day:
+            params["day"] = self.relative_delta_day
+        if self.relative_delta_years:
+            params["years"] = self.relative_delta_years
+        if self.relative_delta_months:
+            params["months"] = self.relative_delta_months
+        if self.relative_delta_weeks:
+            params["weeks"] = self.relative_delta_weeks
+        if self.relative_delta_days:
+            params["days"] = self.relative_delta_days
+        if self.relative_delta_weekday:
+            params["weekday"] = self.relative_delta_weekday
+        if params:
+            date_value = date_value + relativedelta(**params)
         result = fields.Date.from_string(date_value)
 
         if self.number_of_days > 0:
