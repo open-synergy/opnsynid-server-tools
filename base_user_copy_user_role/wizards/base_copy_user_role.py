@@ -9,6 +9,7 @@ from odoo import api, fields, models
 
 class WizardBaseCopyUserRole(models.TransientModel):
     _name = "base.copy_user_role"
+    _description = "Copy User Role"
 
     user_id = fields.Many2one(string="User", comodel_name="res.users", required=True)
 
@@ -16,7 +17,7 @@ class WizardBaseCopyUserRole(models.TransientModel):
     def fields_view_get(
         self, view_id=None, view_type="form", toolbar=False, submenu=False
     ):
-        res = super(WizardBaseCopyUserRole, self).fields_view_get(
+        res = super().fields_view_get(
             view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu
         )
         doc = etree.XML(res["arch"])
