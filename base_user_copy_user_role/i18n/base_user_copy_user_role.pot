@@ -30,6 +30,7 @@ msgstr ""
 
 #. module: base_user_copy_user_role
 #: model:ir.actions.act_window,name:base_user_copy_user_role.base_copy_user_role_action
+#: model:ir.model,name:base_user_copy_user_role.model_base_copy_user_role
 msgid "Copy User Role"
 msgstr ""
 
@@ -71,9 +72,4 @@ msgstr ""
 #. module: base_user_copy_user_role
 #: model:ir.model.fields,field_description:base_user_copy_user_role.field_base_copy_user_role__user_id
 msgid "User"
-msgstr ""
-
-#. module: base_user_copy_user_role
-#: model:ir.model,name:base_user_copy_user_role.model_base_copy_user_role
-msgid "base.copy_user_role"
 msgstr ""
