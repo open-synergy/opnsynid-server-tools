@@ -1,0 +1,151 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ssi_base_import_xml
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ssi_base_import_xml
+#: code:addons/ssi_base_import_xml/wizards/ssi_base_import_xml.py:0
+#, python-format
+msgid ""
+"\n"
+"Errors encountered:"
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: model_terms:ir.ui.view,arch_db:ssi_base_import_xml.ssi_base_import_xml_view_form
+msgid "Close"
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: model:ir.model.fields,field_description:ssi_base_import_xml.field_base_import_xml__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: model:ir.model.fields,field_description:ssi_base_import_xml.field_base_import_xml__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: code:addons/ssi_base_import_xml/wizards/ssi_base_import_xml.py:0
+#, python-format
+msgid "Created: %d record(s). Updated: %d record(s)."
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: model:ir.model.fields,field_description:ssi_base_import_xml.field_base_import_xml__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: code:addons/ssi_base_import_xml/wizards/ssi_base_import_xml.py:0
+#, python-format
+msgid "Error parsing XML file: %s"
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: model:ir.model.fields,field_description:ssi_base_import_xml.field_base_import_xml__file_name
+msgid "File Name"
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: model:ir.model.fields,field_description:ssi_base_import_xml.field_base_import_xml__id
+msgid "ID"
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: model_terms:ir.ui.view,arch_db:ssi_base_import_xml.ssi_base_import_xml_view_form
+msgid "Import"
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: model:ir.model,name:ssi_base_import_xml.model_base_import_xml
+msgid "Import Data from XML"
+msgstr ""
+
+#. module: ssi_base_import_xml
+#. openerp-web
+#: code:addons/ssi_base_import_xml/static/src/xml/import_xml.xml:0
+#: code:addons/ssi_base_import_xml/static/src/xml/import_xml.xml:0
+#: code:addons/ssi_base_import_xml/static/src/xml/import_xml.xml:0
+#, python-format
+msgid "Import XML"
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: model:ir.actions.act_window,name:ssi_base_import_xml.ssi_base_import_xml_action
+#: model_terms:ir.ui.view,arch_db:ssi_base_import_xml.ssi_base_import_xml_view_form
+msgid "Import from XML"
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: model:ir.model.fields,field_description:ssi_base_import_xml.field_base_import_xml____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: model:ir.model.fields,field_description:ssi_base_import_xml.field_base_import_xml__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: model:ir.model.fields,field_description:ssi_base_import_xml.field_base_import_xml__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: model:ir.model.fields,field_description:ssi_base_import_xml.field_base_import_xml__error_message
+#: model_terms:ir.ui.view,arch_db:ssi_base_import_xml.ssi_base_import_xml_view_form
+msgid "Messages"
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: model:ir.model.fields,field_description:ssi_base_import_xml.field_base_import_xml__model_name
+msgid "Model"
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: code:addons/ssi_base_import_xml/wizards/ssi_base_import_xml.py:0
+#, python-format
+msgid "Model '%s' not found."
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: code:addons/ssi_base_import_xml/wizards/ssi_base_import_xml.py:0
+#, python-format
+msgid "Row %d, field '%s': eval error: %s"
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: code:addons/ssi_base_import_xml/wizards/ssi_base_import_xml.py:0
+#, python-format
+msgid "Row %d, field '%s': ref '%s' not found."
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: code:addons/ssi_base_import_xml/wizards/ssi_base_import_xml.py:0
+#, python-format
+msgid "Row %d: %s"
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: code:addons/ssi_base_import_xml/wizards/ssi_base_import_xml.py:0
+#, python-format
+msgid "Target model is unknown. Please reload and try again."
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: model:ir.model.fields,field_description:ssi_base_import_xml.field_base_import_xml__file_data
+#: model_terms:ir.ui.view,arch_db:ssi_base_import_xml.ssi_base_import_xml_view_form
+msgid "XML File"
+msgstr ""
