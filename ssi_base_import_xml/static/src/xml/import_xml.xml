@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template>
+
+    <t
+        t-name="ssi_base_import_xml.ControlPanel"
+        t-inherit="web.ControlPanel"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//div[hasclass('o_cp_pager')]" position="before">
+            <div class="o_cp_import_xml" role="search" t-ref="importXml">
+                <ImportXmlButton />
+            </div>
+        </xpath>
+    </t>
+
+    <t t-name="ssi_base_import_xml.Button" owl="1">
+        <nav class="o_import_xml_nav" aria-label="Import XML">
+            <span aria-atomic="true">
+                <button
+                    class="btn btn-secondary o_button_import_xml"
+                    aria-label="Import XML"
+                    t-on-click="_onImportXmlClick"
+                    title="Import XML"
+                >Import XML</button>
+            </span>
+        </nav>
+    </t>
+
+</template>
