@@ -141,6 +141,12 @@ msgstr ""
 #. module: ssi_base_import_xml
 #: code:addons/ssi_base_import_xml/wizards/ssi_base_import_xml.py:0
 #, python-format
+msgid "Row %d: model '%s' not found."
+msgstr ""
+
+#. module: ssi_base_import_xml
+#: code:addons/ssi_base_import_xml/wizards/ssi_base_import_xml.py:0
+#, python-format
 msgid "Target model is unknown. Please reload and try again."
 msgstr ""
 
