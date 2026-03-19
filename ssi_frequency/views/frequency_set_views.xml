@@ -12,7 +12,7 @@
         />
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <data/>
+            <data />
         </field>
     </record>
 
@@ -25,7 +25,7 @@
         />
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <data/>
+            <data />
         </field>
     </record>
 
@@ -40,19 +40,19 @@
         <field name="arch" type="xml">
             <data>
                 <xpath expr="//field[@name='active']" position="after">
-                    <field name="schedule_days"/>
-                    <field name="buffer_early"/>
-                    <field name="buffer_late"/>
+                    <field name="schedule_days" />
+                    <field name="buffer_early" />
+                    <field name="buffer_late" />
                 </xpath>
                 <xpath expr="//group[@name='group_1']" position="after">
                     <group name="group_2" string="Frequency Rules">
                         <field name="fsm_frequency_ids" widget="many2many" nolabel="1">
                             <tree>
-                                <field name="code"/>
-                                <field name="name"/>
-                                <field name="interval"/>
-                                <field name="interval_type"/>
-                                <field name="is_exclusive"/>
+                                <field name="code" />
+                                <field name="name" />
+                                <field name="interval" />
+                                <field name="interval_type" />
+                                <field name="is_exclusive" />
                             </tree>
                         </field>
                     </group>

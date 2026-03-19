@@ -1,38 +1,46 @@
 odoo.define("ssi_base_import_xml.ImportXmlButton", function (require) {
     "use strict";
 
-    const ControlPanel = require("web.ControlPanel");
+    const core = require("web.core");
+    const session = require("web.session");
 
-    const {Component, hooks} = owl;
-    const {useRef} = hooks;
+    // Require ControlPanel to ensure it is loaded first so the qweb
+    // template extension (which injects the button into ControlPanel) is applied.
+    require("web.ControlPanel");
 
-    class ImportXmlButton extends Component {
-        _onImportXmlClick() {
-            alert("Import XML button clicked!");
-        }
-    }
-    ImportXmlButton.template = "ssi_base_import_xml.Button";
-
-    // Patch control panel to initialize import xml component
-    ControlPanel.components = Object.assign({}, ControlPanel.components, {
-        ImportXmlButton,
-    });
-    ControlPanel.patch("ssi_base_import_xml.ControlPanel", (T) => {
-        class ControlPanelImportXml extends T {
-            constructor() {
-                super(...arguments);
-                if ("cp_content" in this.props) {
-                    const content = this.props.cp_content || {};
-                    if ("$importXml" in content) {
-                        this.additionalContent.importXml = content.$importXml;
-                    }
-                }
-
-                this.contentRefs.importXml = useRef("importXml");
+    // Use native addEventListener with capture=true on document.
+    // Capture phase fires BEFORE bubble phase, so OWL's stopPropagation
+    // in developer mode cannot block this handler.
+    document.addEventListener(
+        "click",
+        function (ev) {
+            if (!ev.target || !ev.target.closest(".o_button_import_xml")) {
+                return;
             }
-        }
-        return ControlPanelImportXml;
-    });
+            if (!session.is_admin) {
+                return;
+            }
+            ev.stopPropagation();
 
-    return ImportXmlButton;
+            // Get the active model name from the URL hash
+            // e.g. #action=203&model=res.partner&view_type=list
+            var hash = window.location.hash.slice(1);
+            var params = new URLSearchParams(hash);
+            var modelName = params.get("model") || "";
+
+            // Trigger the wizard via core.bus which is handled by AbstractWebClient
+            core.bus.trigger("do-action", {
+                action: {
+                    type: "ir.actions.act_window",
+                    name: "Import from XML",
+                    res_model: "base_import_xml",
+                    view_mode: "form",
+                    views: [[false, "form"]],
+                    target: "new",
+                    context: {default_model_name: modelName},
+                },
+            });
+        },
+        true
+    );
 });
