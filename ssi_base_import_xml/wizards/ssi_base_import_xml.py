@@ -85,7 +85,8 @@ class BaseImportXML(models.TransientModel):
             record_elems = root.findall("record")
 
         for i, record_elem in enumerate(record_elems, start=1):
-            result = self._process_record(model_name, record_elem, i)
+            record_model = record_elem.get("model") or model_name
+            result = self._process_record(record_model, record_elem, i)
             success_count += result.get("success", 0)
             update_count += result.get("update", 0)
             errors.extend(result.get("errors", []))
@@ -94,10 +95,10 @@ class BaseImportXML(models.TransientModel):
 
     def _process_record(self, model_name, record_elem, row_num):
         """Process a single <record> element."""
-        # Only process records matching the current model (if specified).
-        record_model = record_elem.get("model")
-        if record_model and record_model != model_name:
-            return {}
+        if model_name not in self.env:
+            return {
+                "errors": [_("Row %d: model '%s' not found.") % (row_num, model_name)]
+            }
 
         # Extract the id attribute to use as xml_id (__export__.<id>).
         id_attr = record_elem.get("id", "").strip()
@@ -112,9 +113,10 @@ class BaseImportXML(models.TransientModel):
             errors.extend(field_result)
 
         try:
-            success, update = self._import_or_update_record(
-                model_name, target_model, vals, id_attr
-            )
+            with self.env.cr.savepoint():
+                success, update = self._import_or_update_record(
+                    model_name, target_model, vals, id_attr
+                )
             return {
                 "success": 1 if success else 0,
                 "update": 1 if update else 0,
@@ -153,7 +155,8 @@ class BaseImportXML(models.TransientModel):
                     _("Row %d, field '%s': eval error: %s") % (row_num, field_name, e)
                 )
         else:
-            text = (field_elem.text or "").strip()
+            raw_text = field_elem.text or ""
+            text = raw_text.strip()
             if field.type in ("integer",):
                 try:
                     vals[field_name] = int(text) if text else 0
@@ -166,6 +169,9 @@ class BaseImportXML(models.TransientModel):
                     vals[field_name] = 0.0
             elif field.type == "boolean":
                 vals[field_name] = text.lower() in ("1", "true", "yes")
+            elif field.type in ("text", "html"):
+                # Preserve internal whitespace/indentation (e.g. CDATA code blocks).
+                vals[field_name] = raw_text.strip("\n")
             else:
                 vals[field_name] = text
 
