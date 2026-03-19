@@ -12,7 +12,7 @@
         />
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <data/>
+            <data />
         </field>
     </record>
 
@@ -27,9 +27,9 @@
         <field name="arch" type="xml">
             <data>
                 <xpath expr="//field[@name='name']" position="after">
-                    <field name="interval"/>
-                    <field name="interval_type"/>
-                    <field name="is_exclusive"/>
+                    <field name="interval" />
+                    <field name="interval_type" />
+                    <field name="is_exclusive" />
                 </xpath>
             </data>
         </field>
@@ -48,70 +48,82 @@
                 <xpath expr="//group[@name='group_1']" position="replace">
                     <group name="group_1">
                         <group name="group_1_2">
-                            <field name="name"/>
-                            <field name="code"/>
-                            <field name="active" widget="boolean_toggle"/>
-                            <label for="interval"/>
+                            <field name="name" />
+                            <field name="code" />
+                            <field name="active" widget="boolean_toggle" />
+                            <label for="interval" />
                             <div class="o_row">
-                                <field name="interval"/>
-                                <field name="interval_type"/>
+                                <field name="interval" />
+                                <field name="interval_type" />
                             </div>
                         </group>
                         <group name="group_1_3">
-                            <field name="is_exclusive"/>
+                            <field name="is_exclusive" />
                         </group>
                     </group>
                     <group name="group_2">
                         <div>
                             <group name="group_2_1">
-                                <field name="use_byweekday"/>
+                                <field name="use_byweekday" />
                             </group>
-                            <div name="weekdays" attrs="{'invisible': [('use_byweekday', '=', False)]}">
+                            <div
+                                name="weekdays"
+                                attrs="{'invisible': [('use_byweekday', '=', False)]}"
+                            >
                                 <group name="group_2_2">
-                                    <field name="mo"/>
-                                    <field name="tu"/>
-                                    <field name="we"/>
-                                    <field name="th"/>
-                                    <field name="fr"/>
-                                    <field name="sa"/>
-                                    <field name="su"/>
+                                    <field name="mo" />
+                                    <field name="tu" />
+                                    <field name="we" />
+                                    <field name="th" />
+                                    <field name="fr" />
+                                    <field name="sa" />
+                                    <field name="su" />
                                 </group>
                             </div>
                             <group name="group_2_3">
-                                <field name="use_bymonthday"/>
+                                <field name="use_bymonthday" />
                             </group>
-                            <div name="monthday" attrs="{'invisible': [('use_bymonthday', '=', False)]}">
+                            <div
+                                name="monthday"
+                                attrs="{'invisible': [('use_bymonthday', '=', False)]}"
+                            >
                                 <group name="group_2_4">
-                                    <field name="month_day"/>
+                                    <field name="month_day" />
                                 </group>
                             </div>
                             <group name="group_2_5">
-                                <field name="use_setpos"/>
+                                <field name="use_setpos" />
                             </group>
-                            <div name="setpos" attrs="{'invisible': [('use_setpos', '=', False)]}">
+                            <div
+                                name="setpos"
+                                attrs="{'invisible': [('use_setpos', '=', False)]}"
+                            >
                                 <group name="group_2_6">
-                                    <field name="set_pos"/>
+                                    <field name="set_pos" />
                                 </group>
                             </div>
                         </div>
                         <div>
                             <group name="group_3">
-                                <field name="use_bymonth"/>
+                                <field name="use_bymonth" />
                             </group>
-                            <div name="months" attrs="{'invisible': [('use_bymonth', '=', False)]}">
+                            <div
+                                name="months"
+                                attrs="{'invisible': [('use_bymonth', '=', False)]}"
+                            >
                                 <group name="group_3_1">
-                                    <field name="jan"/>
-                                    <field name="feb"/>
-                                    <field name="mar"/>
-                                    <field name="apr"/>
-                                    <field name="may"/>
-                                    <field name="jun"/>
-                                    <field name="jul"/>
-                                    <field name="aug"/>
-                                    <field name="sep"/>
-                                    <field name="oct"/>
-                                    <field name="nov"/>
-                                    <field name="des"/>
+                                    <field name="jan" />
+                                    <field name="feb" />
+                                    <field name="mar" />
+                                    <field name="apr" />
+                                    <field name="may" />
+                                    <field name="jun" />
+                                    <field name="jul" />
+                                    <field name="aug" />
+                                    <field name="sep" />
+                                    <field name="oct" />
+                                    <field name="nov" />
+                                    <field name="des" />
                                 </group>
                             </div>
                         </div>

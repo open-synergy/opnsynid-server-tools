@@ -3,9 +3,5 @@
      Copyright 2022 PT. Simetri Sinergi Indonesia
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
-    <menuitem
-        id="menu_frequency_root"
-        name="Frequency"
-        parent="base.menu_custom"
-    />
+    <menuitem id="menu_frequency_root" name="Frequency" parent="base.menu_custom" />
 </odoo>

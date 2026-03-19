@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template>
+
+    <t
+        t-name="ssi_base_import_xml.ControlPanel"
+        t-inherit="web.ControlPanel"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//div[hasclass('o_cp_pager')]" position="before">
+            <div t-if="env.session.is_admin" class="o_cp_import_xml">
+                <nav class="o_import_xml_nav">
+                    <button
+                        class="btn btn-secondary o_button_import_xml"
+                        aria-label="Import XML"
+                        title="Import XML"
+                    >Import XML</button>
+                </nav>
+            </div>
+        </xpath>
+    </t>
+
+</template>
