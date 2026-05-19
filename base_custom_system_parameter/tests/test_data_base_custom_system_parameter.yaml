@@ -1,0 +1,56 @@
+scenarios:
+  - name: "Base Custom System Parameter - Create, get, set, and unlink"
+    steps:
+      - step: "Create a new parameter"
+        action: "create"
+        model: "base.custom_system_parameter"
+        save_as: "param"
+        values:
+          key: "test.param.key"
+          value: "test_value"
+
+      - step: "Assert parameter created"
+        action: "assert"
+        target: "param"
+        asserts:
+          key:
+            type: "value"
+            expected: "test.param.key"
+          value:
+            type: "value"
+            expected: "test_value"
+
+      - step: "Update parameter value"
+        action: "write"
+        target: "param"
+        values:
+          value: "updated_value"
+
+      - step: "Assert parameter updated"
+        action: "assert"
+        target: "param"
+        asserts:
+          value:
+            type: "value"
+            expected: "updated_value"
+
+  - name: "Base Custom System Parameter - Create second parameter"
+    steps:
+      - step: "Create another parameter"
+        action: "create"
+        model: "base.custom_system_parameter"
+        save_as: "param2"
+        values:
+          key: "test.param.key2"
+          value: "value2"
+
+      - step: "Assert second parameter created"
+        action: "assert"
+        target: "param2"
+        asserts:
+          key:
+            type: "value"
+            expected: "test.param.key2"
+          value:
+            type: "value"
+            expected: "value2"

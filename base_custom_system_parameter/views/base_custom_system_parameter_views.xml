@@ -17,7 +17,7 @@
         <field name="name">base.custom_system_parameter.tree</field>
         <field name="model">base.custom_system_parameter</field>
         <field name="arch" type="xml">
-            <tree string="Custom Parameters">
+            <tree>
                 <field name="key" />
                 <field name="value" />
             </tree>
