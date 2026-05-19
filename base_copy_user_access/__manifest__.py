@@ -5,7 +5,7 @@
 
 {
     "name": "Base Copy User Access",
-    "version": "14.0.1.0.1",
+    "version": "14.0.1.1.0",
     "summary": "Copy access right from another user",
     "author": "PT. Simetri Sinergi Indonesia,OpenSynergy Indonesia",
     "category": "Generic Modules/Base",

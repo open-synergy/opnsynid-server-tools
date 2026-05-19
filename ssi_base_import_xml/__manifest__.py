@@ -5,7 +5,7 @@
 
 {
     "name": "SSI Base Import XML",
-    "version": "14.0.1.1.0",
+    "version": "14.0.1.2.0",
     "summary": "Import data records using XML files",
     "author": "PT. Simetri Sinergi Indonesia,OpenSynergy Indonesia",
     "category": "Generic Modules/Base",

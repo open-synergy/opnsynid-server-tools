@@ -4,7 +4,7 @@
 # pylint: disable=locally-disabled, manifest-required-author
 {
     "name": "Base Copy User Role",
-    "version": "14.0.1.1.0",
+    "version": "14.0.1.2.0",
     "author": "PT. Simetri Sinergi Indonesia,OpenSynergy Indonesia",
     "category": "Generic Modules/Base",
     "website": "https://simetri-sinergi.id",
