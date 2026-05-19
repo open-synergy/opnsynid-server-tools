@@ -38,7 +38,7 @@
                         </group>
                         <group name="public_holiday_2">
                             <field name="line_ids" nolabel="1">
-                                <tree string="Public Holidays" editable="top">
+                                <tree editable="top">
                                     <field name="date" />
                                     <field name="name" />
                                     <field

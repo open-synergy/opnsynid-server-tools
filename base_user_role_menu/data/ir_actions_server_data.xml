@@ -3,7 +3,6 @@
      Copyright 2022 PT. Simetri Sinergi Indonesia
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
-<data>
 
 <record id="ir_action_server_clear_non_role_groups" model="ir.actions.server">
     <field name="name">Clear Non Role Groups</field>
@@ -18,5 +17,4 @@ for menu in menus:
     </field>
 </record>
 
-</data>
 </odoo>
