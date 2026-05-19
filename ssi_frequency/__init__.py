@@ -4,4 +4,5 @@
 
 from . import (
     models,
+    tests,
 )

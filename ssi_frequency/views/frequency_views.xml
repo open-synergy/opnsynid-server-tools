@@ -43,6 +43,7 @@
             ref="ssi_master_data_mixin.mixin_master_data_view_form"
         />
         <field name="mode">primary</field>
+        <field name="priority">99</field>
         <field name="arch" type="xml">
             <data>
                 <xpath expr="//group[@name='group_1']" position="replace">

@@ -1,0 +1,127 @@
+scenarios:
+  - name: "Frequency - Create daily frequency rule"
+    steps:
+      - step: "Create a daily frequency rule"
+        action: "create"
+        model: "frequency"
+        save_as: "freq_daily"
+        values:
+          name: "Daily Frequency"
+          code: "DAILY001"
+          interval: 1
+          interval_type: "daily"
+
+      - step: "Assert daily frequency created"
+        action: "assert"
+        target: "freq_daily"
+        asserts:
+          name:
+            type: "value"
+            expected: "Daily Frequency"
+          interval:
+            type: "value"
+            expected: 1
+          interval_type:
+            type: "value"
+            expected: "daily"
+
+  - name: "Frequency - Create weekly frequency rule with weekdays"
+    steps:
+      - step: "Create a weekly frequency rule"
+        action: "create"
+        model: "frequency"
+        save_as: "freq_weekly"
+        values:
+          name: "Weekly Mon-Fri"
+          code: "WEEKLY001"
+          interval: 1
+          interval_type: "weekly"
+          use_byweekday: true
+          mo: true
+          tu: true
+          we: true
+          th: true
+          fr: true
+          sa: false
+          su: false
+
+      - step: "Assert weekly frequency created"
+        action: "assert"
+        target: "freq_weekly"
+        asserts:
+          name:
+            type: "value"
+            expected: "Weekly Mon-Fri"
+          interval_type:
+            type: "value"
+            expected: "weekly"
+          mo:
+            type: "value"
+            expected: true
+          sa:
+            type: "value"
+            expected: false
+
+  - name: "Frequency - Create monthly frequency rule"
+    steps:
+      - step: "Create a monthly frequency rule"
+        action: "create"
+        model: "frequency"
+        save_as: "freq_monthly"
+        values:
+          name: "Monthly Frequency"
+          code: "MONTHLY001"
+          interval: 1
+          interval_type: "monthly"
+          use_bymonthday: true
+          month_day: 15
+
+      - step: "Assert monthly frequency created"
+        action: "assert"
+        target: "freq_monthly"
+        asserts:
+          name:
+            type: "value"
+            expected: "Monthly Frequency"
+          interval_type:
+            type: "value"
+            expected: "monthly"
+          month_day:
+            type: "value"
+            expected: 15
+
+  - name: "Frequency Set - Create frequency set with rules"
+    steps:
+      - step: "Create a daily frequency rule for set"
+        action: "create"
+        model: "frequency"
+        save_as: "freq_for_set"
+        values:
+          name: "Daily For Set"
+          code: "DAILYSET001"
+          interval: 1
+          interval_type: "daily"
+
+      - step: "Create a frequency set"
+        action: "create"
+        model: "frequency_set"
+        save_as: "freq_set"
+        values:
+          name: "Daily Set"
+          code: "DSET001"
+          schedule_days: 30
+          buffer_early: 2
+          buffer_late: 2
+          fsm_frequency_ids:
+            - "EVAL: registry['freq_for_set'].id"
+
+      - step: "Assert frequency set created"
+        action: "assert"
+        target: "freq_set"
+        asserts:
+          name:
+            type: "value"
+            expected: "Daily Set"
+          schedule_days:
+            type: "value"
+            expected: 30
