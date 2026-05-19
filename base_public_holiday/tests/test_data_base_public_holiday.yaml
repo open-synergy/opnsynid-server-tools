@@ -1,0 +1,85 @@
+scenarios:
+  - name: "Base Public Holiday - Create holiday year with lines"
+    steps:
+      - step: "Create public holiday year 2024"
+        action: "create"
+        model: "base.public.holiday"
+        save_as: "holiday_year"
+        values:
+          year: 2024
+
+      - step: "Assert holiday year created"
+        action: "assert"
+        target: "holiday_year"
+        asserts:
+          year:
+            type: "value"
+            expected: 2024
+
+      - step: "Create holiday line - New Year"
+        action: "create"
+        model: "base.public.holiday.line"
+        save_as: "holiday_line"
+        values:
+          name: "New Year 2024"
+          date: "2024-01-01"
+          year_id: "EVAL: registry['holiday_year'].id"
+
+      - step: "Assert holiday line created"
+        action: "assert"
+        target: "holiday_line"
+        asserts:
+          name:
+            type: "value"
+            expected: "New Year 2024"
+
+      - step: "Create holiday line - Independence Day"
+        action: "create"
+        model: "base.public.holiday.line"
+        save_as: "holiday_line2"
+        values:
+          name: "Independence Day 2024"
+          date: "2024-08-17"
+          year_id: "EVAL: registry['holiday_year'].id"
+
+      - step: "Assert Independence Day created"
+        action: "assert"
+        target: "holiday_line2"
+        asserts:
+          name:
+            type: "value"
+            expected: "Independence Day 2024"
+
+  - name: "Base Public Holiday - Create holiday year 2025"
+    steps:
+      - step: "Create public holiday year 2025"
+        action: "create"
+        model: "base.public.holiday"
+        save_as: "holiday_year_2025"
+        values:
+          year: 2025
+
+      - step: "Assert holiday year 2025 created"
+        action: "assert"
+        target: "holiday_year_2025"
+        asserts:
+          year:
+            type: "value"
+            expected: 2025
+
+      - step: "Create holiday line - New Year 2025"
+        action: "create"
+        model: "base.public.holiday.line"
+        save_as: "holiday_line_2025"
+        values:
+          name: "New Year 2025"
+          date: "2025-01-01"
+          year_id: "EVAL: registry['holiday_year_2025'].id"
+
+      - step: "Assert holiday line created"
+        action: "assert"
+        target: "holiday_line_2025"
+        asserts:
+          name:
+            type: "value"
+            expected: "New Year 2025"
