@@ -1,0 +1,76 @@
+name: Notify Telegram on Push
+
+on:
+  push:
+    branches:
+      - 14.0
+
+jobs:
+  notify:
+    name: Send Telegram Notification
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build and send Telegram message
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_CODE_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          REPO="${{ github.repository }}"
+          BRANCH="${{ github.ref_name }}"
+          PUSHER="${{ github.actor }}"
+          COMPARE_URL="${{ github.event.compare }}"
+
+          # Ambil semua commit dalam push ini (urutan terlama → terbaru)
+          COMMITS_JSON='${{ toJson(github.event.commits) }}'
+
+          COMMIT_COUNT=$(echo "$COMMITS_JSON" | python3 -c "import sys,json; data=json.load(sys.stdin); print(len(data))")
+
+          # Bangun daftar commit beserta full message
+          COMMIT_LIST=$(echo "$COMMITS_JSON" | python3 -c "
+          import sys, json
+          data = json.load(sys.stdin)
+          lines = []
+          for c in data:
+              sha    = c['id'][:7]
+              msg    = c['message'].strip()
+              author = c['author']['name']
+              ts     = c['timestamp'][:16].replace('T', ' ')  # YYYY-MM-DD HH:MM
+
+              msg_lines = msg.split('\n')
+              title = msg_lines[0][:80]  # baris pertama, maks 80 karakter
+              body_lines = [l for l in msg_lines[1:] if l.strip()]
+
+              entry = f'  \`{sha}\` {title}\n    👤 {author}  🕐 {ts}'
+              if body_lines:
+                  indented = '\n'.join(f'    {l}' for l in body_lines)
+                  entry += f'\n{indented}'
+              lines.append(entry)
+          print('\n\n'.join(lines))
+          ")
+
+          if [ "$COMMIT_COUNT" -eq 1 ]; then
+            HEADER="📝 *1 commit baru* di \`${REPO}\`"
+          else
+            HEADER="📦 *${COMMIT_COUNT} commit baru* di \`${REPO}\`"
+          fi
+
+          MESSAGE="${HEADER}
+          Branch: \`${BRANCH}\`
+          Pusher: @${PUSHER}
+
+          ${COMMIT_LIST}
+
+          🔗 [Lihat perubahan](${COMPARE_URL})"
+
+          # Kirim ke Telegram via Bot API
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text=${MESSAGE}" \
+            --data-urlencode "parse_mode=Markdown" \
+            --data-urlencode "disable_web_page_preview=true"
