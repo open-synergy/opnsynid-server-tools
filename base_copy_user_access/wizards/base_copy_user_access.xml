@@ -3,7 +3,6 @@
      Copyright 2022 PT. Simetri Sinergi Indonesia
      License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
 <odoo>
-    <data>
 
         <record id="base_copy_user_access_view_form" model="ir.ui.view">
             <field name="name">Copy User Access</field>
@@ -15,16 +14,16 @@
                     </group>
                     <footer>
                         <button
-                            name="copy_access_right"
-                            string="Copy"
-                            type="object"
-                            class="oe_highlight"
-                        />
+                        name="copy_access_right"
+                        string="Copy"
+                        type="object"
+                        class="oe_highlight"
+                    />
                         <button
-                            string="Cancel"
-                            class="btn btn-secondary"
-                            special="cancel"
-                        />
+                        string="Cancel"
+                        class="btn btn-secondary"
+                        special="cancel"
+                    />
                     </footer>
                 </form>
             </field>
@@ -40,5 +39,4 @@
             <field name="binding_view_types">list,form</field>
         </record>
 
-    </data>
 </odoo>
