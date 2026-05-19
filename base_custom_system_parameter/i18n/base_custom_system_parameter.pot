@@ -32,7 +32,6 @@ msgstr ""
 #: model:ir.actions.act_window,name:base_custom_system_parameter.base_custom_system_parameter_action
 #: model:ir.ui.menu,name:base_custom_system_parameter.base_custom_system_parameter_menu
 #: model_terms:ir.ui.view,arch_db:base_custom_system_parameter.base_custom_system_parameter_view_form
-#: model_terms:ir.ui.view,arch_db:base_custom_system_parameter.base_custom_system_parameter_view_tree
 msgid "Custom Parameters"
 msgstr ""
 
