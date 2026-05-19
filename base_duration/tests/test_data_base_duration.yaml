@@ -1,0 +1,77 @@
+scenarios:
+  - name: "Base Duration - Create duration with number of days"
+    steps:
+      - step: "Create a duration with 5 working days"
+        action: "create"
+        model: "base.duration"
+        save_as: "duration"
+        values:
+          name: "5 Working Days"
+          code: "5WD"
+          number_of_days: 5
+          include_weekend: false
+          include_public_holiday: false
+
+      - step: "Assert duration created"
+        action: "assert"
+        target: "duration"
+        asserts:
+          name:
+            type: "value"
+            expected: "5 Working Days"
+          number_of_days:
+            type: "value"
+            expected: 5
+          include_weekend:
+            type: "value"
+            expected: false
+
+  - name: "Base Duration - Create duration with relative delta months"
+    steps:
+      - step: "Create a duration with 3 months"
+        action: "create"
+        model: "base.duration"
+        save_as: "duration_months"
+        values:
+          name: "3 Months"
+          code: "3M"
+          number_of_days: 0
+          relative_delta_months: 3
+          include_weekend: true
+          include_public_holiday: true
+
+      - step: "Assert duration created with months"
+        action: "assert"
+        target: "duration_months"
+        asserts:
+          name:
+            type: "value"
+            expected: "3 Months"
+          relative_delta_months:
+            type: "value"
+            expected: 3
+
+  - name: "Base Duration - Create duration with relative delta years"
+    steps:
+      - step: "Create a duration with 1 year"
+        action: "create"
+        model: "base.duration"
+        save_as: "duration_year"
+        values:
+          name: "1 Year"
+          code: "1Y"
+          number_of_days: 0
+          relative_delta_years: 1
+          include_weekend: true
+          include_public_holiday: true
+
+      - step: "Assert duration created with years"
+        action: "assert"
+        target: "duration_year"
+        asserts:
+          name:
+            type: "value"
+            expected: "1 Year"
+          relative_delta_years:
+            type: "value"
+            expected: 1
