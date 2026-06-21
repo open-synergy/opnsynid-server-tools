@@ -149,6 +149,11 @@ msgid "Every Work Day - (test)"
 msgstr ""
 
 #. module: ssi_frequency
+#: model_terms:ir.ui.view,arch_db:ssi_frequency.frequency_view_search
+msgid "Exclusive"
+msgstr ""
+
+#. module: ssi_frequency
 #: model:ir.model.fields,field_description:ssi_frequency.field_frequency__is_exclusive
 msgid "Exclusive Rule?"
 msgstr ""
@@ -221,6 +226,11 @@ msgid "Friday"
 msgstr ""
 
 #. module: ssi_frequency
+#: model_terms:ir.ui.view,arch_db:ssi_frequency.frequency_view_search
+msgid "Group By"
+msgstr ""
+
+#. module: ssi_frequency
 #: model:ir.model.fields,field_description:ssi_frequency.field_frequency__id
 #: model:ir.model.fields,field_description:ssi_frequency.field_frequency_set__id
 msgid "ID"
@@ -254,6 +264,7 @@ msgstr ""
 
 #. module: ssi_frequency
 #: model:ir.model.fields,field_description:ssi_frequency.field_frequency__interval_type
+#: model_terms:ir.ui.view,arch_db:ssi_frequency.frequency_view_search
 msgid "Interval Type"
 msgstr ""
 
