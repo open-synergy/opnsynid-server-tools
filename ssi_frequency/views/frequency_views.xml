@@ -12,7 +12,28 @@
         />
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <data />
+            <data>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="interval_type" />
+                </xpath>
+                <xpath expr="//group[@name='dom_active']" position="inside">
+                    <separator />
+                    <filter
+                        name="dom_is_exclusive"
+                        string="Exclusive"
+                        domain="[('is_exclusive','=',True)]"
+                    />
+                </xpath>
+                <xpath expr="//group[@name='dom_active']" position="after">
+                    <group expand="0" string="Group By">
+                        <filter
+                            name="grp_interval_type"
+                            string="Interval Type"
+                            context="{'group_by':'interval_type'}"
+                        />
+                    </group>
+                </xpath>
+            </data>
         </field>
     </record>
 
