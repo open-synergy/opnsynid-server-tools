@@ -137,11 +137,13 @@ msgstr ""
 
 #. module: base_duration
 #: model:ir.model.fields,field_description:base_duration.field_base_duration__include_public_holiday
+#: model_terms:ir.ui.view,arch_db:base_duration.base_duration_view_search
 msgid "Include Public Holiday"
 msgstr ""
 
 #. module: base_duration
 #: model:ir.model.fields,field_description:base_duration.field_base_duration__include_weekend
+#: model_terms:ir.ui.view,arch_db:base_duration.base_duration_view_search
 msgid "Include Weekend"
 msgstr ""
 
