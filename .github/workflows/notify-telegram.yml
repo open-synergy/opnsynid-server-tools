@@ -17,60 +17,79 @@ jobs:
           fetch-depth: 0
 
       - name: Build and send Telegram message
+        # Semua data dinamis dilewatkan lewat env (di-set GitHub dengan aman),
+        # BUKAN ditanam ke skrip shell. Mencegah error sintaks & script injection
+        # bila pesan commit mengandung ' ` $() < > & atau karakter khusus lain.
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_CODE_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ github.ref_name }}
+          PUSHER: ${{ github.actor }}
+          COMPARE_URL: ${{ github.event.compare }}
+          COMMITS_JSON: ${{ toJson(github.event.commits) }}
+        # Heredoc ber-quote <<'PYEOF': bash TIDAK menginterpolasi isi Python.
         run: |
-          REPO="${{ github.repository }}"
-          BRANCH="${{ github.ref_name }}"
-          PUSHER="${{ github.actor }}"
-          COMPARE_URL="${{ github.event.compare }}"
+          python3 <<'PYEOF'
+          import os, json, html, urllib.request, urllib.parse, urllib.error
 
-          # Ambil semua commit dalam push ini (urutan terlama → terbaru)
-          COMMITS_JSON='${{ toJson(github.event.commits) }}'
+          repo    = os.environ["REPO"]
+          branch  = os.environ["BRANCH"]
+          pusher  = os.environ["PUSHER"]
+          compare = os.environ["COMPARE_URL"]
+          commits = json.loads(os.environ.get("COMMITS_JSON") or "[]")
 
-          COMMIT_COUNT=$(echo "$COMMITS_JSON" | python3 -c "import sys,json; data=json.load(sys.stdin); print(len(data))")
+          # Telegram HTML hanya kenal &lt; &gt; &amp;; jangan escape kutip
+          # (entity numerik apostrof ditolak parser).
+          def esc(s):
+              return html.escape(s, quote=False)
 
-          # Bangun daftar commit beserta full message
-          COMMIT_LIST=$(echo "$COMMITS_JSON" | python3 -c "
-          import sys, json
-          data = json.load(sys.stdin)
           lines = []
-          for c in data:
-              sha    = c['id'][:7]
-              msg    = c['message'].strip()
-              author = c['author']['name']
-              ts     = c['timestamp'][:16].replace('T', ' ')  # YYYY-MM-DD HH:MM
+          for c in commits:
+              sha    = c["id"][:7]
+              msg    = c["message"].strip()
+              author = esc(c["author"]["name"])
+              ts     = c["timestamp"][:16].replace("T", " ")  # YYYY-MM-DD HH:MM
 
-              msg_lines = msg.split('\n')
-              title = msg_lines[0][:80]  # baris pertama, maks 80 karakter
-              body_lines = [l for l in msg_lines[1:] if l.strip()]
+              msg_lines = msg.split("\n")
+              title = esc(msg_lines[0][:80])  # baris pertama, maks 80 karakter
+              body  = [esc(l) for l in msg_lines[1:] if l.strip()]
 
-              entry = f'  \`{sha}\` {title}\n    👤 {author}  🕐 {ts}'
-              if body_lines:
-                  indented = '\n'.join(f'    {l}' for l in body_lines)
-                  entry += f'\n{indented}'
+              entry = f"  <code>{sha}</code> {title}\n    👤 {author}  🕐 {ts}"
+              if body:
+                  entry += "\n" + "\n".join(f"    {l}" for l in body)
               lines.append(entry)
-          print('\n\n'.join(lines))
-          ")
 
-          if [ "$COMMIT_COUNT" -eq 1 ]; then
-            HEADER="📝 *1 commit baru* di \`${REPO}\`"
-          else
-            HEADER="📦 *${COMMIT_COUNT} commit baru* di \`${REPO}\`"
-          fi
+          count = len(commits)
+          if count == 1:
+              header = f"📝 <b>1 commit baru</b> di <code>{esc(repo)}</code>"
+          else:
+              header = f"📦 <b>{count} commit baru</b> di <code>{esc(repo)}</code>"
 
-          MESSAGE="${HEADER}
-          Branch: \`${BRANCH}\`
-          Pusher: @${PUSHER}
+          message = (
+              f"{header}\n"
+              f"Branch: <code>{esc(branch)}</code>\n"
+              f"Pusher: @{esc(pusher)}\n\n"
+              + "\n\n".join(lines)
+              + f'\n\n🔗 <a href="{esc(compare)}">Lihat perubahan</a>'
+          )
 
-          ${COMMIT_LIST}
+          data = urllib.parse.urlencode({
+              "chat_id": os.environ["TELEGRAM_CHAT_ID"],
+              "text": message,
+              "parse_mode": "HTML",
+              "disable_web_page_preview": "true",
+          }).encode()
 
-          🔗 [Lihat perubahan](${COMPARE_URL})"
+          url = f'https://api.telegram.org/bot{os.environ["TELEGRAM_BOT_TOKEN"]}/sendMessage'
+          try:
+              with urllib.request.urlopen(urllib.request.Request(url, data=data)) as resp:
+                  result = json.load(resp)
+          except urllib.error.HTTPError as e:
+              result = json.load(e)
 
-          # Kirim ke Telegram via Bot API
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-            --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
-            --data-urlencode "text=${MESSAGE}" \
-            --data-urlencode "parse_mode=Markdown" \
-            --data-urlencode "disable_web_page_preview=true"
+          print("Telegram response:", json.dumps(result, ensure_ascii=False))
+          if not result.get("ok"):
+              print("::error::Gagal kirim pesan Telegram")
+              raise SystemExit(1)
+          PYEOF
