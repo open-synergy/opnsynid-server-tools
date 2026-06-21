@@ -13,7 +13,21 @@
         />
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <data />
+            <data>
+                <xpath expr="//group[@name='dom_active']" position="inside">
+                    <separator />
+                    <filter
+                        name="dom_include_weekend"
+                        string="Include Weekend"
+                        domain="[('include_weekend','=',True)]"
+                    />
+                    <filter
+                        name="dom_include_public_holiday"
+                        string="Include Public Holiday"
+                        domain="[('include_public_holiday','=',True)]"
+                    />
+                </xpath>
+            </data>
         </field>
     </record>
 
