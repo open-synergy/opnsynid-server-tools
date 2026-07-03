@@ -25,6 +25,7 @@ addon | version | maintainers | summary
 [base_user_copy_user_role](base_user_copy_user_role/) | 14.0.1.2.0 |  | Base Copy User Role
 [base_user_role_menu](base_user_role_menu/) | 14.0.1.1.0 |  | Manage Menu Access Based on Roles
 [ssi_base_import_xml](ssi_base_import_xml/) | 14.0.1.2.0 |  | Import data records using XML files
+[ssi_copy_move_user_from_group](ssi_copy_move_user_from_group/) | 14.0.1.0.0 |  | Copy or move all members of one group to another group
 [ssi_frequency](ssi_frequency/) | 14.0.1.3.0 |  | Frequency
 [test_base_duration](test_base_duration/) | 14.0.1.1.0 |  | Test Module - Base Duration
 
