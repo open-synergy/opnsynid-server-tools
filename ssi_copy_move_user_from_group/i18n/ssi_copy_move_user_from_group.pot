@@ -1,0 +1,105 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ssi_copy_move_user_from_group
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ssi_copy_move_user_from_group
+#: model:ir.model.fields,field_description:ssi_copy_move_user_from_group.field_ssi_copy_move_user_from_group__user_ids
+msgid "Affected Users"
+msgstr ""
+
+#. module: ssi_copy_move_user_from_group
+#: model_terms:ir.ui.view,arch_db:ssi_copy_move_user_from_group.ssi_copy_move_user_from_group_view_form
+msgid "Cancel"
+msgstr ""
+
+#. module: ssi_copy_move_user_from_group
+#: model_terms:ir.ui.view,arch_db:ssi_copy_move_user_from_group.ssi_copy_move_user_from_group_view_form
+msgid "Copy Users"
+msgstr ""
+
+#. module: ssi_copy_move_user_from_group
+#: model:ir.actions.act_window,name:ssi_copy_move_user_from_group.ssi_copy_move_user_from_group_action
+#: model:ir.model,name:ssi_copy_move_user_from_group.model_ssi_copy_move_user_from_group
+#: model_terms:ir.ui.view,arch_db:ssi_copy_move_user_from_group.ssi_copy_move_user_from_group_view_form
+msgid "Copy/Move User From Group"
+msgstr ""
+
+#. module: ssi_copy_move_user_from_group
+#: model:ir.model.fields,field_description:ssi_copy_move_user_from_group.field_ssi_copy_move_user_from_group__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: ssi_copy_move_user_from_group
+#: model:ir.model.fields,field_description:ssi_copy_move_user_from_group.field_ssi_copy_move_user_from_group__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: ssi_copy_move_user_from_group
+#: model:ir.model.fields,field_description:ssi_copy_move_user_from_group.field_ssi_copy_move_user_from_group__group_to_id
+msgid "Destination Group"
+msgstr ""
+
+#. module: ssi_copy_move_user_from_group
+#: model:ir.model.fields,field_description:ssi_copy_move_user_from_group.field_ssi_copy_move_user_from_group__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: ssi_copy_move_user_from_group
+#: model:ir.model.fields,help:ssi_copy_move_user_from_group.field_ssi_copy_move_user_from_group__group_to_id
+msgid "Group that will receive the members of the source group."
+msgstr ""
+
+#. module: ssi_copy_move_user_from_group
+#: model:ir.model.fields,help:ssi_copy_move_user_from_group.field_ssi_copy_move_user_from_group__group_from_id
+msgid ""
+"Group whose members will be copied or moved. When opened from the Group "
+"form, this is pre-filled with the current group."
+msgstr ""
+
+#. module: ssi_copy_move_user_from_group
+#: model:ir.model.fields,field_description:ssi_copy_move_user_from_group.field_ssi_copy_move_user_from_group__id
+msgid "ID"
+msgstr ""
+
+#. module: ssi_copy_move_user_from_group
+#: model:ir.model.fields,field_description:ssi_copy_move_user_from_group.field_ssi_copy_move_user_from_group____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: ssi_copy_move_user_from_group
+#: model:ir.model.fields,field_description:ssi_copy_move_user_from_group.field_ssi_copy_move_user_from_group__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: ssi_copy_move_user_from_group
+#: model:ir.model.fields,field_description:ssi_copy_move_user_from_group.field_ssi_copy_move_user_from_group__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: ssi_copy_move_user_from_group
+#: model_terms:ir.ui.view,arch_db:ssi_copy_move_user_from_group.ssi_copy_move_user_from_group_view_form
+msgid "Move Users"
+msgstr ""
+
+#. module: ssi_copy_move_user_from_group
+#: model:ir.model.fields,help:ssi_copy_move_user_from_group.field_ssi_copy_move_user_from_group__user_ids
+msgid ""
+"Preview of the users currently in the source group that will be affected by "
+"the Copy or Move action."
+msgstr ""
+
+#. module: ssi_copy_move_user_from_group
+#: model:ir.model.fields,field_description:ssi_copy_move_user_from_group.field_ssi_copy_move_user_from_group__group_from_id
+msgid "Source Group"
+msgstr ""
