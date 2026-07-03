@@ -1,0 +1,243 @@
+scenarios:
+  - name: "Copy users — source and other groups are not changed"
+    steps:
+      - step: "Create source group"
+        action: "create"
+        model: "res.groups"
+        save_as: "group_from"
+        values:
+          name: "Copy Source Group"
+      - step: "Create destination group"
+        action: "create"
+        model: "res.groups"
+        save_as: "group_to"
+        values:
+          name: "Copy Destination Group"
+      - step: "Create unrelated other group"
+        action: "create"
+        model: "res.groups"
+        save_as: "group_other"
+        values:
+          name: "Copy Unrelated Other Group"
+      - step: "Create user already in source group and other group"
+        action: "create"
+        model: "res.users"
+        save_as: "user1"
+        values:
+          name: "Copy Test User 1"
+          login: "copy_test_user1@example.com"
+          groups_id:
+            - - 4
+              - "EVAL: registry['group_from'].id"
+            - - 4
+              - "EVAL: registry['group_other'].id"
+      - step: "Create wizard"
+        action: "create"
+        model: "ssi_copy_move_user_from_group"
+        save_as: "wizard"
+        values:
+          group_from_id: "EVAL: registry['group_from'].id"
+          group_to_id: "EVAL: registry['group_to'].id"
+      - step: "Call action_copy_users"
+        action: "call"
+        target: "wizard"
+        method: "action_copy_users"
+      - step: "User is now member of destination group"
+        action: "search"
+        model: "res.users"
+        domain:
+          - ["id", "=", "EVAL: registry['user1'].id"]
+          - ["groups_id", "in", "EVAL: [registry['group_to'].id]"]
+        save_as: "check_in_destination"
+        expect_count: 1
+      - step: "User is still member of source group"
+        action: "search"
+        model: "res.users"
+        domain:
+          - ["id", "=", "EVAL: registry['user1'].id"]
+          - ["groups_id", "in", "EVAL: [registry['group_from'].id]"]
+        save_as: "check_still_in_source"
+        expect_count: 1
+      - step: "User is still member of the unrelated other group"
+        action: "search"
+        model: "res.users"
+        domain:
+          - ["id", "=", "EVAL: registry['user1'].id"]
+          - ["groups_id", "in", "EVAL: [registry['group_other'].id]"]
+        save_as: "check_other_untouched"
+        expect_count: 1
+
+  - name: "Move users — source group emptied, other group not changed"
+    steps:
+      - step: "Create source group"
+        action: "create"
+        model: "res.groups"
+        save_as: "group_from2"
+        values:
+          name: "Move Source Group"
+      - step: "Create destination group"
+        action: "create"
+        model: "res.groups"
+        save_as: "group_to2"
+        values:
+          name: "Move Destination Group"
+      - step: "Create unrelated other group"
+        action: "create"
+        model: "res.groups"
+        save_as: "group_other2"
+        values:
+          name: "Move Unrelated Other Group"
+      - step: "Create user already in source group and other group"
+        action: "create"
+        model: "res.users"
+        save_as: "user2"
+        values:
+          name: "Move Test User 2"
+          login: "move_test_user2@example.com"
+          groups_id:
+            - - 4
+              - "EVAL: registry['group_from2'].id"
+            - - 4
+              - "EVAL: registry['group_other2'].id"
+      - step: "Create wizard"
+        action: "create"
+        model: "ssi_copy_move_user_from_group"
+        save_as: "wizard2"
+        values:
+          group_from_id: "EVAL: registry['group_from2'].id"
+          group_to_id: "EVAL: registry['group_to2'].id"
+      - step: "Call action_move_users"
+        action: "call"
+        target: "wizard2"
+        method: "action_move_users"
+      - step: "User is no longer member of source group"
+        action: "search"
+        model: "res.users"
+        domain:
+          - ["id", "=", "EVAL: registry['user2'].id"]
+          - ["groups_id", "in", "EVAL: [registry['group_from2'].id]"]
+        save_as: "check_removed_from_source"
+        expect_count: 0
+      - step: "User is now member of destination group"
+        action: "search"
+        model: "res.users"
+        domain:
+          - ["id", "=", "EVAL: registry['user2'].id"]
+          - ["groups_id", "in", "EVAL: [registry['group_to2'].id]"]
+        save_as: "check_in_destination"
+        expect_count: 1
+      - step: "User is still member of the unrelated other group"
+        action: "search"
+        model: "res.users"
+        domain:
+          - ["id", "=", "EVAL: registry['user2'].id"]
+          - ["groups_id", "in", "EVAL: [registry['group_other2'].id]"]
+        save_as: "check_other_untouched"
+        expect_count: 1
+
+  - name: "Copy users — multiple users in source group"
+    steps:
+      - step: "Create source group"
+        action: "create"
+        model: "res.groups"
+        save_as: "group_from3"
+        values:
+          name: "Copy Multi Source Group"
+      - step: "Create destination group"
+        action: "create"
+        model: "res.groups"
+        save_as: "group_to3"
+        values:
+          name: "Copy Multi Destination Group"
+      - step: "Create first user in source group"
+        action: "create"
+        model: "res.users"
+        save_as: "user_a"
+        values:
+          name: "Copy Test User A"
+          login: "copy_test_user_a@example.com"
+          groups_id:
+            - - 4
+              - "EVAL: registry['group_from3'].id"
+      - step: "Create second user in source group"
+        action: "create"
+        model: "res.users"
+        save_as: "user_b"
+        values:
+          name: "Copy Test User B"
+          login: "copy_test_user_b@example.com"
+          groups_id:
+            - - 4
+              - "EVAL: registry['group_from3'].id"
+      - step: "Create wizard"
+        action: "create"
+        model: "ssi_copy_move_user_from_group"
+        save_as: "wizard3"
+        values:
+          group_from_id: "EVAL: registry['group_from3'].id"
+          group_to_id: "EVAL: registry['group_to3'].id"
+      - step: "Call action_copy_users"
+        action: "call"
+        target: "wizard3"
+        method: "action_copy_users"
+      - step: "Both users are now members of destination group"
+        action: "search"
+        model: "res.users"
+        domain:
+          - ["id", "in", "EVAL: [registry['user_a'].id, registry['user_b'].id]"]
+          - ["groups_id", "in", "EVAL: [registry['group_to3'].id]"]
+        save_as: "check_both_in_destination"
+        expect_count: 2
+
+  - name: "Copy users — implied groups of the destination cascade automatically"
+    steps:
+      - step: "Create implied group"
+        action: "create"
+        model: "res.groups"
+        save_as: "group_implied4"
+        values:
+          name: "Copy Implied Group 4"
+      - step: "Create destination group implying the implied group"
+        action: "create"
+        model: "res.groups"
+        save_as: "group_to4"
+        values:
+          name: "Copy Destination Group 4"
+          implied_ids:
+            - - 4
+              - "EVAL: registry['group_implied4'].id"
+      - step: "Create source group"
+        action: "create"
+        model: "res.groups"
+        save_as: "group_from4"
+        values:
+          name: "Copy Source Group 4"
+      - step: "Create user in source group"
+        action: "create"
+        model: "res.users"
+        save_as: "user4"
+        values:
+          name: "Copy Test User 4"
+          login: "copy_test_user4@example.com"
+          groups_id:
+            - - 4
+              - "EVAL: registry['group_from4'].id"
+      - step: "Create wizard"
+        action: "create"
+        model: "ssi_copy_move_user_from_group"
+        save_as: "wizard4"
+        values:
+          group_from_id: "EVAL: registry['group_from4'].id"
+          group_to_id: "EVAL: registry['group_to4'].id"
+      - step: "Call action_copy_users"
+        action: "call"
+        target: "wizard4"
+        method: "action_copy_users"
+      - step: "User automatically gained the implied group (native Odoo behaviour)"
+        action: "search"
+        model: "res.users"
+        domain:
+          - ["id", "=", "EVAL: registry['user4'].id"]
+          - ["groups_id", "in", "EVAL: [registry['group_implied4'].id]"]
+        save_as: "check_implied_cascade"
+        expect_count: 1

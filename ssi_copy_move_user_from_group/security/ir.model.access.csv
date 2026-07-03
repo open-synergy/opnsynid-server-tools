@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ssi_copy_move_user_from_group,ssi_copy_move_user_from_group - erp manager,model_ssi_copy_move_user_from_group,base.group_erp_manager,1,1,1,1
