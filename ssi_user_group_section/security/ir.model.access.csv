@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_user_group_section_all,user_group_section - All user,model_user_group_section,,1,0,0,0
+access_user_group_section_admin,user_group_section - Administrator Setting,model_user_group_section,base.group_system,1,1,1,1
+access_ir_module_category_admin,ir.module.category - Administrator Setting,base.model_ir_module_category,base.group_system,1,1,1,1

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="user_group_section_view_tree" model="ir.ui.view">
+        <field name="name">user_group_section - Tree</field>
+        <field name="model">user_group_section</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_tree"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='code']" position="before">
+                    <field name="sequence" widget="handle" />
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="user_group_section_view_search" model="ir.ui.view">
+        <field name="name">user_group_section - Search</field>
+        <field name="model">user_group_section</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_search"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data />
+        </field>
+    </record>
+
+    <record id="user_group_section_view_form" model="ir.ui.view">
+        <field name="name">user_group_section - Form</field>
+        <field name="model">user_group_section</field>
+        <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_form"
+        />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='active']" position="before">
+                    <field name="sequence" />
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="user_group_section_action" model="ir.actions.act_window">
+        <field name="name">User Group Sections</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">user_group_section</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="user_group_section_menu"
+        parent="menu_user_group_section_root"
+        action="user_group_section_action"
+    />
+</odoo>

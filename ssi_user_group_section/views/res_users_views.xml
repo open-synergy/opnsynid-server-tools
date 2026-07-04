@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_users_form_inherit_other_groups" model="ir.ui.view">
+        <field name="name">res.users.form - other groups</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='access_rights']" position="after">
+                <page name="other_groups" string="Other Groups">
+                    <field
+                        name="groups_id"
+                        domain="[('category_id.section_id', '=', False), ('share', '=', False)]"
+                    />
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
