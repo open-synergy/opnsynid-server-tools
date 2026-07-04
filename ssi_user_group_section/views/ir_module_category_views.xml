@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_module_category_form_inherit_section" model="ir.ui.view">
+        <field name="name">ir.module.category.form - inherit user_group_section</field>
+        <field name="model">ir.module.category</field>
+        <field name="inherit_id" ref="base.view_module_category_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sequence']" position="after">
+                <field name="section_id" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_module_category" model="ir.actions.act_window">
+        <field name="name">Application Categories</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ir.module.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_module_category"
+        action="action_module_category"
+        parent="base.menu_users"
+        groups="base.group_no_one"
+        sequence="4"
+    />
+</odoo>

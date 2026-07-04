@@ -1,0 +1,148 @@
+scenarios:
+  - name: "Create User Group Section"
+    steps:
+      - step: "Create section"
+        action: "create"
+        model: "user_group_section"
+        save_as: "section"
+        values:
+          name: "Workflow"
+          code: "/"
+      - step: "Assert created with default sequence"
+        action: "assert"
+        target: "section"
+        asserts:
+          id:
+            type: "value"
+            operator: "is_truthy"
+          name:
+            type: "value"
+            expected: "Workflow"
+          sequence:
+            type: "value"
+            expected: 10
+
+  - name: "Create User Group Section with custom sequence"
+    steps:
+      - step: "Create section"
+        action: "create"
+        model: "user_group_section"
+        save_as: "section"
+        values:
+          name: "Data Ownership"
+          code: "/"
+          sequence: 20
+      - step: "Assert custom sequence stored"
+        action: "assert"
+        target: "section"
+        asserts:
+          sequence:
+            type: "value"
+            expected: 20
+
+  - name: "Edit User Group Section Name"
+    steps:
+      - step: "Create section"
+        action: "create"
+        model: "user_group_section"
+        save_as: "section"
+        values:
+          name: "Configuration"
+          code: "/"
+      - step: "Write new name"
+        action: "write"
+        target: "section"
+        values:
+          name: "Configurator"
+      - step: "Assert name updated"
+        action: "assert"
+        target: "section"
+        asserts:
+          name:
+            type: "value"
+            expected: "Configurator"
+
+  - name: "Delete User Group Section"
+    steps:
+      - step: "Create section"
+        action: "create"
+        model: "user_group_section"
+        save_as: "section"
+        values:
+          name: "Wizard"
+          code: "/"
+      - step: "Delete section"
+        action: "call"
+        target: "section"
+        method: "unlink"
+      - step: "Verify deleted"
+        action: "search"
+        model: "user_group_section"
+        domain: [["name", "=", "Wizard"]]
+        save_as: "result"
+        expect_count: 0
+
+  - name: "Assign section_id on ir.module.category"
+    steps:
+      - step: "Create section"
+        action: "create"
+        model: "user_group_section"
+        save_as: "section"
+        values:
+          name: "Report"
+          code: "/"
+          sequence: 50
+      - step: "Create category assigned to section"
+        action: "create"
+        model: "ir.module.category"
+        save_as: "category"
+        values:
+          name: "Test Category For Section"
+          section_id: "EVAL: registry['section'].id"
+      - step: "Assert category section_id is set"
+        action: "assert"
+        target: "category"
+        asserts:
+          section_id:
+            type: "value"
+            operator: "is_truthy"
+      - step: "Verify category linked to the created section"
+        action: "search"
+        model: "ir.module.category"
+        domain:
+          [
+            ["id", "=", "EVAL: registry['category'].id"],
+            ["section_id", "=", "EVAL: registry['section'].id"],
+          ]
+        save_as: "result"
+        expect_count: 1
+
+  - name: "Administrator can create and edit ir.module.category"
+    steps:
+      - step: "Create section"
+        action: "create"
+        model: "user_group_section"
+        save_as: "section"
+        values:
+          name: "Admin Editable Test Section"
+          code: "/"
+      - step: "Create category as administrator (non-superuser)"
+        action: "create"
+        model: "ir.module.category"
+        save_as: "category"
+        as_user: "base.user_admin"
+        values:
+          name: "Test Category Admin Editable"
+      - step: "Administrator writes section_id on the category"
+        action: "write"
+        target: "category"
+        as_user: "base.user_admin"
+        values:
+          section_id: "EVAL: registry['section'].id"
+      - step: "Assert section_id was updated by the administrator"
+        action: "assert"
+        target: "category"
+        asserts:
+          section_id:
+            type: "value"
+            operator: "is_truthy"
