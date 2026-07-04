@@ -17,6 +17,7 @@ setuptools.setup(
         'odoo14-addon-ssi_base_import_xml',
         'odoo14-addon-ssi_copy_move_user_from_group',
         'odoo14-addon-ssi_frequency',
+        'odoo14-addon-ssi_user_group_section',
         'odoo14-addon-test_base_duration',
     ],
     classifiers=[
