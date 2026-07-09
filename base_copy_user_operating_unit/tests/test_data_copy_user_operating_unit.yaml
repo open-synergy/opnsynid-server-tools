@@ -1,0 +1,354 @@
+scenarios:
+  - name: "Copy Allowed OU - Replace"
+    steps:
+      - step: "Create OU A"
+        action: "create"
+        model: "operating.unit"
+        save_as: "ou_a"
+        values:
+          name: "OU A"
+          code: "OU-A-1"
+          partner_id: "base.main_partner"
+      - step: "Create OU B"
+        action: "create"
+        model: "operating.unit"
+        save_as: "ou_b"
+        values:
+          name: "OU B"
+          code: "OU-B-1"
+          partner_id: "base.main_partner"
+      - step: "Create OU C"
+        action: "create"
+        model: "operating.unit"
+        save_as: "ou_c"
+        values:
+          name: "OU C"
+          code: "OU-C-1"
+          partner_id: "base.main_partner"
+      - step: "Create source user"
+        action: "create"
+        model: "res.users"
+        save_as: "source"
+        values:
+          login: "test_ou_replace_source@test.com"
+          name: "Source Replace"
+          assigned_operating_unit_ids:
+            - - 6
+              - 0
+              - - "EVAL: registry['ou_a'].id"
+                - "EVAL: registry['ou_b'].id"
+      - step: "Create target user"
+        action: "create"
+        model: "res.users"
+        save_as: "target"
+        values:
+          login: "test_ou_replace_target@test.com"
+          name: "Target Replace"
+          assigned_operating_unit_ids:
+            - - 6
+              - 0
+              - - "EVAL: registry['ou_c'].id"
+      - step: "Create wizard"
+        action: "create"
+        model: "base.copy_user_operating_unit"
+        save_as: "wizard"
+        context:
+          active_ids: "EVAL: [registry['target'].id]"
+        values:
+          user_id: "EVAL: registry['source'].id"
+          copy_allowed_ou: true
+          allowed_ou_mode: "replace"
+          copy_default_ou: false
+      - step: "Run copy"
+        action: "call"
+        target: "wizard"
+        method: "action_copy_operating_unit"
+        context:
+          active_ids: "EVAL: [registry['target'].id]"
+      - step: "Assert target Allowed OU replaced"
+        action: "assert"
+        target: "target"
+        asserts:
+          assigned_operating_unit_ids:
+            type: "m2m"
+            check: "count"
+            expected_count: 2
+
+  - name: "Copy Allowed OU - Merge"
+    steps:
+      - step: "Create OU A"
+        action: "create"
+        model: "operating.unit"
+        save_as: "ou_a"
+        values:
+          name: "OU A"
+          code: "OU-A-2"
+          partner_id: "base.main_partner"
+      - step: "Create OU B"
+        action: "create"
+        model: "operating.unit"
+        save_as: "ou_b"
+        values:
+          name: "OU B"
+          code: "OU-B-2"
+          partner_id: "base.main_partner"
+      - step: "Create OU C"
+        action: "create"
+        model: "operating.unit"
+        save_as: "ou_c"
+        values:
+          name: "OU C"
+          code: "OU-C-2"
+          partner_id: "base.main_partner"
+      - step: "Create source user"
+        action: "create"
+        model: "res.users"
+        save_as: "source"
+        values:
+          login: "test_ou_merge_source@test.com"
+          name: "Source Merge"
+          assigned_operating_unit_ids:
+            - - 6
+              - 0
+              - - "EVAL: registry['ou_a'].id"
+                - "EVAL: registry['ou_b'].id"
+      - step: "Create target user"
+        action: "create"
+        model: "res.users"
+        save_as: "target"
+        values:
+          login: "test_ou_merge_target@test.com"
+          name: "Target Merge"
+          assigned_operating_unit_ids:
+            - - 6
+              - 0
+              - - "EVAL: registry['ou_c'].id"
+      - step: "Create wizard"
+        action: "create"
+        model: "base.copy_user_operating_unit"
+        save_as: "wizard"
+        context:
+          active_ids: "EVAL: [registry['target'].id]"
+        values:
+          user_id: "EVAL: registry['source'].id"
+          copy_allowed_ou: true
+          allowed_ou_mode: "merge"
+          copy_default_ou: false
+      - step: "Run copy"
+        action: "call"
+        target: "wizard"
+        method: "action_copy_operating_unit"
+        context:
+          active_ids: "EVAL: [registry['target'].id]"
+      - step: "Assert target keeps existing OU plus source OU"
+        action: "assert"
+        target: "target"
+        asserts:
+          assigned_operating_unit_ids:
+            type: "m2m"
+            check: "count"
+            expected_count: 3
+
+  - name: "Copy Default OU"
+    steps:
+      - step: "Create OU A"
+        action: "create"
+        model: "operating.unit"
+        save_as: "ou_a"
+        values:
+          name: "OU A"
+          code: "OU-A-3"
+          partner_id: "base.main_partner"
+      - step: "Create source user"
+        action: "create"
+        model: "res.users"
+        save_as: "source"
+        values:
+          login: "test_ou_default_source@test.com"
+          name: "Source Default"
+          assigned_operating_unit_ids:
+            - - 6
+              - 0
+              - - "EVAL: registry['ou_a'].id"
+          default_operating_unit_id: "EVAL: registry['ou_a'].id"
+      - step: "Create target user"
+        action: "create"
+        model: "res.users"
+        save_as: "target"
+        values:
+          login: "test_ou_default_target@test.com"
+          name: "Target Default"
+      - step: "Create wizard"
+        action: "create"
+        model: "base.copy_user_operating_unit"
+        save_as: "wizard"
+        context:
+          active_ids: "EVAL: [registry['target'].id]"
+        values:
+          user_id: "EVAL: registry['source'].id"
+          copy_allowed_ou: false
+          copy_default_ou: true
+      - step: "Run copy"
+        action: "call"
+        target: "wizard"
+        method: "action_copy_operating_unit"
+        context:
+          active_ids: "EVAL: [registry['target'].id]"
+      - step: "Assert target default OU copied"
+        action: "assert"
+        target: "target"
+        asserts:
+          default_operating_unit_id:
+            type: "value"
+            operator: "is_truthy"
+
+  - name: "Toggle Off Allowed OU"
+    steps:
+      - step: "Create OU A"
+        action: "create"
+        model: "operating.unit"
+        save_as: "ou_a"
+        values:
+          name: "OU A"
+          code: "OU-A-4"
+          partner_id: "base.main_partner"
+      - step: "Create OU C"
+        action: "create"
+        model: "operating.unit"
+        save_as: "ou_c"
+        values:
+          name: "OU C"
+          code: "OU-C-4"
+          partner_id: "base.main_partner"
+      - step: "Create source user"
+        action: "create"
+        model: "res.users"
+        save_as: "source"
+        values:
+          login: "test_ou_toggle_source@test.com"
+          name: "Source Toggle"
+          assigned_operating_unit_ids:
+            - - 6
+              - 0
+              - - "EVAL: registry['ou_a'].id"
+          default_operating_unit_id: "EVAL: registry['ou_a'].id"
+      - step: "Create target user"
+        action: "create"
+        model: "res.users"
+        save_as: "target"
+        values:
+          login: "test_ou_toggle_target@test.com"
+          name: "Target Toggle"
+          assigned_operating_unit_ids:
+            - - 6
+              - 0
+              - - "EVAL: registry['ou_c'].id"
+      - step: "Create wizard"
+        action: "create"
+        model: "base.copy_user_operating_unit"
+        save_as: "wizard"
+        context:
+          active_ids: "EVAL: [registry['target'].id]"
+        values:
+          user_id: "EVAL: registry['source'].id"
+          copy_allowed_ou: false
+          copy_default_ou: true
+      - step: "Run copy"
+        action: "call"
+        target: "wizard"
+        method: "action_copy_operating_unit"
+        context:
+          active_ids: "EVAL: [registry['target'].id]"
+      - step: "Assert Allowed OU untouched"
+        action: "assert"
+        target: "target"
+        asserts:
+          assigned_operating_unit_ids:
+            type: "m2m"
+            check: "count"
+            expected_count: 1
+      - step: "Assert Default OU copied"
+        action: "assert"
+        target: "target"
+        asserts:
+          default_operating_unit_id:
+            type: "value"
+            operator: "is_truthy"
+
+  - name: "Multi Target Replace"
+    steps:
+      - step: "Create OU A"
+        action: "create"
+        model: "operating.unit"
+        save_as: "ou_a"
+        values:
+          name: "OU A"
+          code: "OU-A-5"
+          partner_id: "base.main_partner"
+      - step: "Create OU B"
+        action: "create"
+        model: "operating.unit"
+        save_as: "ou_b"
+        values:
+          name: "OU B"
+          code: "OU-B-5"
+          partner_id: "base.main_partner"
+      - step: "Create source user"
+        action: "create"
+        model: "res.users"
+        save_as: "source"
+        values:
+          login: "test_ou_multi_source@test.com"
+          name: "Source Multi"
+          assigned_operating_unit_ids:
+            - - 6
+              - 0
+              - - "EVAL: registry['ou_a'].id"
+                - "EVAL: registry['ou_b'].id"
+      - step: "Create target user 1"
+        action: "create"
+        model: "res.users"
+        save_as: "target1"
+        values:
+          login: "test_ou_multi_target1@test.com"
+          name: "Target Multi 1"
+      - step: "Create target user 2"
+        action: "create"
+        model: "res.users"
+        save_as: "target2"
+        values:
+          login: "test_ou_multi_target2@test.com"
+          name: "Target Multi 2"
+      - step: "Create wizard"
+        action: "create"
+        model: "base.copy_user_operating_unit"
+        save_as: "wizard"
+        context:
+          active_ids: "EVAL: [registry['target1'].id, registry['target2'].id]"
+        values:
+          user_id: "EVAL: registry['source'].id"
+          copy_allowed_ou: true
+          allowed_ou_mode: "replace"
+          copy_default_ou: false
+      - step: "Run copy"
+        action: "call"
+        target: "wizard"
+        method: "action_copy_operating_unit"
+        context:
+          active_ids: "EVAL: [registry['target1'].id, registry['target2'].id]"
+      - step: "Assert target 1 Allowed OU"
+        action: "assert"
+        target: "target1"
+        asserts:
+          assigned_operating_unit_ids:
+            type: "m2m"
+            check: "count"
+            expected_count: 2
+      - step: "Assert target 2 Allowed OU"
+        action: "assert"
+        target: "target2"
+        asserts:
+          assigned_operating_unit_ids:
+            type: "m2m"
+            check: "count"
+            expected_count: 2
