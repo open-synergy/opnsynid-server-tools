@@ -6,7 +6,7 @@ scenarios:
         model: "operating.unit"
         save_as: "ou_a"
         values:
-          name: "OU A"
+          name: "OU A 1"
           code: "OU-A-1"
           partner_id: "base.main_partner"
       - step: "Create OU B"
@@ -14,7 +14,7 @@ scenarios:
         model: "operating.unit"
         save_as: "ou_b"
         values:
-          name: "OU B"
+          name: "OU B 1"
           code: "OU-B-1"
           partner_id: "base.main_partner"
       - step: "Create OU C"
@@ -22,7 +22,7 @@ scenarios:
         model: "operating.unit"
         save_as: "ou_c"
         values:
-          name: "OU C"
+          name: "OU C 1"
           code: "OU-C-1"
           partner_id: "base.main_partner"
       - step: "Create source user"
@@ -81,7 +81,7 @@ scenarios:
         model: "operating.unit"
         save_as: "ou_a"
         values:
-          name: "OU A"
+          name: "OU A 2"
           code: "OU-A-2"
           partner_id: "base.main_partner"
       - step: "Create OU B"
@@ -89,7 +89,7 @@ scenarios:
         model: "operating.unit"
         save_as: "ou_b"
         values:
-          name: "OU B"
+          name: "OU B 2"
           code: "OU-B-2"
           partner_id: "base.main_partner"
       - step: "Create OU C"
@@ -97,7 +97,7 @@ scenarios:
         model: "operating.unit"
         save_as: "ou_c"
         values:
-          name: "OU C"
+          name: "OU C 2"
           code: "OU-C-2"
           partner_id: "base.main_partner"
       - step: "Create source user"
@@ -156,7 +156,7 @@ scenarios:
         model: "operating.unit"
         save_as: "ou_a"
         values:
-          name: "OU A"
+          name: "OU A 3"
           code: "OU-A-3"
           partner_id: "base.main_partner"
       - step: "Create source user"
@@ -209,7 +209,7 @@ scenarios:
         model: "operating.unit"
         save_as: "ou_a"
         values:
-          name: "OU A"
+          name: "OU A 4"
           code: "OU-A-4"
           partner_id: "base.main_partner"
       - step: "Create OU C"
@@ -217,7 +217,7 @@ scenarios:
         model: "operating.unit"
         save_as: "ou_c"
         values:
-          name: "OU C"
+          name: "OU C 4"
           code: "OU-C-4"
           partner_id: "base.main_partner"
       - step: "Create source user"
@@ -282,7 +282,7 @@ scenarios:
         model: "operating.unit"
         save_as: "ou_a"
         values:
-          name: "OU A"
+          name: "OU A 5"
           code: "OU-A-5"
           partner_id: "base.main_partner"
       - step: "Create OU B"
@@ -290,7 +290,7 @@ scenarios:
         model: "operating.unit"
         save_as: "ou_b"
         values:
-          name: "OU B"
+          name: "OU B 5"
           code: "OU-B-5"
           partner_id: "base.main_partner"
       - step: "Create source user"
