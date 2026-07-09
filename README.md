@@ -19,6 +19,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [base_copy_user_access](base_copy_user_access/) | 14.0.1.1.0 |  | Copy access right from another user
+[base_copy_user_operating_unit](base_copy_user_operating_unit/) | 14.0.1.0.0 |  | Copy Allowed Operating Unit and Default Operating Unit from another user
 [base_custom_system_parameter](base_custom_system_parameter/) | 14.0.1.1.0 |  | Base Custom System Parameter
 [base_duration](base_duration/) | 14.0.1.3.0 |  | Base Duration
 [base_public_holiday](base_public_holiday/) | 14.0.1.3.0 |  | Base Public Holiday

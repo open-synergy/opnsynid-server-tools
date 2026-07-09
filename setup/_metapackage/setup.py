@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo14-addon-base_copy_user_access',
+        'odoo14-addon-base_copy_user_operating_unit',
         'odoo14-addon-base_custom_system_parameter',
         'odoo14-addon-base_duration',
         'odoo14-addon-base_public_holiday',
