@@ -577,6 +577,18 @@ msgid "Use Position"
 msgstr ""
 
 #. module: ssi_frequency
+#: model:ir.model.fields,field_description:ssi_frequency.field_frequency__website_message_ids
+#: model:ir.model.fields,field_description:ssi_frequency.field_frequency_set__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: ssi_frequency
+#: model:ir.model.fields,help:ssi_frequency.field_frequency__website_message_ids
+#: model:ir.model.fields,help:ssi_frequency.field_frequency_set__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: ssi_frequency
 #: model:ir.model.fields,field_description:ssi_frequency.field_frequency__we
 msgid "Wednesday"
 msgstr ""
