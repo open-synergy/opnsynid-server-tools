@@ -315,3 +315,13 @@ msgstr ""
 #: model:ir.ui.menu,name:ssi_user_group_section.user_group_section_menu
 msgid "User Group Sections"
 msgstr ""
+
+#. module: ssi_user_group_section
+#: model:ir.model.fields,field_description:ssi_user_group_section.field_user_group_section__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: ssi_user_group_section
+#: model:ir.model.fields,help:ssi_user_group_section.field_user_group_section__website_message_ids
+msgid "Website communication history"
+msgstr ""
