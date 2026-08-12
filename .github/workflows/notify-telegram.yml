@@ -1,3 +1,30 @@
+# Caller tipis untuk reusable workflow `andhit-r/notify-telegram`.
+#
+# Seluruh logika notifikasi ada di hulu; berkas ini sengaja tidak memuat apa pun selain
+# trigger + pemanggilan, supaya perbaikan di hulu menyebar tanpa menyentuh repo modul.
+# JANGAN menyalin kembali logika inline ke sini — itu persis kebiasaan yang membuat satu
+# bug ikut tersalin ke 130 repo: Telegram menolak pesan lebih dari 4096 karakter dengan
+# `400 message is too long`, sehingga seluruh run CI jadi merah.
+#
+# Nilai branch di bawah diisi apply-ssi-overrides.sh sesuai versi repo (14.0, 19.0, …).
+# Placeholder-nya sengaja TIDAK disebut di komentar mana pun: substitusinya `sed` polos,
+# jadi penyebutan di komentar ikut tertimpa dan kalimatnya berubah jadi tak bermakna.
+#
+# Repo hulu bersifat PUBLIK, jadi repo di org mana pun — termasuk `open-synergy` — boleh
+# MEMANGGIL-nya; reusable workflow privat hanya bisa dipanggil repo milik owner yang sama.
+#
+# TAPI IZIN MEMANGGIL DAN PEWARISAN SECRET ADALAH DUA ATURAN BERBEDA. `secrets: inherit`
+# hanya bekerja bila pemanggil dan reusable workflow berada di organisasi/enterprise yang
+# SAMA. Repo `open-synergy/*` memanggil workflow milik user `andhit-r` — beda owner —
+# sehingga `inherit` TIDAK meneruskan secret org dan seluruh run gagal SEBELUM job jalan:
+#   Error when evaluating 'secrets'. ...
+#   Secret TELEGRAM_CODE_BOT_TOKEN is required, but not provided while calling.
+# Karena itu kedua secret DITERUSKAN EKSPLISIT di bawah: ekspresi `${{ secrets.* }}`
+# dievaluasi di konteks pemanggil, jadi secret level repo MAUPUN level org sama-sama
+# terbaca, lintas owner sekalipun. JANGAN kembalikan ke `secrets: inherit`.
+#
+# Secret yang wajib tersedia bagi repo modul (level repo ATAU level org):
+# TELEGRAM_CODE_BOT_TOKEN, TELEGRAM_CHAT_ID.
 name: Notify Telegram on Push
 
 on:
@@ -7,89 +34,7 @@ on:
 
 jobs:
   notify:
-    name: Send Telegram Notification
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Build and send Telegram message
-        # Semua data dinamis dilewatkan lewat env (di-set GitHub dengan aman),
-        # BUKAN ditanam ke skrip shell. Mencegah error sintaks & script injection
-        # bila pesan commit mengandung ' ` $() < > & atau karakter khusus lain.
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_CODE_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          REPO: ${{ github.repository }}
-          BRANCH: ${{ github.ref_name }}
-          PUSHER: ${{ github.actor }}
-          COMPARE_URL: ${{ github.event.compare }}
-          COMMITS_JSON: ${{ toJson(github.event.commits) }}
-        # Heredoc ber-quote <<'PYEOF': bash TIDAK menginterpolasi isi Python.
-        run: |
-          python3 <<'PYEOF'
-          import os, json, html, urllib.request, urllib.parse, urllib.error
-
-          repo    = os.environ["REPO"]
-          branch  = os.environ["BRANCH"]
-          pusher  = os.environ["PUSHER"]
-          compare = os.environ["COMPARE_URL"]
-          commits = json.loads(os.environ.get("COMMITS_JSON") or "[]")
-
-          # Telegram HTML hanya kenal &lt; &gt; &amp;; jangan escape kutip
-          # (entity numerik apostrof ditolak parser).
-          def esc(s):
-              return html.escape(s, quote=False)
-
-          lines = []
-          for c in commits:
-              sha    = c["id"][:7]
-              msg    = c["message"].strip()
-              author = esc(c["author"]["name"])
-              ts     = c["timestamp"][:16].replace("T", " ")  # YYYY-MM-DD HH:MM
-
-              msg_lines = msg.split("\n")
-              title = esc(msg_lines[0][:80])  # baris pertama, maks 80 karakter
-              body  = [esc(l) for l in msg_lines[1:] if l.strip()]
-
-              entry = f"  <code>{sha}</code> {title}\n    👤 {author}  🕐 {ts}"
-              if body:
-                  entry += "\n" + "\n".join(f"    {l}" for l in body)
-              lines.append(entry)
-
-          count = len(commits)
-          if count == 1:
-              header = f"📝 <b>1 commit baru</b> di <code>{esc(repo)}</code>"
-          else:
-              header = f"📦 <b>{count} commit baru</b> di <code>{esc(repo)}</code>"
-
-          message = (
-              f"{header}\n"
-              f"Branch: <code>{esc(branch)}</code>\n"
-              f"Pusher: @{esc(pusher)}\n\n"
-              + "\n\n".join(lines)
-              + f'\n\n🔗 <a href="{esc(compare)}">Lihat perubahan</a>'
-          )
-
-          data = urllib.parse.urlencode({
-              "chat_id": os.environ["TELEGRAM_CHAT_ID"],
-              "text": message,
-              "parse_mode": "HTML",
-              "disable_web_page_preview": "true",
-          }).encode()
-
-          url = f'https://api.telegram.org/bot{os.environ["TELEGRAM_BOT_TOKEN"]}/sendMessage'
-          try:
-              with urllib.request.urlopen(urllib.request.Request(url, data=data)) as resp:
-                  result = json.load(resp)
-          except urllib.error.HTTPError as e:
-              result = json.load(e)
-
-          print("Telegram response:", json.dumps(result, ensure_ascii=False))
-          if not result.get("ok"):
-              print("::error::Gagal kirim pesan Telegram")
-              raise SystemExit(1)
-          PYEOF
+    uses: andhit-r/notify-telegram/.github/workflows/notify.yml@v1
+    secrets:
+      TELEGRAM_CODE_BOT_TOKEN: ${{ secrets.TELEGRAM_CODE_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
