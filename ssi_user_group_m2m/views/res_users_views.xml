@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="view_users_form_inherit_ssi_user_group_m2m" model="ir.ui.view">
+        <field name="name">res.users.form.inherit.ssi.user.group.m2m</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form" />
+        <!--
+            Default priority (16) is intentional, do not lower it: the
+            core view `base.user_groups_view` also has priority 16 and a
+            much lower record id, so it is always applied before this one.
+            That view replaces the original `groups_id` field with the
+            reified boolean/selection fields. Keeping this view's priority
+            at the default ensures it is applied after that replacement,
+            so it always adds a fresh `groups_id` field rather than
+            interfering with the core replacement.
+        -->
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='access_rights']" position="inside">
+                <field name="groups_id" widget="many2many" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

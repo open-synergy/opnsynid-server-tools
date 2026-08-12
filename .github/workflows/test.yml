@@ -60,6 +60,17 @@ jobs:
         env:
           PIP_INDEX_URL: https://pypi.org/simple
           PIP_EXTRA_INDEX_URL: https://${{ secrets.SSI_PYPI_USER }}:${{ secrets.SSI_PYPI_PASSWORD }}@osmium.simetri-sinergi.biz.id/simple/
+      - name: Pre-install chart of accounts
+        # Memasang l10n_generic_coa ke DB test SEBELUM `oca_init_test_database`.
+        # Saat modul ini berstatus `to install`, pemeriksaan `to_install_l10n`
+        # (account/__init__.py) bernilai benar sehingga `_auto_install_l10n`
+        # berhenti tanpa memasang l10n_us; chart of accounts juga sudah termuat
+        # sebelum demo modul SSI lahir, sehingga `chart_template._load()` tidak
+        # pernah menghapus account.journal/account.account yang dirujuk demo.
+        # Demo TIDAK dimatikan: tour dan skenario uji bergantung padanya.
+        run: |
+          oca_wait_for_postgres
+          odoo -d "$PGDATABASE" -i l10n_generic_coa --http-interface=127.0.0.1 --stop-after-init
       - name: Check licenses
         run: manifestoo -d . check-licenses
         continue-on-error: true
