@@ -304,6 +304,16 @@ msgid "Unread Messages Counter"
 msgstr ""
 
 #. module: base_duration
+#: model:ir.model.fields,field_description:base_duration.field_base_duration__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: base_duration
+#: model:ir.model.fields,help:base_duration.field_base_duration__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: base_duration
 #: model:ir.model.fields,field_description:base_duration.field_base_duration__relative_delta_weekday
 msgid "Weekday"
 msgstr ""
