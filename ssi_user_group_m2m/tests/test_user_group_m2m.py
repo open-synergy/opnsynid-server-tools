@@ -48,13 +48,22 @@ class TestUserGroupM2m(YamlTransactionCase):
         a YAML ``call`` step would discard, and a YAML ``assert``
         cannot target a raw string.
 
+        ``res.users`` has several top-level form views
+        (``view_users_simple_form``, ``view_users_form``, ...); the
+        module inherits ``base.view_users_form`` specifically, so the
+        view id is passed explicitly instead of relying on whichever
+        form ``fields_view_get()`` would pick by default.
+
         Positive: the page ``access_rights`` contains a ``groups_id``
         field rendered with ``widget="many2many"``.
         Negative: the same page still contains at least one reified
         field (``in_group_*`` or ``sel_groups_*``), proving the core
         checkbox/selection block was not replaced.
         """
-        result = self.env["res.users"].fields_view_get(view_type="form")
+        view = self.env.ref("base.view_users_form")
+        result = self.env["res.users"].fields_view_get(
+            view_id=view.id, view_type="form"
+        )
         arch = etree.fromstring(result["arch"])
         page = arch.xpath("//page[@name='access_rights']")
         self.assertTrue(page, "page[@name='access_rights'] not found in arch")
