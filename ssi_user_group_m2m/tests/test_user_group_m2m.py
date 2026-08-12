@@ -23,21 +23,20 @@ class TestUserGroupM2m(YamlTransactionCase):
     ``EVAL:`` sandbox whitelist does not expose ``str``).
     """
 
-    @classmethod
-    def setUpClass(cls):
+    def setUp(self):
         """Create two throwaway groups and one test user."""
-        super().setUpClass()
-        cls.group_a = cls.env["res.groups"].create(
+        super().setUp()
+        self.group_a = self.env["res.groups"].create(
             {"name": "SSI User Group M2M Test Group A"}
         )
-        cls.group_b = cls.env["res.groups"].create(
+        self.group_b = self.env["res.groups"].create(
             {"name": "SSI User Group M2M Test Group B"}
         )
-        cls.user = cls.env["res.users"].create(
+        self.user = self.env["res.users"].create(
             {
                 "name": "SSI User Group M2M Test User",
                 "login": "ssi_user_group_m2m_test_user",
-                "groups_id": [(6, 0, [cls.env.ref("base.group_user").id])],
+                "groups_id": [(6, 0, [self.env.ref("base.group_user").id])],
             }
         )
 
