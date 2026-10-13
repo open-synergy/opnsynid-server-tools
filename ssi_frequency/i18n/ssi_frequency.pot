@@ -462,6 +462,12 @@ msgid "Repeat Every"
 msgstr ""
 
 #. module: ssi_frequency
+#: code:addons/ssi_frequency/models/frequency.py:0
+#, python-format
+msgid "Repeat Every must be at least 1"
+msgstr ""
+
+#. module: ssi_frequency
 #: model:ir.model.fields,field_description:ssi_frequency.field_frequency__activity_user_id
 #: model:ir.model.fields,field_description:ssi_frequency.field_frequency_set__activity_user_id
 msgid "Responsible User"
@@ -485,6 +491,12 @@ msgid ""
 "                For example, -1 if combined with a 'Monthly' frequency,\n"
 "                and a weekday of (MO, TU, WE, TH, FR),\n"
 "                will result in the last work day of every month."
+msgstr ""
+
+#. module: ssi_frequency
+#: code:addons/ssi_frequency/models/frequency.py:0
+#, python-format
+msgid "Start date is required to compute a frequency"
 msgstr ""
 
 #. module: ssi_frequency
