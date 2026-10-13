@@ -9,5 +9,8 @@ from odoo.tests import tagged
 
 @tagged("post_install", "-at_install")
 class TestSsiFrequency(YamlTransactionCase):
+    """Run the YAML scenarios for ``frequency``."""
+
     def test_ssi_frequency(self):
+        """Run the create, constraint and rrule error scenarios."""
         self.run_yaml_scenario("test_data_ssi_frequency.yaml")

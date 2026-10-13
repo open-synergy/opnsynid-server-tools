@@ -7,6 +7,8 @@ from odoo import fields, models
 
 
 class FrequencyRuleSet(models.Model):
+    """Group of frequency rules combined into one ``rruleset``."""
+
     _name = "frequency_set"
     _description = "Frequency Rule Set"
     _inherit = ["mixin.master_data"]
@@ -37,6 +39,16 @@ class FrequencyRuleSet(models.Model):
     )
 
     def _get_rruleset(self, dtstart=None, until=None, tz=None):
+        """Combine the rules of this set into a ``dateutil`` rruleset.
+
+        Regular rules are added as inclusions and exclusive rules as
+        exclusions. See ``frequency._get_rrule`` for arguments.
+
+        :param dtstart: first possible date
+        :param until: last possible date
+        :param tz: timezone name used to compute the series
+        :return: a ``dateutil.rrule.rruleset``
+        """
         self.ensure_one()
         rset = rruleset()
         for rule in self.fsm_frequency_ids:
