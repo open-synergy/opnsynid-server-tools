@@ -19,6 +19,26 @@ To install this module, you need to:
 5.  Search For *Frequency*
 6.  Install the module
 
+Usage
+=====
+
+``frequency._get_rrule(dtstart, until=None, tz=None)`` returns a one-shot
+generator of naive UTC ``datetime`` values.
+
+* ``dtstart`` is required. An empty value raises ``UserError`` when the
+  method is called, not when the generator is iterated.
+* ``dtstart`` and ``until`` accept a naive UTC ``datetime`` or a ``date``.
+  A ``date`` for ``dtstart`` means 00:00:00; a ``date`` for ``until`` means
+  23:59:59.999999, so the last day is included.
+* Without ``until`` the series never ends. Stop iterating yourself.
+* ``tz`` (then the context ``tz``, the user ``tz``, then UTC) is the
+  timezone used to compute the series. Local time is kept across daylight
+  saving changes and results are converted back to UTC.
+* Months use the flags ``jan`` ... ``des`` (``des`` is December).
+* ``interval`` must be at least 1, ``month_day`` between 1 and 31 and
+  ``set_pos`` between -366 and 366; invalid data raises ``ValidationError``.
+
+
 Bug Tracker
 ===========
 

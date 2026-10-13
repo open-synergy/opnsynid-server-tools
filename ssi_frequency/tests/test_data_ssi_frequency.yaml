@@ -125,3 +125,67 @@ scenarios:
           schedule_days:
             type: "value"
             expected: 30
+
+  - name: "Frequency - Reject non-positive interval"
+    steps:
+      - step: "Interval 0 is rejected on create"
+        action: "create"
+        model: "frequency"
+        expect_error:
+          type: "ValidationError"
+        values:
+          name: "Zero Interval"
+          code: "ZERO001"
+          interval: 0
+          interval_type: "daily"
+
+      - step: "Interval -1 is rejected on create"
+        action: "create"
+        model: "frequency"
+        expect_error:
+          type: "ValidationError"
+        values:
+          name: "Negative Interval"
+          code: "NEG001"
+          interval: -1
+          interval_type: "daily"
+
+  - name: "Frequency - Day of month constraint on flag change"
+    steps:
+      - step: "Create a rule with day of month unused"
+        action: "create"
+        model: "frequency"
+        save_as: "freq_month_day"
+        values:
+          name: "Month Day Flag"
+          code: "MDAY001"
+          interval: 1
+          interval_type: "monthly"
+          month_day: 0
+
+      - step: "Enabling day of month with invalid day is rejected"
+        action: "write"
+        target: "freq_month_day"
+        expect_error:
+          type: "ValidationError"
+        values:
+          use_bymonthday: true
+
+  - name: "Frequency - Start date is required to build rrule"
+    steps:
+      - step: "Create a daily rule"
+        action: "create"
+        model: "frequency"
+        save_as: "freq_no_start"
+        values:
+          name: "No Start"
+          code: "NOSTART001"
+          interval: 1
+          interval_type: "daily"
+
+      - step: "Building the rrule without dtstart is rejected"
+        action: "call"
+        target: "freq_no_start"
+        method: "_get_rrule"
+        expect_error:
+          type: "UserError"
