@@ -54,7 +54,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Install odoo-yaml-test from git
-        run: pip install git+https://github.com/andhit-r/odoo-yaml-test.git@master#egg=odoo-yaml-test
+        run: pip install git+https://github.com/andhit-r/odoo-yaml-test.git@v0.5.0#egg=odoo-yaml-test
       - name: Install addons and dependencies
         run: oca_install_addons
         env:

@@ -1,0 +1,63 @@
+# Gerbang docstring — memerahkan PR yang MENAMBAH class/method tanpa docstring.
+#
+# Aturannya milik skill `odoo-development`,
+# references/odoo-module-guidelines/10-docstring.md. Mekanismenya TIDAK ditulis di
+# berkas ini: seluruh logika — pengecualian, pembebasan class ekstensi, kunci temuan
+# `.validator-exceptions`, pembanding merge-base, pesan — tinggal di
+# `.github/scripts/docstring_check.py`, salinan byte-identik dari
+# `odoo-development/assets/docstring_check.py`, berkas yang SAMA yang dipakai
+# `verify-module.sh` di lokal. Satu sumber, dua gerbang. Jangan menyunting salinan di
+# repo modul: ia ditimpa sync-config.sh berikutnya.
+#
+# Sampai odoo-development v3.73.3 logika itu ditulis dua kali (di sini inline dan di
+# verify-module.sh) dengan kewajiban prosa "ubah keduanya". v3.68.0 mengubah satu
+# saja, dan PR open-synergy/ssi-school#399 buntu di antara dua gerbang yang berbeda.
+#
+# ── KENAPA WORKFLOW TERSENDIRI, BUKAN HOOK pre-commit ────────────────────────
+# `pre-commit run --all-files` di CI berjalan saat pohon kerja SAMA DENGAN HEAD, jadi
+# pembanding "apa yang baru" tidak ada dan hook seperti ini selalu hijau di sana —
+# hijau palsu. Workflow ini membandingkan HEAD PR dengan `merge-base` branch tujuan,
+# yang memang pembanding yang benar untuk "apa yang PR ini perkenalkan".
+#
+# Berkas ini identik di semua repo modul SSI dan semua seri Odoo — tanpa placeholder,
+# tanpa filter branch, supaya sync-config.sh bisa memverifikasinya byte-per-byte.
+name: docstring gate
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docstring-gate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  docstring-gate:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Wajib: merge-base tidak bisa dihitung dari checkout dangkal.
+          fetch-depth: 0
+      - name: Gerbang docstring (hanya pelanggaran baru)
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          set -euo pipefail
+          SCRIPT=.github/scripts/docstring_check.py
+          # Workflow ini tak punya logika sendiri; tanpa skripnya ia GAGAL KERAS,
+          # bukan lolos diam-diam. Penyebab yang lazim: hanya berkas workflow yang
+          # di-commit sesudah sync-config.sh, skripnya tertinggal.
+          if [ ! -f "$SCRIPT" ]; then
+            echo "ERROR: $SCRIPT tidak ada di repo ini."
+            echo "Pasang ulang dengan sync-config.sh (skill odoo-development-repo-ops),"
+            echo "lalu commit KEDUA berkas: workflow ini dan $SCRIPT."
+            exit 1
+          fi
+          git fetch --no-tags --quiet origin "$BASE_REF"
+          MERGE_BASE="$(git merge-base "origin/$BASE_REF" HEAD)"
+          echo "Pembanding : origin/$BASE_REF @ $MERGE_BASE"
+          echo
+          python3 "$SCRIPT" ci "$MERGE_BASE"
