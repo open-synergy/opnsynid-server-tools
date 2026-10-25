@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="super_calendar_view_search" model="ir.ui.view">
+        <field name="name">super_calendar - Search</field>
+        <field name="model">super_calendar</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_ids" />
+                <filter
+                    name="dom_applies_to_all"
+                    string="Applies to Everyone"
+                    domain="[('applies_to_all','=',True)]"
+                />
+                <filter
+                    name="dom_inactive"
+                    string="Archived"
+                    domain="[('active','=',False)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="super_calendar_view_tree" model="ir.ui.view">
+        <field name="name">super_calendar - Tree</field>
+        <field name="model">super_calendar</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" delete="0">
+                <field name="display_name" />
+                <field name="date_start" />
+                <field name="date_end" />
+                <field name="allday" />
+                <field name="applies_to_all" />
+                <field name="partner_count" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="super_calendar_view_calendar" model="ir.ui.view">
+        <field name="name">super_calendar - Calendar</field>
+        <field name="model">super_calendar</field>
+        <field name="arch" type="xml">
+            <calendar
+                string="Super Calendar"
+                date_start="date_start"
+                date_stop="date_end"
+                all_day="allday"
+                mode="month"
+                quick_add="False"
+            >
+                <field name="display_name" />
+            </calendar>
+        </field>
+    </record>
+
+    <record id="super_calendar_view_form" model="ir.ui.view">
+        <field name="name">super_calendar - Form</field>
+        <field name="model">super_calendar</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0" delete="0">
+                <sheet>
+                    <group name="group_1" colspan="4" col="2">
+                        <field name="display_name" />
+                        <field name="date_start" />
+                        <field name="date_end" />
+                        <field name="allday" />
+                        <field name="applies_to_all" />
+                        <field name="partner_count" />
+                        <field name="active" />
+                    </group>
+                    <group name="group_2" colspan="4" col="2">
+                        <field name="partner_ids" widget="many2many_tags" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="super_calendar_action" model="ir.actions.act_window">
+        <field name="name">Super Calendar</field>
+        <field name="res_model">super_calendar</field>
+        <field name="view_mode">tree,calendar,form</field>
+    </record>
+
+    <menuitem
+        id="super_calendar_menu"
+        name="Super Calendar"
+        parent="base.menu_custom"
+        action="super_calendar_action"
+        sequence="100"
+    />
+</odoo>
