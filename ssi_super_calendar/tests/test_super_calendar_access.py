@@ -14,3 +14,7 @@ class TestSuperCalendarAccess(YamlTransactionCase):
     def test_super_calendar_access(self):
         """Run the read-only access scenario for ``super_calendar``."""
         self.run_yaml_scenario("test_data_super_calendar_access.yaml")
+
+    def test_super_calendar_source_fields(self):
+        """Run the restricted source fields scenario for ``super_calendar``."""
+        self.run_yaml_scenario("test_data_super_calendar_source_fields.yaml")

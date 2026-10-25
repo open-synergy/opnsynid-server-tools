@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import _, api, fields, models
-from odoo.exceptions import AccessError
+from odoo.exceptions import AccessError, UserError
 
 
 class SuperCalendar(models.Model):
@@ -32,14 +32,30 @@ class SuperCalendar(models.Model):
         string="Source Model",
         required=True,
         index=True,
-        help="Technical name of the model that owns the source document.",
+        groups="base.group_system",
+        help="Technical name of the model that owns the source document. "
+        "Only administrators can read it directly; other users get the "
+        "``Source Document`` reference when they can read the source.",
     )
     res_id = fields.Many2oneReference(
         string="Source ID",
         model_field="res_model",
         required=True,
         index=True,
-        help="Database ID of the source document in the source model.",
+        groups="base.group_system",
+        help="Database ID of the source document in the source model. "
+        "Only administrators can read it directly; other users get the "
+        "``Source Document`` reference when they can read the source.",
+    )
+    source_ref = fields.Reference(
+        string="Source Document",
+        selection="_selection_source_ref",
+        compute="_compute_source_ref",
+        store=False,
+        compute_sudo=True,
+        readonly=True,
+        help="Reference to the source document of the period. It is "
+        "empty when you cannot read the source document.",
     )
     date_start = fields.Datetime(
         string="Start Date",
@@ -195,6 +211,60 @@ class SuperCalendar(models.Model):
         except AccessError:
             return False
         return True
+
+    @api.model
+    def _selection_source_ref(self):
+        """Return every model as a selection value for ``source_ref``.
+
+        :return: list of ``(model, description)`` tuples read as superuser
+        """
+        return [(m.model, m.name) for m in self.env["ir.model"].sudo().search([])]
+
+    @api.depends("res_model", "res_id")
+    @api.depends_context("uid")
+    def _compute_source_ref(self):
+        """Fill ``source_ref`` when the calling user can read the source.
+
+        The compute runs as superuser to read the restricted
+        ``res_model`` and ``res_id``, but the access check itself runs
+        with the real calling user, never as superuser.
+        """
+        user_env = self.env(su=False)
+        for record in self:
+            result = False
+            rec_user = record.with_env(user_env)
+            if rec_user._can_read_source():
+                result = "%s,%s" % (record.res_model, record.res_id)
+            record.source_ref = result
+
+    def action_open_source_document(self):
+        """Open the form of the source document of the period.
+
+        The document is opened with the rights of the calling user.
+
+        :return: an ``ir.actions.act_window`` on the source document
+        :raises UserError: when the source document is not readable
+        """
+        self.ensure_one()
+        source = self.source_ref
+        if not source:
+            error_message = """
+Context: Open source document
+Database ID: %s
+Problem: Source document is not available
+Solution: Ask an administrator or the owner of the source document
+""" % (
+                self.id,
+            )
+            raise UserError(_(error_message))
+        return {
+            "type": "ir.actions.act_window",
+            "res_model": source._name,
+            "res_id": source.id,
+            "view_mode": "form",
+            "views": [(False, "form")],
+            "target": "current",
+        }
 
     @api.depends("name")
     @api.depends_context("uid")

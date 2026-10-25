@@ -81,6 +81,22 @@ odoo.define("ssi_super_calendar.super_calendar_tour", function (require) {
                     // Assertion only.
                 },
             },
+            // ── Flow 6 — Click the Open Source Document button.
+            {
+                content: "Click the Open Source Document button",
+                trigger: ".o_form_statusbar button[name='action_open_source_document']",
+                extra_trigger: ".o_form_view.o_form_readonly",
+            },
+            // ── Post-Condition — The form of the source document is displayed.
+            {
+                content: "The source document form is displayed",
+                trigger:
+                    ".o_control_panel .breadcrumb-item.active:contains(Tour Calendar Partner)",
+                extra_trigger: ".o_form_view",
+                run: function () {
+                    // Assertion only.
+                },
+            },
         ]
     );
 });

@@ -1,0 +1,99 @@
+setup:
+  steps:
+    - step: "Create an internal user allowed to export"
+      action: "create"
+      model: "res.users"
+      save_as: "internal_user"
+      values:
+        name: "Super Calendar Source Internal"
+        login: "sc_source_internal_yaml"
+        groups_id:
+          - [6, 0, ["REF: base.group_user", "REF: base.group_allow_export"]]
+
+    - step: "Create a calendar row as superuser"
+      action: "create"
+      model: "super_calendar"
+      save_as: "row"
+      values:
+        name: "Busy"
+        res_model: "res.partner"
+        res_id: 987654321
+        date_start: "2026-03-02 10:00:00"
+        date_end: "2026-03-02 12:00:00"
+
+scenarios:
+  - name: "Super Calendar - Source fields are restricted to administrators"
+    steps:
+      - step: "Internal user cannot read res_model"
+        action: "call"
+        target: "row"
+        method: "read"
+        as_user: "internal_user"
+        args:
+          - ["res_model"]
+        expect_error:
+          type: "AccessError"
+
+      - step: "Internal user cannot read res_id"
+        action: "call"
+        target: "row"
+        method: "read"
+        as_user: "internal_user"
+        args:
+          - ["res_id"]
+        expect_error:
+          type: "AccessError"
+
+      - step: "Internal user cannot search_read res_model"
+        action: "call"
+        target: "row"
+        method: "search_read"
+        as_user: "internal_user"
+        args:
+          - [["id", "=", "REC: row.id"]]
+          - ["res_model"]
+        expect_error:
+          type: "AccessError"
+
+      - step: "Internal user cannot search_read res_id"
+        action: "call"
+        target: "row"
+        method: "search_read"
+        as_user: "internal_user"
+        args:
+          - [["id", "=", "REC: row.id"]]
+          - ["res_id"]
+        expect_error:
+          type: "AccessError"
+
+      - step: "Internal user cannot export res_model"
+        action: "call"
+        target: "row"
+        method: "export_data"
+        as_user: "internal_user"
+        args:
+          - ["res_model"]
+        expect_error:
+          type: "AccessError"
+
+      - step: "Internal user cannot export res_id"
+        action: "call"
+        target: "row"
+        method: "export_data"
+        as_user: "internal_user"
+        args:
+          - ["res_id"]
+        expect_error:
+          type: "AccessError"
+
+      - step: "Administrator can read the source fields"
+        action: "assert"
+        target: "row"
+        as_user: "base.user_admin"
+        asserts:
+          res_model:
+            type: "value"
+            expected: "res.partner"
+          res_id:
+            type: "value"
+            expected: 987654321

@@ -60,9 +60,18 @@
         <field name="model">super_calendar</field>
         <field name="arch" type="xml">
             <form create="0" edit="0" delete="0">
+                <header>
+                    <button
+                        name="action_open_source_document"
+                        type="object"
+                        string="Open Source Document"
+                        attrs="{'invisible': [('source_ref', '=', False)]}"
+                    />
+                </header>
                 <sheet>
                     <group name="group_1" colspan="4" col="2">
                         <field name="display_name" />
+                        <field name="source_ref" />
                         <field name="date_start" />
                         <field name="date_end" />
                         <field name="allday" />
