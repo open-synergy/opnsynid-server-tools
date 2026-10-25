@@ -118,7 +118,7 @@ class SuperCalendar(models.Model):
         mapping = {}
         if ids:
             self.env.cr.execute(
-                "SELECT id, partner_ids_array FROM super_calendar "
+                "SELECT id, COALESCE(partner_ids_array, '{}') FROM super_calendar "
                 "WHERE id = ANY(%s)",
                 (ids,),
             )
@@ -150,7 +150,10 @@ class SuperCalendar(models.Model):
         else:
             ids = [int(v) for v in (value or []) if v]
         if not ids and not isinstance(value, str):
-            clause = "SELECT id FROM super_calendar WHERE partner_ids_array = '{}'"
+            clause = (
+                "SELECT id FROM super_calendar "
+                "WHERE COALESCE(partner_ids_array, '{}') = '{}'"
+            )
             return [
                 ("id", "not inselect" if not negative else "inselect", (clause, []))
             ]
@@ -248,7 +251,8 @@ class SuperCalendar(models.Model):
         self.env["super_calendar"].flush()
         query = (
             "SELECT id, res_model, res_id, date_start, date_end, "
-            "applies_to_all, partner_ids_array "
+            "applies_to_all, COALESCE(partner_ids_array, '{}') "
+            "AS partner_ids_array "
             "FROM super_calendar "
             "WHERE active AND date_start < %s AND date_end > %s "
             "AND (applies_to_all OR partner_ids_array && %s::int4[])"

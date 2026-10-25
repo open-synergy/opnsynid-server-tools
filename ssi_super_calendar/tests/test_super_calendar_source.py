@@ -22,9 +22,19 @@ class TestSuperCalendarSource(YamlTransactionCase):
         from .fake_super_calendar_source import FakeSuperCalendarSource
 
         self.loader.update_registry((FakeSuperCalendarSource,))
-        self.addCleanup(self.loader.restore_registry)
+        self.addCleanup(self._restore_registry)
         self.partner_a = self.env["res.partner"].create({"name": "Source A"})
         self.partner_b = self.env["res.partner"].create({"name": "Source B"})
+
+    def _restore_registry(self):
+        """Flush pending recomputations, then restore the registry.
+
+        Cleanups run before the transaction rolls back; pending computes
+        of ``res.partner`` would otherwise be flushed by the registry
+        reload against fields that no longer exist.
+        """
+        self.env["base"].flush()
+        self.loader.restore_registry()
 
     def _rows(self, source):
         """Return the calendar rows of ``source``, inactive ones included.

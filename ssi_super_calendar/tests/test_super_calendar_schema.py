@@ -19,11 +19,15 @@ class TestSuperCalendarSchema(YamlTransactionCase):
         """
         cr = self.env.cr
         cr.execute(
-            "SELECT udt_name, is_nullable FROM information_schema.columns "
+            "SELECT udt_name, column_default FROM information_schema.columns "
             "WHERE table_name = 'super_calendar' "
             "AND column_name = 'partner_ids_array'"
         )
-        self.assertEqual(cr.fetchone(), ("_int4", "NO"))
+        # Odoo drops NOT NULL from non-ORM columns, so only the type and
+        # the default are asserted.
+        udt_name, column_default = cr.fetchone()
+        self.assertEqual(udt_name, "_int4")
+        self.assertIn("{}", column_default)
         cr.execute(
             "SELECT indexdef FROM pg_indexes "
             "WHERE tablename = 'super_calendar' "
