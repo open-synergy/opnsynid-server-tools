@@ -26,7 +26,7 @@ class TestSuperCalendarSourceRef(YamlTransactionCase):
         self.user = new_test_user(self.env, "sc_ref_internal", groups="base.group_user")
         self.admin = self.env.ref("base.user_admin")
         self.partner = self.env["res.partner"].create({"name": "Ref P"})
-        param = self.env["ir.config_parameter"].search([], limit=1)
+        self.param = self.env["ir.config_parameter"].search([], limit=1)
         self.row_open = create_calendar_row(
             self.env,
             "res.partner",
@@ -39,7 +39,7 @@ class TestSuperCalendarSourceRef(YamlTransactionCase):
         self.row_secret = create_calendar_row(
             self.env,
             "ir.config_parameter",
-            param.id,
+            self.param.id,
             hour(10),
             hour(12),
             partner_ids=[self.partner.id],
@@ -64,7 +64,7 @@ class TestSuperCalendarSourceRef(YamlTransactionCase):
         self.assertEqual(self._as_user(self.row_open).source_ref, self.partner)
         self.assertFalse(self._as_user(self.row_secret).source_ref)
         as_admin = self.env["super_calendar"].with_user(self.admin)
-        self.assertFalse(as_admin.browse(self.row_secret.id).source_ref)
+        self.assertEqual(as_admin.browse(self.row_secret.id).source_ref, self.param)
         self.assertEqual(as_admin.browse(self.row_open.id).source_ref, self.partner)
 
     def test_action_open_source_document(self):
