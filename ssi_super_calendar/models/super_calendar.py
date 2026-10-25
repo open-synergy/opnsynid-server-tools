@@ -52,7 +52,6 @@ class SuperCalendar(models.Model):
         selection="_selection_source_ref",
         compute="_compute_source_ref",
         store=False,
-        compute_sudo=True,
         readonly=True,
         help="Reference to the source document of the period. It is "
         "empty when you cannot read the source document.",
@@ -225,16 +224,18 @@ class SuperCalendar(models.Model):
     def _compute_source_ref(self):
         """Fill ``source_ref`` when the calling user can read the source.
 
-        The compute runs as superuser to read the restricted
-        ``res_model`` and ``res_id``, but the access check itself runs
-        with the real calling user, never as superuser.
+        The compute runs as the calling user, on purpose without
+        ``compute_sudo``: that option stores the value under the cache
+        key ``(uid, True)`` while a non-superuser reader looks it up
+        under ``(uid, False)``, which raises a cache miss. The restricted
+        ``res_model`` and ``res_id`` are read with ``sudo()``, and the
+        access check itself runs as the real user.
         """
-        user_env = self.env(su=False)
         for record in self:
             result = False
-            rec_user = record.with_env(user_env)
-            if rec_user._can_read_source():
-                result = "%s,%s" % (record.res_model, record.res_id)
+            if record._can_read_source():
+                source = record.sudo()
+                result = "%s,%s" % (source.res_model, source.res_id)
             record.source_ref = result
 
     def action_open_source_document(self):
