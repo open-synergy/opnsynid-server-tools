@@ -58,7 +58,10 @@ msgstr ""
 
 #. module: ssi_super_calendar
 #: model:ir.model.fields,help:ssi_super_calendar.field_super_calendar__res_id
-msgid "Database ID of the source document in the source model."
+msgid ""
+"Database ID of the source document in the source model. Only administrators "
+"can read it directly; other users get the ``Source Document`` reference when"
+" they can read the source."
 msgstr ""
 
 #. module: ssi_super_calendar
@@ -126,6 +129,11 @@ msgid ""
 msgstr ""
 
 #. module: ssi_super_calendar
+#: model_terms:ir.ui.view,arch_db:ssi_super_calendar.super_calendar_view_form
+msgid "Open Source Document"
+msgstr ""
+
+#. module: ssi_super_calendar
 #: model:ir.model.fields,field_description:ssi_super_calendar.field_super_calendar__partner_ids
 msgid "Partners"
 msgstr ""
@@ -143,6 +151,18 @@ msgid ""
 "Raw label of the busy period. Only administrators can read it directly; "
 "other users see the label through the display name, which hides it when they"
 " cannot read the source document."
+msgstr ""
+
+#. module: ssi_super_calendar
+#: model:ir.model.fields,help:ssi_super_calendar.field_super_calendar__source_ref
+msgid ""
+"Reference to the source document of the period. It is empty when you cannot "
+"read the source document."
+msgstr ""
+
+#. module: ssi_super_calendar
+#: model:ir.model.fields,field_description:ssi_super_calendar.field_super_calendar__source_ref
+msgid "Source Document"
 msgstr ""
 
 #. module: ssi_super_calendar
@@ -180,7 +200,10 @@ msgstr ""
 
 #. module: ssi_super_calendar
 #: model:ir.model.fields,help:ssi_super_calendar.field_super_calendar__res_model
-msgid "Technical name of the model that owns the source document."
+msgid ""
+"Technical name of the model that owns the source document. Only "
+"administrators can read it directly; other users get the ``Source Document``"
+" reference when they can read the source."
 msgstr ""
 
 #. module: ssi_super_calendar
