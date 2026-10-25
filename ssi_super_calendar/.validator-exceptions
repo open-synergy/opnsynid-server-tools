@@ -1,0 +1,7 @@
+# The fake model only exists in the test registry (odoo_test_helper
+# FakeModelLoader); it is never installed, so it needs no access record.
+module setiap-model-punya-record-ir-model-access|fake.super_calendar.source: tidak ada record ir.model.access (model_fake_super_calendar_source) -- fake test-only model loaded by FakeModelLoader, never installed
+# Importing the fake model from tests/__init__.py would register it in the
+# real registry before FakeModelLoader.backup_registry() and trigger its
+# "wrong import" warning; each test imports it lazily in setUp instead.
+unit-test setiap-berkas-test-terdaftar-di-tests-init-py|tests/fake_super_calendar_source.py tidak di-import -- fake test-only model imported lazily by the tests through FakeModelLoader

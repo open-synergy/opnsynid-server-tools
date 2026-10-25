@@ -1,1 +1,2 @@
 odoo-yaml-test
+odoo-test-helper

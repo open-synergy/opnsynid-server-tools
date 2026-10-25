@@ -1,0 +1,61 @@
+scenarios:
+  - name: "Super Calendar - Internal users are read-only"
+    steps:
+      - step: "Create an internal user"
+        action: "create"
+        model: "res.users"
+        save_as: "internal_user"
+        values:
+          name: "Super Calendar Internal"
+          login: "sc_internal_yaml"
+          groups_id:
+            - [6, 0, ["REF: base.group_user"]]
+
+      - step: "Create a calendar row as superuser"
+        action: "create"
+        model: "super_calendar"
+        save_as: "row"
+        values:
+          name: "Busy"
+          res_model: "res.partner"
+          res_id: 987654321
+          date_start: "2026-03-02 10:00:00"
+          date_end: "2026-03-02 12:00:00"
+
+      - step: "Internal user cannot create a row"
+        action: "create"
+        model: "super_calendar"
+        as_user: "internal_user"
+        expect_error:
+          type: "AccessError"
+        values:
+          name: "Forbidden"
+          res_model: "res.partner"
+          res_id: 987654322
+          date_start: "2026-03-02 10:00:00"
+          date_end: "2026-03-02 12:00:00"
+
+      - step: "Internal user cannot write a row"
+        action: "write"
+        target: "row"
+        as_user: "internal_user"
+        expect_error:
+          type: "AccessError"
+        values:
+          allday: true
+
+      - step: "Internal user cannot delete a row"
+        action: "unlink"
+        target: "row"
+        as_user: "internal_user"
+        expect_error:
+          type: "AccessError"
+
+      - step: "Internal user can search rows"
+        action: "search"
+        model: "super_calendar"
+        as_user: "internal_user"
+        domain:
+          - ["res_id", "=", 987654321]
+        save_as: "found"
+        expect_count: 1
