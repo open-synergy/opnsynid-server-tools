@@ -90,6 +90,25 @@ on the caller. The right to read the source document only decides the label:
 without it, ``label`` is ``Not available`` and ``res_model`` / ``res_id`` are
 ``False``.
 
+Source of a period
+------------------
+
+``res_model`` and ``res_id`` can only be read by the *Settings / Administration*
+group (``base.group_system``); any other user reading them through the ORM gets
+an ``AccessError``. A user who can read the source document gets the computed
+field ``source_ref`` (``Source Document``) and the **Open Source Document**
+button in the form of the period; a user who cannot read it sees nothing about
+the source. Internal code that needs ``res_model`` / ``res_id`` must read them
+with ``sudo()``.
+
+Known limitation
+~~~~~~~~~~~~~~~~
+
+Odoo 14.0 does not check the ``groups`` of a field used in a search domain. An
+internal user can still guess whether a period exists for a given document by
+searching on ``res_model`` and ``res_id``. The values themselves are never
+returned.
+
 
 Bug Tracker
 ===========
