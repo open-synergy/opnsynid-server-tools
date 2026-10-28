@@ -35,7 +35,7 @@ class TestUiResUsers(HttpSavepointCase):
             {
                 "name": "Otp Login Tour User",
                 "login": "otp_tour_user",
-                "password": "otp_tour_pass",
+                "password": "Otp#Tour-4nHy!Pc8",
                 "email": "otp_tour_user@example.com",
                 "groups_id": [(6, 0, [group_user.id])],
             }

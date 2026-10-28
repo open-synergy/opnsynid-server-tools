@@ -18,7 +18,11 @@ class TestCopyUserAccess(TransactionCase):
         self.demo_user = self.env.ref("base.user_demo")
 
     def _prepare_user_data(self):
-        data = {"login": "test_user@test.com", "name": "test lagi", "password": "a"}
+        data = {
+            "login": "test_user@test.com",
+            "name": "test lagi",
+            "password": "Cpy#Acc-7wRz!Kd4Lq",
+        }
 
         return data
 
