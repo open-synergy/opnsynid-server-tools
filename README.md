@@ -19,6 +19,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [base_auth_mail_otp](base_auth_mail_otp/) | 14.0.1.0.2 |  | Email one-time password (OTP) as a second login step
+[base_auth_mail_otp_admin_passkey](base_auth_mail_otp_admin_passkey/) | 14.0.1.0.1 |  | Skip the email OTP when the administrator passkey is used
 [base_auth_mail_otp_password_security](base_auth_mail_otp_password_security/) | 14.0.1.0.1 |  | Check password expiration only after the email OTP step
 [base_copy_user_access](base_copy_user_access/) | 14.0.1.1.1 |  | Copy access right from another user
 [base_copy_user_operating_unit](base_copy_user_operating_unit/) | 14.0.1.0.0 |  | Copy Allowed Operating Unit and Default Operating Unit from another user

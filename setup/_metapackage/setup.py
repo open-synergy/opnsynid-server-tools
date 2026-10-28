@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo14-addon-base_auth_mail_otp',
+        'odoo14-addon-base_auth_mail_otp_admin_passkey',
         'odoo14-addon-base_auth_mail_otp_password_security',
         'odoo14-addon-base_copy_user_access',
         'odoo14-addon-base_copy_user_operating_unit',

@@ -5,7 +5,7 @@
 
 {
     "name": "Base Auth Mail OTP Admin Passkey",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "summary": "Skip the email OTP when the administrator passkey is used",
     "author": "PT. Simetri Sinergi Indonesia,OpenSynergy Indonesia",
     "category": "Generic Modules/Base",
