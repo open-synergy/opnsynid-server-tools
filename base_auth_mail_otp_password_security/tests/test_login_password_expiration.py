@@ -14,7 +14,7 @@ CODE_PATH = (
     "ResUsers._mail_otp_generate_code"
 )
 PARAM = "base_auth_mail_otp."
-PASSWORD = "otp_pwd_pass_1"
+PASSWORD = "Otp#Glue-6tBs!Wd5"
 FORM_URL = "/web/login/mail_otp"
 CODE = "123456"
 
