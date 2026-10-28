@@ -114,19 +114,21 @@ class TestAdminPasskey(HttpSavepointCase):
         self.assertIn(FORM_URL, response.headers["Location"])
         self._assert_logged_in(False)
 
-    def test_password_login_after_passkey_login_asks_otp(self):
-        """Assert a passkey login leaves no bypass for the next login.
+    def test_password_login_after_logout_asks_otp(self):
+        """Assert a passkey login leaves no bypass after the logout.
 
-        The second login reuses the very same session, with the real
-        password of the user.
+        The second login reuses the browser session of the first one,
+        with the real password of the user.
 
         Pure Python - trigger P7 (L-19: login routes need an ``HttpCase``).
         """
         self._login(PASSKEY)
         self._assert_logged_in(True)
+        self.url_open("/web/session/logout", allow_redirects=False)
         response = self._login(PASSWORD, fresh_session=False)
         self.assertIn(response.status_code, (302, 303))
         self.assertIn(FORM_URL, response.headers["Location"])
+        self._assert_logged_in(False)
 
     def test_wrong_password_is_refused(self):
         """Assert a secret that is not the password nor the passkey fails.
