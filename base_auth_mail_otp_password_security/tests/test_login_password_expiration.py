@@ -128,6 +128,9 @@ class TestLoginPasswordExpiration(HttpSavepointCase):
         self.assertIn(response.status_code, (302, 303))
         match = re.search(r"token=([^&#]+)", response.headers["Location"])
         self.assertTrue(match, "No reset token in the redirect")
+        # The HTTP request wrote the token through SQL in another thread,
+        # so any value cached earlier in this test environment is stale.
+        user.partner_id.invalidate_cache()
         partner = self.env["res.partner"]._signup_retrieve_partner(
             match.group(1), check_validity=True
         )
