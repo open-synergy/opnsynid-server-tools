@@ -8,7 +8,7 @@ from odoo import http
 from odoo.tests import HttpSavepointCase, tagged
 
 PARAM = "base_auth_mail_otp.mail_otp_policy"
-PASSWORD = "mfa_coexist_pass_1"
+PASSWORD = "Tq7#Rk-5nVb!Hy8Wz2"
 TOTP_SECRET = base64.b32encode(b"coexistence-test-secret").decode()
 TOTP_LOGIN = "mfa_http_totp"
 PLAIN_LOGIN = "mfa_http_plain"
