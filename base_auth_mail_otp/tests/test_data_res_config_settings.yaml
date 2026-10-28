@@ -1,0 +1,117 @@
+scenarios:
+  - name: "Settings - Email OTP Values Are Stored"
+    steps:
+      - step: "Open the Settings form and fill the Email OTP fields"
+        action: "form"
+        model: "res.config.settings"
+        as_user: "base.user_admin"
+        save_as: "settings"
+        values:
+          mail_otp_policy: "employee_required"
+          mail_otp_code_validity: 15
+          mail_otp_max_attempt: 3
+          mail_otp_resend_delay: 30
+          mail_otp_max_mail_per_hour: 4
+          mail_otp_trusted_device_days: 7
+          mail_otp_trusted_device_active: false
+      - step: "Apply the settings"
+        action: "call"
+        target: "settings"
+        method: "execute"
+        as_user: "base.user_admin"
+      - step: "Find the policy parameter"
+        action: "search"
+        model: "ir.config_parameter"
+        domain: [["key", "=", "base_auth_mail_otp.mail_otp_policy"]]
+        save_as: "param_policy"
+        expect_count: 1
+      - step: "Assert the policy parameter value"
+        action: "assert"
+        target: "param_policy"
+        asserts:
+          value:
+            type: "value"
+            expected: "employee_required"
+      - step: "Find the code validity parameter"
+        action: "search"
+        model: "ir.config_parameter"
+        domain: [["key", "=", "base_auth_mail_otp.mail_otp_code_validity"]]
+        save_as: "param_validity"
+        expect_count: 1
+      - step: "Assert the code validity parameter value"
+        action: "assert"
+        target: "param_validity"
+        asserts:
+          value:
+            type: "value"
+            expected: "15"
+      - step: "Find the trusted device flag parameter"
+        action: "search"
+        model: "ir.config_parameter"
+        domain: [["key", "=", "base_auth_mail_otp.mail_otp_trusted_device_active"]]
+        save_as: "param_trusted"
+        expect_count: 1
+      - step: "Assert an unticked flag is stored as an explicit False"
+        action: "assert"
+        target: "param_trusted"
+        asserts:
+          value:
+            type: "value"
+            expected: "False"
+      - step: "Reopen the Settings form"
+        action: "form"
+        model: "res.config.settings"
+        as_user: "base.user_admin"
+        save: false
+        asserts:
+          mail_otp_trusted_device_active:
+            type: "value"
+            expected: false
+          mail_otp_policy:
+            type: "value"
+            expected: "employee_required"
+
+  - name: "Settings - Integer Lower Than One Is Rejected"
+    steps:
+      - step: "A zero code validity is refused"
+        action: "form"
+        model: "res.config.settings"
+        as_user: "base.user_admin"
+        expect_error:
+          type: "ValidationError"
+          message_contains: "must be at least 1"
+        values:
+          mail_otp_code_validity: 0
+
+  - name: "Users - Only System Group Changes The Exemption"
+    steps:
+      - step: "Create an internal user without the system group"
+        action: "create"
+        model: "res.users"
+        save_as: "plain_user"
+        values:
+          name: "Plain Otp User"
+          login: "plain_otp_user"
+          email: "plain_otp_user@example.com"
+          groups_id: [[6, 0, ["REF: base.group_user"]]]
+      - step: "The plain user cannot exempt himself"
+        action: "write"
+        target: "plain_user"
+        as_user: "plain_user"
+        expect_error:
+          type: "AccessError"
+        values:
+          mail_otp_exempt: true
+      - step: "An administrator can exempt the user"
+        action: "write"
+        target: "plain_user"
+        as_user: "base.user_admin"
+        values:
+          mail_otp_exempt: true
+      - step: "Assert the exemption is stored"
+        action: "assert"
+        target: "plain_user"
+        asserts:
+          mail_otp_exempt:
+            type: "value"
+            expected: true

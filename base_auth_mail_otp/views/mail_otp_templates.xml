@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="mail_otp_form" name="Email OTP Verification">
+        <t t-call="web.login_layout">
+            <t t-set="disable_footer">1</t>
+            <div class="oe_login_form">
+                <h5 class="card-title">Email Verification</h5>
+                <p class="text-muted" t-if="masked_email">
+                    Enter the 6-digit code we sent to
+                    <strong t-esc="masked_email" />.
+                </p>
+                <p class="alert alert-danger" t-if="error" role="alert">
+                    <t t-esc="error" />
+                </p>
+                <p class="alert alert-info" t-if="notice" role="status">
+                    <t t-esc="notice" />
+                </p>
+                <form
+                    method="POST"
+                    action="/web/login/mail_otp"
+                    class="o_mail_otp_code_form"
+                    t-if="can_verify"
+                >
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        t-att-value="request.csrf_token()"
+                    />
+                    <input type="hidden" name="redirect" t-att-value="redirect" />
+                    <div class="form-group">
+                        <label for="mail_otp_code">Verification Code (6 digits)</label>
+                        <input
+                            id="mail_otp_code"
+                            name="mail_otp_code"
+                            class="form-control mb-2"
+                            autocomplete="one-time-code"
+                            autofocus="autofocus"
+                            required="1"
+                        />
+                    </div>
+                    <div class="mb-2 mt-2 text-muted" t-if="trusted_device_active">
+                        <input
+                            type="checkbox"
+                            name="remember"
+                            id="mail_otp_remember"
+                            value="1"
+                        />
+                        <label for="mail_otp_remember">
+                            Trust this device for <t t-esc="trusted_device_days" /> days
+                        </label>
+                    </div>
+                    <div class="clearfix oe_login_buttons text-center mb-1">
+                        <button
+                            type="submit"
+                            class="btn btn-primary btn-block o_mail_otp_verify"
+                        >
+                            Verify
+                        </button>
+                    </div>
+                </form>
+                <form
+                    method="POST"
+                    action="/web/login/mail_otp/resend"
+                    class="o_mail_otp_resend_form mt-2"
+                    t-if="can_verify"
+                >
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        t-att-value="request.csrf_token()"
+                    />
+                    <input type="hidden" name="redirect" t-att-value="redirect" />
+                    <button type="submit" class="btn btn-link btn-sm o_mail_otp_resend">
+                        Send a new code
+                    </button>
+                </form>
+            </div>
+            <div class="text-center pb-2 border-top">
+                <form method="POST" action="/web/session/logout" class="form-inline">
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        t-att-value="request.csrf_token()"
+                    />
+                    <button type="submit" class="btn btn-link btn-sm mb-2">
+                        Cancel
+                    </button>
+                </form>
+            </div>
+        </t>
+    </template>
+</odoo>

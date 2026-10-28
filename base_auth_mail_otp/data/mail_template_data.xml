@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="mail_template_mail_otp_code" model="mail.template">
+        <field name="name">Email OTP - Verification Code</field>
+        <field name="model_id" ref="base.model_res_users" />
+        <field name="email_from">${(object.company_id.email or '')|safe}</field>
+        <field name="email_to">${object.email_formatted|safe}</field>
+        <field name="subject">Your verification code</field>
+        <field name="auto_delete" eval="True" />
+        <field name="lang">${object.lang}</field>
+        <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px; font-size: 13px;">
+    <p>Hello ${object.name},</p>
+    <p>
+        Your verification code is
+        <strong
+                        style="font-size: 18px; letter-spacing: 3px;"
+                    >${ctx.get('mail_otp_code', '')}</strong>
+    </p>
+    <p>
+        The code is valid for ${ctx.get('mail_otp_validity', '')} minutes.
+        If you did not try to sign in, please ignore this email and
+        contact your administrator.
+    </p>
+</div>
+        </field>
+    </record>
+</odoo>

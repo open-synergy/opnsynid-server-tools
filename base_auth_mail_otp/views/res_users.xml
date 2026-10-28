@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="res_users_view_form" model="ir.ui.view">
+        <field name="name">res.users - form - mail otp</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form" />
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//notebook/page[@name='access_rights']" position="after">
+                    <page name="mail_otp" string="Email OTP" groups="base.group_system">
+                        <group name="mail_otp_group_1" colspan="4" col="2">
+                            <field name="mail_otp_exempt" />
+                            <field
+                                name="mail_otp_exempt_until"
+                                attrs="{'invisible': [('mail_otp_exempt', '=', False)]}"
+                            />
+                        </group>
+                    </page>
+                </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>
