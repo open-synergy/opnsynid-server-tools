@@ -8,6 +8,7 @@ setuptools.setup(
     description="Meta package for open-synergy-opnsynid-server-tools Odoo addons",
     version=version,
     install_requires=[
+        'odoo14-addon-base_auth_mail_otp',
         'odoo14-addon-base_copy_user_access',
         'odoo14-addon-base_copy_user_operating_unit',
         'odoo14-addon-base_custom_system_parameter',
