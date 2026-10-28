@@ -15,7 +15,7 @@ CODE_PATH = (
 )
 PARAM = "base_auth_mail_otp."
 LOGIN = "otp_http_user"
-PASSWORD = "otp_http_pass_1"
+PASSWORD = "Otp#Http-9xQv!Lm2"
 EMAIL = "otp_http_user@example.com"
 FORM_URL = "/web/login/mail_otp"
 RESEND_URL = "/web/login/mail_otp/resend"

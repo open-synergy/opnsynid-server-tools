@@ -210,7 +210,7 @@ odoo.define("base_auth_mail_otp.res_users_tour", function (require) {
             {
                 content: "Fill in the password",
                 trigger: "input#password",
-                run: "text otp_tour_pass",
+                run: "text Otp#Tour-4nHy!Pc8",
             },
             {
                 content: "Click Log in",
