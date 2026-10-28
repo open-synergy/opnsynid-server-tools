@@ -14,3 +14,4 @@
 # To provide both the URL and a branch, use:
 server-backend https://github.com/OCA/server-backend.git 14.0
 ssi-mixin https://github.com/open-synergy/ssi-mixin.git 14.0
+server-auth https://github.com/OCA/server-auth.git 14.0
