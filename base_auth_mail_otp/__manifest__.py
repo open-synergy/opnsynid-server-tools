@@ -5,7 +5,7 @@
 
 {
     "name": "Base Auth Mail OTP",
-    "version": "14.0.1.0.1",
+    "version": "14.0.1.0.2",
     "summary": "Email one-time password (OTP) as a second login step",
     "author": "PT. Simetri Sinergi Indonesia,OpenSynergy Indonesia",
     "category": "Generic Modules/Base",
