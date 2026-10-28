@@ -1,0 +1,2 @@
+# base_auth_mail_otp/.ik-entry-point
+res.users -- base_auth_mail_otp is the user entry point to the email OTP: the Settings tab, the per-user exemption and the login code step all start from res.users

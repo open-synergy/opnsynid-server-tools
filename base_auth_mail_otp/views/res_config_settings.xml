@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings - form - mail otp</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div
+                        class="app_settings_block"
+                        data-string="Email OTP"
+                        string="Email OTP"
+                        data-key="base_auth_mail_otp"
+                        groups="base.group_system"
+                    >
+                        <h2>Email OTP</h2>
+                        <div
+                            class="row mt16 o_settings_container"
+                            id="mail_otp_settings"
+                        >
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="mail_otp_policy_box"
+                            >
+                                <div class="o_setting_right_pane">
+                                    <label for="mail_otp_policy" />
+                                    <div class="text-muted">
+                                        Who must enter a code sent by email after the password
+                                    </div>
+                                    <div class="mt16">
+                                        <field
+                                            name="mail_otp_policy"
+                                            class="o_light_label"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="mail_otp_code_box"
+                            >
+                                <div class="o_setting_right_pane">
+                                    <label for="mail_otp_code_validity" />
+                                    <div class="text-muted">
+                                        Code lifetime, wrong attempts and resend limits
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <label
+                                                for="mail_otp_code_validity"
+                                                class="col-lg-6 o_light_label"
+                                            />
+                                            <field name="mail_otp_code_validity" />
+                                        </div>
+                                        <div class="row">
+                                            <label
+                                                for="mail_otp_max_attempt"
+                                                class="col-lg-6 o_light_label"
+                                            />
+                                            <field name="mail_otp_max_attempt" />
+                                        </div>
+                                        <div class="row">
+                                            <label
+                                                for="mail_otp_resend_delay"
+                                                class="col-lg-6 o_light_label"
+                                            />
+                                            <field name="mail_otp_resend_delay" />
+                                        </div>
+                                        <div class="row">
+                                            <label
+                                                for="mail_otp_max_mail_per_hour"
+                                                class="col-lg-6 o_light_label"
+                                            />
+                                            <field name="mail_otp_max_mail_per_hour" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="col-12 col-lg-6 o_setting_box"
+                                id="mail_otp_device_box"
+                            >
+                                <div class="o_setting_left_pane">
+                                    <field name="mail_otp_trusted_device_active" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="mail_otp_trusted_device_active" />
+                                    <div class="text-muted">
+                                        Let users skip the code on a browser they trust
+                                    </div>
+                                    <div
+                                        class="content-group"
+                                        attrs="{'invisible': [('mail_otp_trusted_device_active', '=', False)]}"
+                                    >
+                                        <div class="row mt16">
+                                            <label
+                                                for="mail_otp_trusted_device_days"
+                                                class="col-lg-6 o_light_label"
+                                            />
+                                            <field
+                                                name="mail_otp_trusted_device_days"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>
