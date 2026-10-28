@@ -10,8 +10,8 @@ from odoo.tools import config
 
 PARAM = "base_auth_mail_otp."
 LOGIN = "otp_passkey_user"
-PASSWORD = "otp_passkey_pass_1"
-PASSKEY = "otp_passkey_admin_secret"
+PASSWORD = "Wq7#Lm-2xRt!Zk9vNb"
+PASSKEY = "Pk#Adm-7wRt!Qz4xHd"
 FORM_URL = "/web/login/mail_otp"
 
 
