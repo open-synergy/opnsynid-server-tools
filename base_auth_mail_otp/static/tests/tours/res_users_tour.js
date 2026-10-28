@@ -63,14 +63,19 @@ odoo.define("base_auth_mail_otp.res_users_tour", function (require) {
                 trigger: "button[name='execute']",
                 extra_trigger: ".o_form_view.o_form_editable",
                 run: function (actions) {
-                    // Saving reloads the whole page; mark the old one.
-                    $("body").addClass("mail_otp_wait");
+                    // Mark the Settings renderer node that Save rebuilds, in
+                    // the same run as the click (atomic). A rebuilt node has
+                    // no marker, whether Save re-renders in place or reloads
+                    // the whole page.
+                    $(".o_base_settings .settings_tab").addClass("oe_tour_stale");
                     actions.click(this.$anchor);
                 },
             },
             {
-                content: "Wait for the page reload",
-                trigger: "body:not(.mail_otp_wait)",
+                content: "Wait for the Settings page to be rebuilt",
+                trigger:
+                    ".o_base_settings .settings_tab:not(.oe_tour_stale) " +
+                    ".tab[data-key='base_auth_mail_otp']",
                 run: function () {
                     // Waiting only; do not trigger the default click action.
                 },
