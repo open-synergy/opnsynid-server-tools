@@ -24,6 +24,7 @@ setuptools.setup(
         'odoo14-addon-ssi_super_calendar',
         'odoo14-addon-ssi_user_group_m2m',
         'odoo14-addon-ssi_user_group_section',
+        'odoo14-addon-test_base_auth_mail_otp',
         'odoo14-addon-test_base_duration',
     ],
     classifiers=[

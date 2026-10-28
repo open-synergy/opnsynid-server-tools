@@ -4,7 +4,7 @@
 # pylint: disable=locally-disabled, manifest-required-author
 {
     "name": "Test Module - Base Auth Mail OTP",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "summary": "Test coexistence of email OTP with the Authenticator app",
     "website": "https://simetri-sinergi.id",
     "author": "OpenSynergy Indonesia, PT. Simetri Sinergi Indonesia",

@@ -34,6 +34,7 @@ addon | version | maintainers | summary
 [ssi_super_calendar](ssi_super_calendar/) | 14.0.1.0.2 |  | Super Calendar
 [ssi_user_group_m2m](ssi_user_group_m2m/) | 14.0.1.0.0 |  | User Group Many2many
 [ssi_user_group_section](ssi_user_group_section/) | 14.0.1.0.0 |  | User Group Section
+[test_base_auth_mail_otp](test_base_auth_mail_otp/) | 14.0.1.0.1 |  | Test coexistence of email OTP with the Authenticator app
 [test_base_duration](test_base_duration/) | 14.0.1.1.0 |  | Test Module - Base Duration
 
 [//]: # (end addons)
