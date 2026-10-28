@@ -2,9 +2,9 @@
 # Copyright 2026 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import re
 from unittest.mock import patch
 
-from odoo import http
 from odoo.tests import HttpSavepointCase, get_db_name, tagged
 from odoo.tools import config
 
@@ -50,6 +50,20 @@ class TestAdminPasskey(HttpSavepointCase):
         """Return the email OTP challenges of the test user."""
         return self.env["mail_otp_challenge"].search([("user_id", "=", self.user.id)])
 
+    def _csrf_token(self):
+        """Read a fresh CSRF token out of the rendered login page.
+
+        The token is read from the page, never computed from
+        ``self.session``: a successful login rotates the server session,
+        so the session held by the test case would give a stale token.
+
+        :return: the CSRF token bound to the current browser session
+        """
+        page = self.url_open("/web/login")
+        match = re.search(r'name="csrf_token" value="([^"]+)"', page.text)
+        self.assertTrue(match, "No CSRF token in the login page")
+        return match.group(1)
+
     def _login(self, password, fresh_session=True):
         """Post the login form and return the redirect response.
 
@@ -63,7 +77,7 @@ class TestAdminPasskey(HttpSavepointCase):
             data={
                 "login": LOGIN,
                 "password": password,
-                "csrf_token": http.WebRequest.csrf_token(self),
+                "csrf_token": self._csrf_token(),
             },
             allow_redirects=False,
         )
