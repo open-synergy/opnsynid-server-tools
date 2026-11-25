@@ -12,6 +12,7 @@
     "application": False,
     "depends": [
         "base",
+        "calendar",
         "web_tour",
     ],
     "data": [

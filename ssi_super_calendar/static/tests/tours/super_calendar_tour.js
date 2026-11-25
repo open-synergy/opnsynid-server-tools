@@ -10,20 +10,11 @@ odoo.define("ssi_super_calendar.super_calendar_tour", function (require) {
             test: true,
         },
         [
-            // ── Flow 1 — Open the Settings > Technical > Super Calendar menu.
+            // ── Flow 1 — Open the Calendar app from the main menu.
             tour.stepUtils.showAppsMenuItem(),
             {
-                content: "Open the Settings app",
-                trigger: '.o_app[data-menu-xmlid="base.menu_administration"]',
-            },
-            {
-                content: "Open the Technical menu",
-                trigger: '.o_menu_sections [data-menu-xmlid="base.menu_custom"]',
-            },
-            {
-                content: "Open the Super Calendar menu",
-                trigger:
-                    '.o_menu_sections [data-menu-xmlid="ssi_super_calendar.super_calendar_menu"]',
+                content: "Open the Calendar app",
+                trigger: '.o_app[data-menu-xmlid="calendar.mail_menu_calendar"]',
             },
             // ── Flow 2 — The list shows the busy periods of every partner.
             {
