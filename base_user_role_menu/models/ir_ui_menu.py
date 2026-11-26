@@ -17,10 +17,25 @@ class IrUiMenu(models.Model):
         self.write({"groups_id": [(6, 0, to_be_preserve_ids)]})
 
     def write(self, values):
+        """Write menu values and clear non-role groups afterwards.
+
+        The clearing is skipped when the write comes from module data
+        loading (context ``install_mode``).
+
+        :param dict values: Values to write.
+        :return: Result of the parent ``write``.
+        :rtype: bool
+        """
         _super = super(IrUiMenu, self)
         result = _super.write(values)
 
-        remove_non_role_groups = self._context.get("remove_non_role_groups", True)
+        # Skip clearing when the write originates from module data loading
+        # (Odoo sets ``install_mode`` in ``_load_records``), otherwise the
+        # ``groups`` attribute of any module's ``<menuitem>`` is silently
+        # dropped on every install/update.
+        remove_non_role_groups = self._context.get(
+            "remove_non_role_groups", True
+        ) and not self._context.get("install_mode")
         if remove_non_role_groups:
             context = {"remove_non_role_groups": False}
             for menu in self:

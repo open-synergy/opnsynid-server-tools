@@ -1,0 +1,115 @@
+setup:
+  steps:
+    - step: "Create a non-role group"
+      action: "create"
+      model: "res.groups"
+      save_as: "group_plain"
+      values:
+        name: "Test Plain Group"
+    - step: "Create a second non-role group"
+      action: "create"
+      model: "res.groups"
+      save_as: "group_plain_2"
+      values:
+        name: "Test Plain Group 2"
+    - step: "Create a role group"
+      action: "create"
+      model: "res.groups"
+      save_as: "group_role"
+      values:
+        name: "Test Role Group"
+        category_id: "REF: base_user_role.ir_module_category_role"
+    - step: "Create a menu"
+      action: "create"
+      model: "ir.ui.menu"
+      save_as: "menu"
+      values:
+        name: "Test Menu Groups"
+
+scenarios:
+  - name: "Menu - Data Loading Write Keeps Non-Role Groups"
+    steps:
+      - step: "Write non-role groups in install mode"
+        action: "write"
+        target: "menu"
+        context:
+          install_mode: true
+        values:
+          groups_id:
+            - [
+                6,
+                0,
+                [
+                  "EVAL: registry['group_plain'].id",
+                  "EVAL: registry['group_plain_2'].id",
+                ],
+              ]
+      - step: "Both non-role groups are kept"
+        action: "assert"
+        target: "menu"
+        asserts:
+          groups_id:
+            type: "m2m"
+            check: "count"
+            expected_count: 2
+  - name: "Menu - Plain Write Clears Non-Role Groups"
+    steps:
+      - step: "Write non-role groups without special context"
+        action: "write"
+        target: "menu"
+        values:
+          groups_id:
+            - [
+                6,
+                0,
+                [
+                  "EVAL: registry['group_plain'].id",
+                  "EVAL: registry['group_plain_2'].id",
+                ],
+              ]
+      - step: "Non-role groups are cleared"
+        action: "assert"
+        target: "menu"
+        asserts:
+          groups_id:
+            type: "m2m"
+            check: "count"
+            expected_count: 0
+  - name: "Menu - Plain Write Keeps Role Group"
+    steps:
+      - step: "Write a role group without special context"
+        action: "write"
+        target: "menu"
+        values:
+          groups_id:
+            - [6, 0, ["EVAL: registry['group_role'].id"]]
+      - step: "Role group is kept"
+        action: "assert"
+        target: "menu"
+        asserts:
+          groups_id:
+            type: "m2m"
+            check: "exact"
+            expected_records:
+              - "REC: group_role"
+  - name: "Menu - Mixed Write Keeps Only Role Group"
+    steps:
+      - step: "Write a role and a non-role group without special context"
+        action: "write"
+        target: "menu"
+        values:
+          groups_id:
+            - [
+                6,
+                0,
+                ["EVAL: registry['group_role'].id", "EVAL: registry['group_plain'].id"],
+              ]
+      - step: "Only the role group remains"
+        action: "assert"
+        target: "menu"
+        asserts:
+          groups_id:
+            type: "m2m"
+            check: "exact"
+            expected_records:
+              - "REC: group_role"
