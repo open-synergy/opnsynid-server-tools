@@ -17,7 +17,7 @@ setup:
       model: "res.groups"
       save_as: "group_role"
       values:
-        name: "Test Role Group"
+        name: "EVAL: 'Test Role Group %d' % env['res.groups'].search_count([])"
         category_id: "REF: base_user_role.ir_module_category_role"
     - step: "Create a menu"
       action: "create"
