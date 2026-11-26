@@ -90,7 +90,7 @@
     <record id="super_calendar_action" model="ir.actions.act_window">
         <field name="name">Super Calendar</field>
         <field name="res_model">super_calendar</field>
-        <field name="view_mode">tree,calendar,form</field>
+        <field name="view_mode">calendar,tree,form</field>
     </record>
 
     <!-- Only the action of the core Calendar app menu is re-pointed.
