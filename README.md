@@ -31,7 +31,7 @@ addon | version | maintainers | summary
 [ssi_base_import_xml](ssi_base_import_xml/) | 14.0.1.2.0 |  | Import data records using XML files
 [ssi_copy_move_user_from_group](ssi_copy_move_user_from_group/) | 14.0.1.0.0 |  | Copy or move all members of one group to another group
 [ssi_frequency](ssi_frequency/) | 14.0.1.3.1 |  | Frequency
-[ssi_super_calendar](ssi_super_calendar/) | 14.0.1.0.2 |  | Super Calendar
+[ssi_super_calendar](ssi_super_calendar/) | 14.0.1.1.0 |  | Super Calendar
 [ssi_user_group_m2m](ssi_user_group_m2m/) | 14.0.1.0.0 |  | User Group Many2many
 [ssi_user_group_section](ssi_user_group_section/) | 14.0.1.0.0 |  | User Group Section
 [test_base_auth_mail_otp](test_base_auth_mail_otp/) | 14.0.1.0.1 |  | Test coexistence of email OTP with the Authenticator app
