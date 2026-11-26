@@ -188,7 +188,6 @@ msgstr ""
 #. module: ssi_super_calendar
 #: model:ir.actions.act_window,name:ssi_super_calendar.super_calendar_action
 #: model:ir.model,name:ssi_super_calendar.model_super_calendar
-#: model:ir.ui.menu,name:ssi_super_calendar.super_calendar_menu
 #: model_terms:ir.ui.view,arch_db:ssi_super_calendar.super_calendar_view_calendar
 msgid "Super Calendar"
 msgstr ""
