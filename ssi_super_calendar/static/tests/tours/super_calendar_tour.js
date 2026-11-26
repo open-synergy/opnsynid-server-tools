@@ -16,7 +16,23 @@ odoo.define("ssi_super_calendar.super_calendar_tour", function (require) {
                 content: "Open the Calendar app",
                 trigger: '.o_app[data-menu-xmlid="calendar.mail_menu_calendar"]',
             },
-            // ── Flow 2 — The list shows the busy periods of every partner.
+            // ── Flow 1 — The Super Calendar opens in the calendar view.
+            {
+                content: "Super Calendar calendar view is displayed",
+                trigger:
+                    ".o_control_panel .breadcrumb-item.active:contains(Super Calendar)",
+                extra_trigger: ".o_calendar_view",
+                run: function () {
+                    // Assertion only.
+                },
+            },
+            // ── Flow 2 — Switch to the list view.
+            {
+                content: "Click the List button of the view switcher",
+                trigger: ".o_cp_switch_buttons .o_list",
+                extra_trigger: ".o_calendar_view",
+            },
+            // ── Flow 3 — The list shows the busy periods of every partner.
             {
                 content: "Super Calendar list is displayed",
                 trigger:
@@ -34,7 +50,7 @@ odoo.define("ssi_super_calendar.super_calendar_tour", function (require) {
                     // Assertion only.
                 },
             },
-            // ── Flow 3 — Open the Filters menu and select Applies to Everyone.
+            // ── Flow 4 — Open the Filters menu and select Applies to Everyone.
             {
                 content: "Open the Filters menu",
                 trigger: ".o_search_options .o_filter_menu button",
@@ -46,7 +62,7 @@ odoo.define("ssi_super_calendar.super_calendar_tour", function (require) {
                     this.$anchor[0].click();
                 },
             },
-            // ── Flow 4 — Only the periods that apply to everyone remain.
+            // ── Flow 5 — Only the periods that apply to everyone remain.
             {
                 content: "Only the periods applying to everyone remain",
                 trigger:
@@ -56,7 +72,7 @@ odoo.define("ssi_super_calendar.super_calendar_tour", function (require) {
                     // Assertion only.
                 },
             },
-            // ── Flow 5 — Click a period to open its read-only form.
+            // ── Flow 6 — Click a period to open its read-only form.
             {
                 content: "Open the public holiday period",
                 trigger: ".o_data_row:contains(Tour Public Holiday) .o_data_cell:first",
@@ -72,7 +88,7 @@ odoo.define("ssi_super_calendar.super_calendar_tour", function (require) {
                     // Assertion only.
                 },
             },
-            // ── Flow 6 — Click the Open Source Document button.
+            // ── Flow 7 — Click the Open Source Document button.
             {
                 content: "Click the Open Source Document button",
                 trigger: ".o_form_statusbar button[name='action_open_source_document']",

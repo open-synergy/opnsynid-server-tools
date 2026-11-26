@@ -16,12 +16,14 @@
 
 ## Flow
 
-1. Open the **Calendar** app from the main menu. The Super Calendar opens.
-2. The list shows the busy periods of every partner.
-3. Click the **Filters** button and select **Applies to Everyone**.
-4. Only the periods that apply to every partner remain in the list.
-5. Click a period to open its read-only form.
-6. If the **Open Source Document** button is displayed in the form header, click it. The
+1. Open the **Calendar** app from the main menu. The Super Calendar opens in the
+   calendar view.
+2. Click the **List** button of the view switcher. The list view is displayed.
+3. The list shows the busy periods of every partner.
+4. Click the **Filters** button and select **Applies to Everyone**.
+5. Only the periods that apply to every partner remain in the list.
+6. Click a period to open its read-only form.
+7. If the **Open Source Document** button is displayed in the form header, click it. The
    form of the source document opens. The button is only displayed when you can read the
    source document.
 
@@ -32,4 +34,4 @@
   otherwise it is shown as **Not available**.
 - When you can read the source document, the **Source Document** field is filled and the
   **Open Source Document** button is displayed; otherwise neither is shown.
-- After step 6, the form of the source document is displayed.
+- After step 7, the form of the source document is displayed.

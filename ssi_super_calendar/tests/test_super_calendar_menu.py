@@ -38,3 +38,7 @@ class TestSuperCalendarMenu(YamlTransactionCase):
             )
         )
         self.assertTrue(self.env.ref("calendar.action_calendar_event"))
+
+    def test_super_calendar_action_view_mode(self):
+        """Run the first view scenario for the Super Calendar action."""
+        self.run_yaml_scenario("test_data_super_calendar_action.yaml")

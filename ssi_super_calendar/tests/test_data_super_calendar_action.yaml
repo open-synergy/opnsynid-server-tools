@@ -1,0 +1,28 @@
+setup:
+  steps:
+    - step: "Get the Super Calendar action"
+      action: "ref"
+      xml_id: "ssi_super_calendar.super_calendar_action"
+      save_as: "action"
+
+scenarios:
+  - name: "Super Calendar - The first view of the action is calendar"
+    steps:
+      - step: "The view mode starts with the calendar view"
+        action: "assert"
+        target: "action"
+        asserts:
+          view_mode:
+            type: "value"
+            expected: "calendar,tree,form"
+
+  - name: "Super Calendar - The first view of the action is not the list"
+    steps:
+      - step: "The view mode is not the old list-first order"
+        action: "assert"
+        target: "action"
+        asserts:
+          view_mode:
+            type: "value"
+            operator: "not_equals"
+            expected: "tree,calendar,form"
