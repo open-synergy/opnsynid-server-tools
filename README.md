@@ -27,7 +27,7 @@ addon | version | maintainers | summary
 [base_duration](base_duration/) | 14.0.1.3.0 |  | Base Duration
 [base_public_holiday](base_public_holiday/) | 14.0.1.3.0 |  | Base Public Holiday
 [base_user_copy_user_role](base_user_copy_user_role/) | 14.0.1.2.0 |  | Base Copy User Role
-[base_user_role_menu](base_user_role_menu/) | 14.0.1.1.0 |  | Manage Menu Access Based on Roles
+[base_user_role_menu](base_user_role_menu/) | 14.0.1.1.1 |  | Manage Menu Access Based on Roles
 [ssi_base_import_xml](ssi_base_import_xml/) | 14.0.1.2.0 |  | Import data records using XML files
 [ssi_copy_move_user_from_group](ssi_copy_move_user_from_group/) | 14.0.1.0.0 |  | Copy or move all members of one group to another group
 [ssi_frequency](ssi_frequency/) | 14.0.1.3.1 |  | Frequency
