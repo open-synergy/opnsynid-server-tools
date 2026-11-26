@@ -93,11 +93,10 @@
         <field name="view_mode">tree,calendar,form</field>
     </record>
 
-    <menuitem
-        id="super_calendar_menu"
-        name="Super Calendar"
-        parent="base.menu_custom"
-        action="super_calendar_action"
-        sequence="100"
-    />
+    <!-- Only the action of the core Calendar app menu is re-pointed.
+         name, parent, sequence, web_icon and groups stay as in core, and
+         calendar.action_calendar_event is left untouched. -->
+    <record id="calendar.mail_menu_calendar" model="ir.ui.menu">
+        <field name="action" ref="ssi_super_calendar.super_calendar_action" />
+    </record>
 </odoo>

@@ -44,7 +44,7 @@ class TestUiSuperCalendar(HttpSavepointCase):
         IK: docs/super_calendar/01-view-availability.md
         """
         self.start_tour(
-            "/web?debug=1",
+            "/web",
             "ssi_super_calendar_super_calendar_view_availability",
             login="admin",
         )

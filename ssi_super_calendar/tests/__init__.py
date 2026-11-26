@@ -9,4 +9,5 @@ from . import test_super_calendar_availability  # noqa: F401
 from . import test_super_calendar_privacy  # noqa: F401
 from . import test_super_calendar_access  # noqa: F401
 from . import test_super_calendar_source_ref  # noqa: F401
+from . import test_super_calendar_menu  # noqa: F401
 from . import test_ui_super_calendar  # noqa: F401

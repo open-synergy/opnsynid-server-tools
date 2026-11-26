@@ -2,21 +2,21 @@
 
 > **Module:** `ssi_super_calendar`\
 > **Model:** `super_calendar`\
-> **Menu:** Settings > Technical > Super Calendar\
+> **Menu:** Calendar\
 > **Actor:** any internal user (read-only)\
 > **Inline Actions:** `action_open_source_document` (Open Source Document)
 
 ## Pre-Condition
 
-- **Access:** User is an internal user and developer mode is active, because the
-  **Technical** menu is only shown in developer mode.
+- **Access:** User is an internal user.
 - **Data:** At least one busy period exists. Periods are not entered by hand; they are
   created automatically by the documents that inherit `mixin.super_calendar_source`.
-- **Module:** `ssi_super_calendar` is installed.
+- **Module:** `ssi_super_calendar` is installed. It re-points the **Calendar** app to
+  the Super Calendar.
 
 ## Flow
 
-1. Open the **Settings > Technical > Super Calendar** menu.
+1. Open the **Calendar** app from the main menu. The Super Calendar opens.
 2. The list shows the busy periods of every partner.
 3. Click the **Filters** button and select **Applies to Everyone**.
 4. Only the periods that apply to every partner remain in the list.
